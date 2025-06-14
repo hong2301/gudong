@@ -19,5 +19,6 @@ import Head from "@/components/head/index.vue";
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 </style>
