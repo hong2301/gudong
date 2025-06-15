@@ -2,8 +2,8 @@
   <Layout>
     <view class="overture">
       <Head></Head>
-      <Bubu ref="bubuRef" :size="450" :font-size="45"></Bubu>
-      <button @tap="test">123</button>
+      <Bubu ref="bubuRef" :size="450" :font-size="45" @tap="tapBubu"></Bubu>
+      <view class="mnue"> </view>
     </view>
   </Layout>
 </template>
@@ -17,8 +17,9 @@ import { ref } from "vue";
 
 const bubuRef = ref();
 
-const test = () => {
-  bubuRef?.value?.startSay("123", ["50%", "50%", "rgb(146,107,77)"], {
+const tapBubu = () => {
+  bubuRef?.value?.tapImg();
+  bubuRef?.value?.startSay("你好呀", ["50%", "80%", "rgb(146,107,77)"], {
     src: "/static/布布/声音/哒哒哒哒哒.m4a",
     volume: 1,
   });
@@ -42,5 +43,12 @@ onHide(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
+  background-image: url("../../static/logo.png");
+}
+.mnue {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(245, 241, 230);
 }
 </style>
