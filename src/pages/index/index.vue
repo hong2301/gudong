@@ -130,18 +130,6 @@ const logs = ref([
     describe: "牛肉有点腥味",
     imgSrc: "/static/foodLogs/1.jpeg",
   },
-  {
-    time: "2025年6月13日",
-    score: 4,
-    describe: "咕噜咕噜",
-    imgSrc: "/static/foodLogs/4.jpeg",
-  },
-  {
-    time: "2025年6月12日",
-    score: 4,
-    describe: "鲜",
-    imgSrc: "/static/foodLogs/3.jpeg",
-  },
 ]);
 
 /**
