@@ -32,10 +32,37 @@
             paddingBottom: `${tailHeight}px`,
           }"
         >
-          <view class="maskUp" :style="{ height: '40rpx' }"></view>
-          <view v-for="(lItem, lIndex) in logs" :key="lIndex" class="logItem">{{
-            lItem.name
-          }}</view>
+          <view
+            v-for="(lItem, lIndex) in logs"
+            :key="lIndex"
+            class="logItem"
+            :style="{
+              display: 'flex',
+              flexDirection: `${lIndex % 2 === 0 ? ' row' : 'row-reverse'}`,
+            }"
+          >
+            <view
+              class="logItemImg"
+              :style="{
+                borderRadius: `${
+                  lIndex % 2 === 0
+                    ? '20rpx 0rpx 0rpx 20rpx'
+                    : '0rpx 20rpx 20rpx 0rpx'
+                }`,
+                borderWidth: `${
+                  lIndex % 2 === 0
+                    ? '0rpx 0rpx 5rpx 5rpx'
+                    : '0rpx 5rpx 5rpx 0rpx'
+                }`,
+              }"
+              ><u-image
+                height="100%"
+                mode="heightFix"
+                :src="lItem.imgSrc"
+              ></u-image
+            ></view>
+          </view>
+          <view class="maskUp" :style="{ height: '50rpx' }"></view>
           <view
             class="maskBottom"
             :style="{ height: `${tailHeight}px` }"
@@ -61,10 +88,30 @@ const contentHeight = ref(uni.getWindowInfo().safeArea.height / 2);
 const yhScale = ref(1);
 const jwScale = ref(1);
 const logs = ref([
-  { name: "荔枝鸡煲" },
-  { name: "菠萝牛肉粒" },
-  { name: "咖喱鸡翅" },
-  { name: "白灼大虾" },
+  {
+    time: "2025年6月15日",
+    score: 5,
+    describe: "鸡腿肉太加分了",
+    imgSrc: "/static/foodLogs/2.jpeg",
+  },
+  {
+    time: "2025年6月14日",
+    score: 3,
+    describe: "牛肉有点腥味",
+    imgSrc: "/static/foodLogs/1.jpeg",
+  },
+  {
+    time: "2025年6月13日",
+    score: 4,
+    describe: "咕噜咕噜",
+    imgSrc: "/static/foodLogs/4.jpeg",
+  },
+  {
+    time: "2025年6月12日",
+    score: 4,
+    describe: "鲜",
+    imgSrc: "/static/foodLogs/3.jpeg",
+  },
 ]);
 
 /**
@@ -183,8 +230,7 @@ onHide(() => {
   width: 85%;
   height: 200rpx;
   border-radius: 20rpx;
-  background-color: aqua;
-  margin-top: 40rpx;
+  margin-top: 50rpx;
   flex-shrink: 0;
 }
 .maskUp {
@@ -225,5 +271,12 @@ onHide(() => {
     rgba(245, 241, 230, 0.19) 90%,
     rgba(245, 241, 230, 0) 100%
   );
+}
+.logItemImg {
+  height: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-style: solid;
+  border-color: rgba(119, 112, 96, 0.8);
 }
 </style>
