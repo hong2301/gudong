@@ -40,6 +40,7 @@
               display: 'flex',
               flexDirection: `${lIndex % 2 === 0 ? ' row' : 'row-reverse'}`,
             }"
+            @tap="tapLogItem"
           >
             <view
               class="logItemImg"
@@ -170,6 +171,11 @@ const tapJw = () => {
   setTimeout(() => {
     jwScale.value = 1;
   }, 100);
+};
+
+// 跳转特定日志
+const tapLogItem = () => {
+  console.log("特点日志");
 };
 
 onLoad(() => {
