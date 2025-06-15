@@ -40,7 +40,7 @@
               display: 'flex',
               flexDirection: `${lIndex % 2 === 0 ? ' row' : 'row-reverse'}`,
             }"
-            @tap="tapLogItem"
+            @tap="tapLogItem(lItem.id)"
           >
             <view
               class="logItemImg"
@@ -119,12 +119,14 @@ const yhScale = ref(1);
 const jwScale = ref(1);
 const logs = ref([
   {
+    id: "1",
     time: "2025年6月15日",
     score: 5,
     describe: "鸡腿肉太加分了",
     imgSrc: "/static/foodLogs/2.jpeg",
   },
   {
+    id: "2",
     time: "2025年6月14日",
     score: 3,
     describe: "牛肉有点腥味",
@@ -149,6 +151,9 @@ const tapYh = () => {
   uni.vibrateShort();
   setTimeout(() => {
     yhScale.value = 1;
+    uni.navigateTo({
+      url: "/menu-package/pages/menu/index",
+    });
   }, 100);
 };
 
@@ -158,12 +163,18 @@ const tapJw = () => {
   uni.vibrateShort();
   setTimeout(() => {
     jwScale.value = 1;
+    uni.navigateTo({
+      url: "/order-package/pages/order/index",
+    });
   }, 100);
 };
 
 // 跳转特定日志
-const tapLogItem = () => {
+const tapLogItem = (id: string) => {
   console.log("特点日志");
+  uni.navigateTo({
+    url: `/diary-package/pages/diary/index?id=${id}`,
+  });
 };
 
 onLoad(() => {
