@@ -6,23 +6,41 @@
         class="transition"
         :style="{ height: `${contentHeight / 5}px` }"
       ></view>
-      <view class="mnue" :style="{ height: `${contentHeight}px` }">
-        <view class="bigTextBox">
-          <view
-            class="bigText"
-            :style="{ transform: `scale(${yhScale}) ` }"
-            @tap="tapYh"
-            >烟火集</view
-          >
-          <view class="divider"></view>
-          <view
-            class="bigText"
-            :style="{ transform: `scale(${jwScale}) ` }"
-            @tap="tapJw"
-            >集味簿</view
-          >
+      <view class="content">
+        <view class="mnue" :style="{ height: `${(contentHeight * 1) / 5}px` }">
+          <view class="bigTextBox">
+            <view
+              class="bigText"
+              :style="{ transform: `scale(${yhScale}) ` }"
+              @tap="tapYh"
+              >烟火集</view
+            >
+            <view class="divider"></view>
+            <view
+              class="bigText"
+              :style="{ transform: `scale(${jwScale}) ` }"
+              @tap="tapJw"
+              >集味簿</view
+            >
+          </view>
+          <view class="divider1"></view>
         </view>
-        <view class="divider1"></view>
+        <view
+          class="logs"
+          :style="{
+            height: `${(contentHeight * 4) / 5 - tailHeight}px`,
+            paddingBottom: `${tailHeight}px`,
+          }"
+        >
+          <view class="maskUp" :style="{ height: '40rpx' }"></view>
+          <view v-for="(lItem, lIndex) in logs" :key="lIndex" class="logItem">{{
+            lItem.name
+          }}</view>
+          <view
+            class="maskBottom"
+            :style="{ height: `${tailHeight}px` }"
+          ></view>
+        </view>
       </view>
     </view>
   </Layout>
@@ -34,10 +52,20 @@ import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
 
+// 尾巴高度
+const tailHeight = ref<number>(
+  uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
+);
 const bubuRef = ref();
 const contentHeight = ref(uni.getWindowInfo().safeArea.height / 2);
 const yhScale = ref(1);
 const jwScale = ref(1);
+const logs = ref([
+  { name: "荔枝鸡煲" },
+  { name: "菠萝牛肉粒" },
+  { name: "咖喱鸡翅" },
+  { name: "白灼大虾" },
+]);
 
 /**
  * 点击布布
@@ -107,20 +135,24 @@ onHide(() => {
     rgba(245, 241, 230, 0) 100%
   );
 }
+.content {
+  width: 100%;
+  background-color: rgb(245, 241, 230);
+}
 .mnue {
   width: 100%;
-  height: 200px;
-  background-color: rgb(245, 241, 230);
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 .bigTextBox {
   width: 100%;
-  height: 20%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
 .bigText {
   font-size: 45rpx;
@@ -138,5 +170,60 @@ onHide(() => {
   border-radius: 200rpx;
   width: 85%;
   height: 0;
+}
+.logs {
+  width: 100%;
+  overflow-y: auto; /* 启用垂直滚动 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.logItem {
+  width: 85%;
+  height: 200rpx;
+  border-radius: 20rpx;
+  background-color: aqua;
+  margin-top: 40rpx;
+  flex-shrink: 0;
+}
+.maskUp {
+  position: fixed; /* 改为 fixed 定位 */
+  flex-shrink: 0;
+  width: 100%;
+  background: linear-gradient(
+    to Bottom,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
+.maskBottom {
+  position: fixed; /* 改为 fixed 定位 */
+  bottom: 0;
+  flex-shrink: 0;
+  width: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
 }
 </style>
