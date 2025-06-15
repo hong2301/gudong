@@ -19,7 +19,7 @@
   ],
   "globalStyle": {
     "navigationStyle": "custom",
-    "backgroundColor": "#D76E2E"
+    "backgroundColor": "#ffffff"
   },
   "lazyCodeLoading": "requiredComponents"
 }

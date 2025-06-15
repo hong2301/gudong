@@ -39,6 +39,7 @@ const props = defineProps({
     default: "/static/布布/蟑螂布.png",
   },
 });
+const bgm = uni.createInnerAudioContext();
 
 const sayOption = ref({
   top: "0%",
@@ -75,8 +76,7 @@ const startSay = (
       color: options[2],
     })
   );
-
-  const bgm = uni.createInnerAudioContext();
+  bgm.currentTime = 0;
   bgm.autoplay = true;
   bgm.src = sound.src;
   bgm.volume = sound.volume;

@@ -90,7 +90,6 @@ onHide(() => {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  background-image: url("../../static/");
 }
 .transition {
   width: 100%;
