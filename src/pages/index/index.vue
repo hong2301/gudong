@@ -2,6 +2,7 @@
   <Layout>
     <view class="overture">
       <Head></Head>
+      <Food :size="50"></Food>
       <Bubu ref="bubuRef" :size="450" :font-size="45" @tap="tapBubu"></Bubu>
       <view
         class="transition"
@@ -34,6 +35,7 @@ import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import Head from "@/components/head/index.vue";
+import Food from "@/components/food/index.vue";
 import { ref } from "vue";
 
 const bubuRef = ref();
