@@ -50,15 +50,4 @@ const tapImg = () => {
   position: relative;
   transition: transform 0.3s ease;
 }
-.content {
-  width: 100%;
-  display: block;
-}
-.img {
-}
-.text-box {
-  position: absolute;
-  width: 100%;
-  font-weight: 800;
-}
 </style>

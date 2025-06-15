@@ -2,6 +2,7 @@
   <view class="overture">
     <Head></Head>
     <view class="body">
+      <FoodBg class="bg"></FoodBg>
       <slot></slot>
     </view>
     <Tail></Tail>
@@ -13,6 +14,7 @@ import { onLoad, onShow, onHide } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import Head from "@/components/head/index.vue";
 import Tail from "@/components/tail/index.vue";
+import FoodBg from "@/components/bg/food.vue";
 
 onLoad(() => {
   console.log("layout Load");
@@ -52,5 +54,10 @@ onHide(() => {
 }
 .tail {
   width: 100%;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 </style>

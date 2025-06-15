@@ -126,7 +126,6 @@ onUnload(() => {
 }
 .text-box {
   position: absolute;
-  width: 100%;
   font-weight: 800;
 }
 </style>
