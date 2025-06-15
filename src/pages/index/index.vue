@@ -90,6 +90,10 @@ onHide(() => {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  background-image: url("../../static/"); /* 使用绝对路径 */
+  background-size: cover; /* 覆盖整个页面 */
+  background-attachment: fixed; /* 固定背景（H5生效，小程序可能不支持） */
+  background-repeat: no-repeat;
 }
 .transition {
   width: 100%;
