@@ -61,6 +61,35 @@
                 :src="lItem.imgSrc"
               ></u-image
             ></view>
+            <view
+              class="logItemTextBox"
+              :style="{
+                right: `${lIndex % 2 === 0 ? '0' : ''}`,
+                left: `${lIndex % 2 === 0 ? '' : '0'}`,
+              }"
+            >
+              <view
+                class="logItemTextBoxMask"
+                :class="[
+                  `${
+                    lIndex % 2 === 0
+                      ? 'logItemTextBoxRight'
+                      : 'logItemTextBoxLeft'
+                  }`,
+                ]"
+              ></view>
+              <view
+                class="logItemText"
+                :style="{
+                  alignItems: `${lIndex % 2 === 0 ? 'flex-end' : 'flex-start'}`,
+                  right: `${lIndex % 2 === 0 ? '0' : ''}`,
+                  left: `${lIndex % 2 === 0 ? '' : '0'}`,
+                }"
+              >
+                <view class="logItemTextTime">{{ lItem.time }}</view>
+                <view class="logItemTextDescribe">{{ lItem.describe }}</view>
+              </view>
+            </view>
           </view>
           <view class="maskUp" :style="{ height: '50rpx' }"></view>
           <view
@@ -232,6 +261,7 @@ onHide(() => {
   border-radius: 20rpx;
   margin-top: 50rpx;
   flex-shrink: 0;
+  position: relative;
 }
 .maskUp {
   position: fixed; /* 改为 fixed 定位 */
@@ -274,9 +304,72 @@ onHide(() => {
 }
 .logItemImg {
   height: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 5/3;
   overflow: hidden;
   border-style: solid;
   border-color: rgba(119, 112, 96, 0.8);
+}
+.logItemTextBox {
+  position: absolute;
+  width: 47%;
+  height: 100%;
+}
+.logItemTextBoxMask {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+}
+.logItemText {
+  position: absolute;
+  width: 130%;
+  height: 100%;
+  border-bottom: 5rpx dashed rgba(119, 112, 96, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.logItemTextTime {
+  font-size: 39rpx;
+  color: rgb(119, 112, 96);
+}
+.logItemTextDescribe {
+  font-size: 32rpx;
+  color: rgb(171, 154, 133);
+}
+.logItemTextBoxRight {
+  right: 20%;
+  transform: rotate(20deg);
+  background: linear-gradient(
+    to left,
+    rgba(245, 241, 230, 1) 90%,
+    rgba(245, 241, 230, 0.99) 91%,
+    rgba(245, 241, 230, 0.96) 92%,
+    rgba(245, 241, 230, 0.91) 93%,
+    rgba(245, 241, 230, 0.84) 94%,
+    rgba(245, 241, 230, 0.75) 95%,
+    rgba(245, 241, 230, 0.64) 96%,
+    rgba(245, 241, 230, 0.51) 97%,
+    rgba(245, 241, 230, 0.36) 98%,
+    rgba(245, 241, 230, 0.19) 99%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
+.logItemTextBoxLeft {
+  left: 20%;
+  transform: rotate(-20deg);
+  background: linear-gradient(
+    to right,
+    rgba(245, 241, 230, 1) 90%,
+    rgba(245, 241, 230, 0.99) 91%,
+    rgba(245, 241, 230, 0.96) 92%,
+    rgba(245, 241, 230, 0.91) 93%,
+    rgba(245, 241, 230, 0.84) 94%,
+    rgba(245, 241, 230, 0.75) 95%,
+    rgba(245, 241, 230, 0.64) 96%,
+    rgba(245, 241, 230, 0.51) 97%,
+    rgba(245, 241, 230, 0.36) 98%,
+    rgba(245, 241, 230, 0.19) 99%,
+    rgba(245, 241, 230, 0) 100%
+  );
 }
 </style>
