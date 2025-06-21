@@ -1,8 +1,9 @@
 <template>
   <Layout>
     <view class="overture">
+      <view class="bg"></view>
       <view
-        class="head"
+        class="head"7
         :style="{
           width: `${eleWidth1}px`,
           marginBottom: `${capsuleRightInterval * 2}px`,
@@ -166,11 +167,20 @@ onHide(() => {
   align-items: center;
   justify-content: center;
   background-color: $bg-color;
+  position: relative;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 65%;
+  bottom: 0;
+  background-color: $bg-color1;
 }
 .head {
   display: flex;
   justify-content: space-between;
   height: 250rpx;
+  position: relative;
 }
 .bubu-box {
   height: 100%;
@@ -181,6 +191,7 @@ onHide(() => {
   flex: auto;
   align-items: center;
   position: relative;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
 }
 .cjs {
   position: absolute;
@@ -198,6 +209,7 @@ onHide(() => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
 }
 .item-img-box1 {
   width: 50%;
