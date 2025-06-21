@@ -3,11 +3,12 @@
     <view class="overture">
       <view class="introduce">
         <view class="introduce-imgs">
-          <image class="head-img" src="/static/xbh.png" mode="widthFix" />
+          <image src="/static/xbh.png" mode="widthFix" />
         </view>
         <view class="transition"></view>
       </view>
       <view class="bg"></view>
+      <view class="space"></view>
       <view
         class="head"
         :style="{
@@ -37,10 +38,16 @@
           >
             <image class="item-img" src="/static/shouye.png" mode="widthFix" />
           </view>
-          <view class="item-text" style="font-weight: 400">登陆</view>
+          <view class="item-text" style="font-weight: 400">登记</view>
         </view>
       </view>
-      <view class="content" :style="{ width: `${eleWidth1}px` }">
+      <view
+        class="content"
+        :style="{
+          width: `${eleWidth1}px`,
+          marginBottom: `${capsuleRightInterval * 2}px`,
+        }"
+      >
         <view class="item-box" @tap="tapDc">
           <view
             class="item-img-box"
@@ -61,6 +68,29 @@
           </view>
           <view class="item-text">食味笺</view>
           <view class="item-text1">记录你的每一餐</view>
+        </view>
+      </view>
+      <view
+        class="logs"
+        :style="{
+          width: `${eleWidth1 - capsuleRightInterval * 4}px`,
+          padding: `${capsuleRightInterval * 2}px`,
+        }"
+      >
+        <view
+          v-for="(fItem, fIndex) in foodRows"
+          :key="fIndex"
+          class="food-item"
+          :style="{ marginTop: `${fIndex != 0 ? '15' : '0'}rpx` }"
+        >
+          <view class="food-item-content">
+            <image class="food-item-img" :src="fItem.imgSrc" mode="heightFix" />
+            <view class="food-item-text-box">
+              <view class="food-item-text-time">{{ fItem.time }}</view>
+              <view class="food-item-text-des">{{ fItem.describe }}</view>
+            </view>
+          </view>
+          <view v-if="fIndex != foodRows.length - 1" class="divider1"></view>
         </view>
       </view>
     </view>
@@ -92,6 +122,29 @@ const dlScale = ref<number>(1);
 const bubuImgSrc = ref<string>("/static/布布/炒菜.png");
 // 布布ref
 const bubuRef = ref();
+// 食物日志
+const foodRows = ref([
+  {
+    time: "2025年6月15日",
+    describe: "鸡腿肉太加分了",
+    imgSrc: "/static/foods/荔枝鸡煲.jpeg",
+  },
+  {
+    time: "2025年6月14日",
+    describe: "牛肉有点腥味",
+    imgSrc: "/static/foods/菠萝牛肉粒.jpeg",
+  },
+  {
+    time: "2025年6月13日",
+    describe: "咖喱咖喱",
+    imgSrc: "/static/foods/咖喱鸡翅.jpeg",
+  },
+  {
+    time: "2025年6月12日",
+    describe: "挑虾线是一件很恐怖的事情",
+    imgSrc: "/static/foods/白灼大虾.jpeg",
+  },
+]);
 
 /**
  * 点击布布
@@ -167,13 +220,13 @@ onHide(() => {
 
 .overture {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: white;
   position: relative;
+  overflow: auto;
 }
 .introduce {
   position: absolute;
@@ -219,11 +272,17 @@ onHide(() => {
     rgba(245, 241, 230, 0.99) 100%
   );
 }
+.space {
+  width: 100%;
+  height: 31%;
+  flex-shrink: 0;
+}
 .head {
   display: flex;
   justify-content: space-between;
   height: 250rpx;
   position: relative;
+  flex-shrink: 0;
 }
 .bubu-box {
   height: 100%;
@@ -272,6 +331,7 @@ onHide(() => {
   position: relative;
   align-items: center;
   box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
+  flex-shrink: 0;
 }
 .divider {
   position: absolute;
@@ -311,5 +371,60 @@ onHide(() => {
   font-size: 20rpx;
   color: $font-color1;
   font-weight: 200;
+}
+.logs {
+  position: relative;
+  background-color: $ele-color;
+  border-radius: 15rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
+  flex-shrink: 0;
+}
+.food-item {
+  height: 166rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.food-item-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.divider1 {
+  margin-top: 15rpx;
+  width: 50%;
+  height: 1rpx;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.food-item-img {
+  height: 150rpx;
+  border-radius: 15rpx;
+}
+.food-item-text-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+}
+.food-item-text-time {
+  position: absolute;
+  top: 0;
+  font-size: 30rpx;
+  color: $font-color;
+  white-space: nowrap;
+  font-weight: 300;
+}
+.food-item-text-des {
+  position: absolute;
+  bottom: 0;
+  font-size: 25rpx;
+  color: $font-color1;
+  font-weight: 200;
+  white-space: nowrap;
 }
 </style>
