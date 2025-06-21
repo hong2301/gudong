@@ -175,9 +175,9 @@ const tapDl = () => {
   uni.vibrateShort();
   setTimeout(() => {
     dlScale.value = 1;
-    // uni.navigateTo({
-    //   url: "/login-package/pages/login/index",
-    // });
+    uni.navigateTo({
+      url: "/pages/login/index",
+    });
   }, 100);
 };
 
@@ -190,9 +190,9 @@ const tapDc = () => {
   uni.vibrateShort();
   setTimeout(() => {
     dcScale.value = 1;
-    // uni.navigateTo({
-    //   url: "/menu-package/pages/menu/index",
-    // });
+    uni.navigateTo({
+      url: "/menu-package/pages/menu/index",
+    });
   }, 100);
 };
 
@@ -205,9 +205,9 @@ const tapDd = () => {
   uni.vibrateShort();
   setTimeout(() => {
     ddScale.value = 1;
-    // uni.navigateTo({
-    //   url: "/order-package/pages/order/index",
-    // });
+    uni.navigateTo({
+      url: "/order-package/pages/order/index",
+    });
   }, 100);
 };
 
@@ -217,9 +217,9 @@ const tapDd = () => {
 const tapFoodItem = (id: string | number) => {
   console.log("点击食物日志");
   uni.vibrateShort();
-  // uni.navigateTo({
-  //   url: "/order-package/pages/order/index",
-  // });
+  uni.navigateTo({
+    url: "/diary-package/pages/diary/index",
+  });
 };
 
 onLoad(() => {
