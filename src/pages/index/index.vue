@@ -104,7 +104,6 @@
 </template>
 
 <script setup lang="ts">
-import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
@@ -221,19 +220,6 @@ const tapFoodItem = (id: string | number) => {
     url: "/diary-package/pages/diary/index",
   });
 };
-
-onLoad(() => {
-  console.log("index Load");
-});
-onShow(() => {
-  console.log("index Show");
-});
-onReady(() => {
-  console.log("index Ready");
-});
-onHide(() => {
-  console.log("index Hide");
-});
 </script>
 
 <style scoped lang="scss">
