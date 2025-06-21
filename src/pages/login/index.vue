@@ -1,5 +1,5 @@
 <template>
-  <Layout></Layout>
+  <Layout>登陆</Layout>
 </template>
 
 <script setup lang="ts">

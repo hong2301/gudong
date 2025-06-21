@@ -1,8 +1,10 @@
 <template>
-  <view class="overture"> 日记 </view>
+  <Layout>日记</Layout>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Layout from "@/components/layouts/index.vue";
+</script>
 
 <style scoped>
 .overture {
