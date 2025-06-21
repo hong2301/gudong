@@ -13,13 +13,11 @@
           <view class="item-text1">看看想吃点什么</view>
         </view>
         <view class="item-box" @tap="tapDd">
-          <view class="item-img-box">
-            <image
-              class="item-img"
-              :style="{ transform: `scale(${ddScale}) ` }"
-              src="/static/dingdan.png"
-              mode="widthFix"
-            />
+          <view
+            class="item-img-box"
+            :style="{ transform: `scale(${ddScale}) ` }"
+          >
+            <image class="item-img" src="/static/dingdan.png" mode="widthFix" />
           </view>
           <view class="item-text">食味笺</view>
           <view class="item-text1">记录你的每一餐</view>
@@ -53,8 +51,12 @@ const ddScale = ref<number>(1);
 const tapDc = () => {
   console.log("点击点餐");
   dcScale.value = 1.1;
+  uni.vibrateShort();
   setTimeout(() => {
     dcScale.value = 1;
+    // uni.navigateTo({
+    //   url: "/menu-package/pages/menu/index",
+    // });
   }, 100);
 };
 
@@ -63,6 +65,14 @@ const tapDc = () => {
  */
 const tapDd = () => {
   console.log("点击点餐");
+  ddScale.value = 1.1;
+  uni.vibrateShort();
+  setTimeout(() => {
+    ddScale.value = 1;
+    // uni.navigateTo({
+    //   url: "/order-package/pages/order/index",
+    // });
+  }, 100);
 };
 
 onLoad(() => {
@@ -112,7 +122,7 @@ onHide(() => {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  
+  transition: transform 0.3s ease;
 }
 .item-img {
   width: 50%;
