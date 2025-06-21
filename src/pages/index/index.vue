@@ -398,6 +398,7 @@ const tapFoodItem = (id: string | number) => {
   font-size: 33rpx;
   font-weight: 800;
   color: $font-color;
+  
 }
 .item-text1 {
   margin-top: 1%;
