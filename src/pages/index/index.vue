@@ -3,7 +3,10 @@
     <view class="overture">
       <view class="content" :style="{ width: `${eleWidth1}px` }">
         <view class="item-box" @tap="tapDc">
-          <view class="item-img-box">
+          <view
+            class="item-img-box"
+            :style="{ transform: `scale(${dcScale}) ` }"
+          >
             <image class="item-img" src="/static/dianpu.png" mode="widthFix" />
           </view>
           <view class="item-text">烟火集</view>
@@ -11,7 +14,12 @@
         </view>
         <view class="item-box" @tap="tapDd">
           <view class="item-img-box">
-            <image class="item-img" src="/static/dingdan.png" mode="widthFix" />
+            <image
+              class="item-img"
+              :style="{ transform: `scale(${ddScale}) ` }"
+              src="/static/dingdan.png"
+              mode="widthFix"
+            />
           </view>
           <view class="item-text">食味笺</view>
           <view class="item-text1">记录你的每一餐</view>
@@ -34,12 +42,20 @@ const capsuleRightInterval =
 const areaWidth = uni.getWindowInfo().safeArea.width;
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval);
+// 点餐图标的缩放
+const dcScale = ref<number>(1);
+// 订单图标的缩放
+const ddScale = ref<number>(1);
 
 /**
  * 点击点餐
  */
 const tapDc = () => {
   console.log("点击点餐");
+  dcScale.value = 1.1;
+  setTimeout(() => {
+    dcScale.value = 1;
+  }, 100);
 };
 
 /**
@@ -96,6 +112,7 @@ onHide(() => {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  
 }
 .item-img {
   width: 50%;
