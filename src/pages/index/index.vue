@@ -75,6 +75,7 @@
         :style="{
           width: `${eleWidth1 - capsuleRightInterval * 4}px`,
           padding: `${capsuleRightInterval * 2}px`,
+          marginBottom: `${capsuleRightInterval * 10}px`,
         }"
       >
         <view
@@ -229,7 +230,11 @@ onHide(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 100%
+  );
   position: relative;
   overflow: auto;
 }
@@ -238,6 +243,7 @@ onHide(() => {
   width: 100%;
   height: 35%;
   top: 0;
+  background-color: white;
 }
 .introduce-imgs {
   width: 100%;
@@ -395,7 +401,7 @@ onHide(() => {
   margin-top: 1%;
   font-size: 20rpx;
   color: $font-color1;
-  font-weight: 200;
+  font-weight: 300;
 }
 .logs {
   position: relative;
@@ -442,14 +448,14 @@ onHide(() => {
   font-size: 30rpx;
   color: $font-color;
   white-space: nowrap;
-  font-weight: 300;
+  font-weight: 400;
 }
 .food-item-text-des {
   position: absolute;
   bottom: 0;
   font-size: 25rpx;
   color: $font-color1;
-  font-weight: 200;
+  font-weight: 300;
   white-space: nowrap;
 }
 </style>
