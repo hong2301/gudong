@@ -1,9 +1,12 @@
 <template>
   <Layout>
     <view class="overture">
+      <view class="introduce">
+        <view class="transition"></view>
+      </view>
       <view class="bg"></view>
       <view
-        class="head"7
+        class="head"
         :style="{
           width: `${eleWidth1}px`,
           marginBottom: `${capsuleRightInterval * 2}px`,
@@ -168,6 +171,19 @@ onHide(() => {
   justify-content: center;
   background-color: $bg-color;
   position: relative;
+}
+.introduce {
+  position: absolute;
+  width: 100%;
+  height: 35%;
+  top: 0;
+}
+.transition {
+  position: absolute;
+  width: 100%;
+  height: 15%;
+  bottom: 0;
+  background-color: red;
 }
 .bg {
   position: absolute;
