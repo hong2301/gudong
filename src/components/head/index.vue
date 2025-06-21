@@ -7,12 +7,13 @@
         height: `${capsuleBoxHeight}px`,
         marginBottom: `${capsuleRightInterval}px`,
       }"
-    ></view>
+    >
+      <slot></slot>
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import { onLoad, onShow, onHide } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 // 胶囊右间隔
@@ -32,16 +33,6 @@ const capsuleBoxWitdh = ref<number>(
 const headHeight = ref<number>(
   uni.getMenuButtonBoundingClientRect().bottom + capsuleRightInterval.value
 );
-
-onLoad(() => {
-  console.log("head Load");
-});
-onShow(() => {
-  console.log("head Show");
-});
-onHide(() => {
-  console.log("head Hide");
-});
 </script>
 
 <style scoped>

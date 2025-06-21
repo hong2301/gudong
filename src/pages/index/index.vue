@@ -1,7 +1,6 @@
 <template>
   <Layout>
     <view class="overture">
-      <Head></Head>
       <Bubu ref="bubuRef" :size="450" :font-size="45" @tap="tapBubu"></Bubu>
       <view
         class="transition"
