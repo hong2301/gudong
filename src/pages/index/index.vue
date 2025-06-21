@@ -172,6 +172,7 @@ const tapJw = () => {
 // 跳转特定日志
 const tapLogItem = (id: string) => {
   console.log("特点日志");
+  uni.vibrateShort();
   uni.navigateTo({
     url: `/diary-package/pages/diary/index?id=${id}`,
   });
@@ -342,8 +343,8 @@ onHide(() => {
   color: rgb(171, 154, 133);
 }
 .logItemTextBoxRight {
-  right: 20%;
-  transform: rotate(20deg);
+  right: 18%;
+  /* transform: rotate(20deg); */
   background: linear-gradient(
     to left,
     rgba(245, 241, 230, 1) 90%,
@@ -360,8 +361,8 @@ onHide(() => {
   );
 }
 .logItemTextBoxLeft {
-  left: 20%;
-  transform: rotate(-20deg);
+  left: 18%;
+  /* transform: rotate(-20deg); */
   background: linear-gradient(
     to right,
     rgba(245, 241, 230, 1) 90%,
