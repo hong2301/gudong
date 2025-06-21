@@ -183,14 +183,31 @@ onHide(() => {
   width: 100%;
   height: 15%;
   bottom: 0;
-  background-color: red;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 0.99) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
 }
 .bg {
   position: absolute;
   width: 100%;
   height: 65%;
   bottom: 0;
-  background-color: $bg-color1;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 100%
+  );
 }
 .head {
   display: flex;
