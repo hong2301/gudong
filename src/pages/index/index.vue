@@ -392,6 +392,7 @@ onHide(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 .item-img-box {
   width: 40%;
@@ -471,5 +472,130 @@ onHide(() => {
   color: $font-color1;
   font-weight: 300;
   white-space: nowrap;
+}
+.logs {
+  width: 100%;
+  overflow-y: auto; /* 启用垂直滚动 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.logItem {
+  width: 85%;
+  height: 200rpx;
+  border-radius: 20rpx;
+  margin-top: 50rpx;
+  flex-shrink: 0;
+  position: relative;
+}
+.maskUp {
+  position: fixed; /* 改为 fixed 定位 */
+  flex-shrink: 0;
+  width: 100%;
+  background: linear-gradient(
+    to Bottom,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
+.maskBottom {
+  position: fixed; /* 改为 fixed 定位 */
+  bottom: 0;
+  flex-shrink: 0;
+  width: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 1) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
+.logItemImg {
+  height: 100%;
+  aspect-ratio: 5/3;
+  overflow: hidden;
+  border-style: solid;
+  border-color: rgba(119, 112, 96, 0.8);
+}
+.logItemTextBox {
+  position: absolute;
+  width: 47%;
+  height: 100%;
+}
+.logItemTextBoxMask {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+}
+.logItemText {
+  position: absolute;
+  width: 130%;
+  height: 100%;
+  border-bottom: 5rpx dashed rgba(119, 112, 96, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.logItemTextTime {
+  font-size: 39rpx;
+  color: rgb(119, 112, 96);
+}
+.logItemTextDescribe {
+  font-size: 32rpx;
+  color: rgb(171, 154, 133);
+}
+.logItemTextBoxRight {
+  right: 18%;
+  /* transform: rotate(20deg); */
+  background: linear-gradient(
+    to left,
+    rgba(245, 241, 230, 1) 90%,
+    rgba(245, 241, 230, 0.99) 91%,
+    rgba(245, 241, 230, 0.96) 92%,
+    rgba(245, 241, 230, 0.91) 93%,
+    rgba(245, 241, 230, 0.84) 94%,
+    rgba(245, 241, 230, 0.75) 95%,
+    rgba(245, 241, 230, 0.64) 96%,
+    rgba(245, 241, 230, 0.51) 97%,
+    rgba(245, 241, 230, 0.36) 98%,
+    rgba(245, 241, 230, 0.19) 99%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
+.logItemTextBoxLeft {
+  left: 18%;
+  /* transform: rotate(-20deg); */
+  background: linear-gradient(
+    to right,
+    rgba(245, 241, 230, 1) 90%,
+    rgba(245, 241, 230, 0.99) 91%,
+    rgba(245, 241, 230, 0.96) 92%,
+    rgba(245, 241, 230, 0.91) 93%,
+    rgba(245, 241, 230, 0.84) 94%,
+    rgba(245, 241, 230, 0.75) 95%,
+    rgba(245, 241, 230, 0.64) 96%,
+    rgba(245, 241, 230, 0.51) 97%,
+    rgba(245, 241, 230, 0.36) 98%,
+    rgba(245, 241, 230, 0.19) 99%,
+    rgba(245, 241, 230, 0) 100%
+  );
 }
 </style>

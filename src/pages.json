@@ -17,6 +17,32 @@
       "path": "pages/login/index"
     }
   ],
+  "subPackages": [
+    {
+      "root": "diary-package",
+      "pages": [
+        {
+          "path": "pages/diary/index"
+        }
+      ]
+    },
+    {
+      "root": "menu-package",
+      "pages": [
+        {
+          "path": "pages/menu/index"
+        }
+      ]
+    },
+    {
+      "root": "order-package",
+      "pages": [
+        {
+          "path": "pages/order/index"
+        }
+      ]
+    }
+  ],
   "globalStyle": {
     "navigationStyle": "custom",
     "backgroundColor": "#F5F1E6"

@@ -2,6 +2,7 @@
   <view class="overture">
     <Head class="head"></Head>
     <view class="body">
+      <FoodBg class="bg"></FoodBg>
       <slot></slot>
     </view>
     <Tail class="tail"></Tail>
@@ -37,5 +38,10 @@ import Tail from "@/components/tail/index.vue";
   position: absolute;
   left: 0%;
   bottom: 0%;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 </style>
