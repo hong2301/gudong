@@ -122,11 +122,10 @@ onUnload(() => {
   width: 100%;
   display: block;
 }
-.img {
-}
 .text-box {
   position: absolute;
-  width: 100%;
   font-weight: 800;
+  white-space: nowrap;
+  min-width: 200rpx;
 }
 </style>
