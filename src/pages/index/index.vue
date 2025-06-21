@@ -13,7 +13,9 @@
           :style="{
             marginRight: `${capsuleRightInterval * 2}px`,
           }"
-        ></view>
+        >
+          <Bubu :size="400" :font-size="40"></Bubu>
+        </view>
         <view class="user-box" @tap="tapDl">
           <view
             class="item-img-box1"
@@ -54,6 +56,7 @@
 <script setup lang="ts">
 import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import Layout from "@/components/layouts/index.vue";
+import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
 
 // 胶囊右间隔
