@@ -1,28 +1,21 @@
 <template>
   <Layout>
     <view class="overture">
-      <Bubu ref="bubuRef" :size="450" :font-size="45" @tap="tapBubu"></Bubu>
-      <view
-        class="transition"
-        :style="{ height: `${contentHeight / 5}px` }"
-      ></view>
-      <view class="mnue" :style="{ height: `${contentHeight}px` }">
-        <view class="bigTextBox">
-          <view
-            class="bigText"
-            :style="{ transform: `scale(${yhScale}) ` }"
-            @tap="tapYh"
-            >烟火集</view
-          >
-          <view class="divider"></view>
-          <view
-            class="bigText"
-            :style="{ transform: `scale(${jwScale}) ` }"
-            @tap="tapJw"
-            >集味簿</view
-          >
+      <view class="content" :style="{ width: `${eleWidth1}px` }">
+        <view class="item-box" @tap="tapDc">
+          <view class="item-img-box">
+            <image class="item-img" src="/static/dianpu.png" mode="widthFix" />
+          </view>
+          <view class="item-text">烟火集</view>
+          <view class="item-text1">看看想吃点什么</view>
         </view>
-        <view class="divider1"></view>
+        <view class="item-box" @tap="tapDd">
+          <view class="item-img-box">
+            <image class="item-img" src="/static/dingdan.png" mode="widthFix" />
+          </view>
+          <view class="item-text">食味笺</view>
+          <view class="item-text1">记录你的每一餐</view>
+        </view>
       </view>
     </view>
   </Layout>
@@ -31,42 +24,29 @@
 <script setup lang="ts">
 import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import Layout from "@/components/layouts/index.vue";
-import Bubu from "@/components/character/index.vue";
-import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 
-const bubuRef = ref();
-const contentHeight = ref(uni.getWindowInfo().safeArea.height / 2);
-const yhScale = ref(1);
-const jwScale = ref(1);
+// 胶囊右间隔
+const capsuleRightInterval =
+  uni.getWindowInfo().safeArea.right -
+  uni.getMenuButtonBoundingClientRect().right;
+// 屏幕宽度
+const areaWidth = uni.getWindowInfo().safeArea.width;
+// 元素宽度
+const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval);
 
 /**
- * 点击布布
+ * 点击点餐
  */
-const tapBubu = () => {
-  bubuRef?.value?.tapImg();
-  bubuRef?.value?.startSay("你好呀", ["50%", "80%", "rgb(146,107,77)"], {
-    src: "/static/布布/声音/哒哒哒哒哒.m4a",
-    volume: 1,
-  });
+const tapDc = () => {
+  console.log("点击点餐");
 };
 
-// 跳转烟火集
-const tapYh = () => {
-  yhScale.value = 1.1;
-  uni.vibrateShort();
-  setTimeout(() => {
-    yhScale.value = 1;
-  }, 100);
-};
-
-// 跳转集味簿
-const tapJw = () => {
-  jwScale.value = 1.1;
-  uni.vibrateShort();
-  setTimeout(() => {
-    jwScale.value = 1;
-  }, 100);
+/**
+ * 点击订单
+ */
+const tapDd = () => {
+  console.log("点击点餐");
 };
 
 onLoad(() => {
@@ -75,68 +55,60 @@ onLoad(() => {
 onShow(() => {
   console.log("index Show");
 });
-onReady(() => {});
+onReady(() => {
+  console.log("index Ready");
+});
 onHide(() => {
   console.log("index Hide");
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../uni.scss";
+
 .overture {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  background-color: $bg-color;
 }
-.transition {
-  width: 100%;
-  background: linear-gradient(
-    to top,
-    rgba(245, 241, 230, 1) 0%,
-    rgba(245, 241, 230, 0.99) 10%,
-    rgba(245, 241, 230, 0.96) 20%,
-    rgba(245, 241, 230, 0.91) 30%,
-    rgba(245, 241, 230, 0.84) 40%,
-    rgba(245, 241, 230, 0.75) 50%,
-    rgba(245, 241, 230, 0.64) 60%,
-    rgba(245, 241, 230, 0.51) 70%,
-    rgba(245, 241, 230, 0.36) 80%,
-    rgba(245, 241, 230, 0.19) 90%,
-    rgba(245, 241, 230, 0) 100%
-  );
+.content {
+  border-radius: 15rpx;
+  display: flex;
+  background-color: $ele-color;
+  padding-block: 50rpx;
 }
-.mnue {
-  width: 100%;
-  height: 200px;
-  background-color: rgb(245, 241, 230);
+.item-box {
+  width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.bigTextBox {
-  width: 100%;
-  height: 20%;
+.item-img-box {
+  width: 40%;
+  aspect-ratio: 1;
+  background-color: $icon-bg-color;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
 }
-.bigText {
-  font-size: 45rpx;
-  color: rgb(119, 112, 96);
-  transition: transform 0.3s ease;
+.item-img {
+  width: 50%;
 }
-.divider {
-  border: 1rpx solid rgb(119, 112, 96, 0.8);
-  border-radius: 100rpx;
-  height: 40%;
-  margin-inline: 15%;
+.item-text {
+  margin-top: 5%;
+  font-size: 33rpx;
+  font-weight: 800;
 }
-.divider1 {
-  border-top: 1rpx solid rgb(119, 112, 96, 0.8);
-  border-radius: 200rpx;
-  width: 85%;
-  height: 0;
+.item-text1 {
+  margin-top: 1%;
+  font-size: 20rpx;
+  color: $font-color1;
+  font-weight: 200;
 }
 </style>
