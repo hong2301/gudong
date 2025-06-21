@@ -93,6 +93,7 @@
           <view v-if="fIndex != foodRows.length - 1" class="divider1"></view>
         </view>
       </view>
+      <view class="transition1" :style="{ height: `${tailHeight}px` }"></view>
     </view>
   </Layout>
 </template>
@@ -103,6 +104,10 @@ import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
 
+// 尾巴高度
+const tailHeight = ref<number>(
+  uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
+);
 // 胶囊右间隔
 const capsuleRightInterval = ref<number>(
   uni.getWindowInfo().safeArea.right -
@@ -272,6 +277,25 @@ onHide(() => {
     rgba(245, 241, 230, 0.99) 100%
   );
 }
+.transition1 {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(245, 241, 230, 0.99) 0%,
+    rgba(245, 241, 230, 0.99) 10%,
+    rgba(245, 241, 230, 0.96) 20%,
+    rgba(245, 241, 230, 0.91) 30%,
+    rgba(245, 241, 230, 0.84) 40%,
+    rgba(245, 241, 230, 0.75) 50%,
+    rgba(245, 241, 230, 0.64) 60%,
+    rgba(245, 241, 230, 0.51) 70%,
+    rgba(245, 241, 230, 0.36) 80%,
+    rgba(245, 241, 230, 0.19) 90%,
+    rgba(245, 241, 230, 0) 100%
+  );
+}
 .space {
   width: 100%;
   height: 31%;
@@ -294,6 +318,7 @@ onHide(() => {
   align-items: center;
   position: relative;
   box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
+  border: 1rpx solid rgba(239, 156, 82, 0.5);
 }
 .cjs {
   position: absolute;
