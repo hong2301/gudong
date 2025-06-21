@@ -2,6 +2,9 @@
   <Layout>
     <view class="overture">
       <view class="introduce">
+        <view class="introduce-imgs">
+          <image class="head-img" src="/static/xbh.png" mode="widthFix" />
+        </view>
         <view class="transition"></view>
       </view>
       <view class="bg"></view>
@@ -169,7 +172,7 @@ onHide(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $bg-color;
+  background-color: white;
   position: relative;
 }
 .introduce {
@@ -178,10 +181,17 @@ onHide(() => {
   height: 35%;
   top: 0;
 }
+.introduce-imgs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .transition {
   position: absolute;
   width: 100%;
-  height: 15%;
+  height: 20%;
   bottom: 0;
   background: linear-gradient(
     to top,
