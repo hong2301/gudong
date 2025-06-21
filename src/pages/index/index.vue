@@ -15,11 +15,13 @@
           }"
         >
           <Bubu
+            ref="bubuRef"
             :size="200"
             :font-size="40"
             :img-src="bubuImgSrc"
             @tap="tapBubu"
           ></Bubu>
+          <image class="cjs" src="/static/congjiang.png" mode="widthFix" />
         </view>
         <view class="user-box" @tap="tapDl">
           <view
@@ -88,7 +90,10 @@ const bubuRef = ref();
  * 点击布布
  */
 const tapBubu = () => {
-  bubuRef.value.startSay()
+  bubuRef?.value?.startSay("欢迎欢迎", ["40%", "100%", "rgb(146,107,77)"], {
+    src: "/static/布布/声音/哒哒哒哒哒.m4a",
+    volume: 1,
+  });
 };
 
 /**
@@ -176,6 +181,13 @@ onHide(() => {
   flex: auto;
   align-items: center;
   position: relative;
+}
+.cjs {
+  position: absolute;
+  top: 58%;
+  right: 10%;
+  width: 17%;
+  aspect-ratio: 1;
 }
 .user-box {
   width: 30%;
