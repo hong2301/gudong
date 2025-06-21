@@ -82,7 +82,11 @@
           v-for="(fItem, fIndex) in foodRows"
           :key="fIndex"
           class="food-item"
-          :style="{ marginTop: `${fIndex != 0 ? '15' : '0'}rpx` }"
+          :style="{
+            marginTop: `${fIndex != 0 ? '15' : '0'}rpx`,
+            height: `${fIndex != foodRows.length - 1 ? '166' : '150'}rpx`,
+          }"
+          @tap="tapFoodItem(fIndex)"
         >
           <view class="food-item-content">
             <image class="food-item-img" :src="fItem.imgSrc" mode="heightFix" />
@@ -205,6 +209,17 @@ const tapDd = () => {
     //   url: "/order-package/pages/order/index",
     // });
   }, 100);
+};
+
+/**
+ * 点击订单
+ */
+const tapFoodItem = (id: string | number) => {
+  console.log("点击食物日志");
+  uni.vibrateShort();
+  // uni.navigateTo({
+  //   url: "/order-package/pages/order/index",
+  // });
 };
 
 onLoad(() => {
@@ -411,7 +426,6 @@ onHide(() => {
   flex-shrink: 0;
 }
 .food-item {
-  height: 166rpx;
   width: 100%;
   display: flex;
   align-items: center;
