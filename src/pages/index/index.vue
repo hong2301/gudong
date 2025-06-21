@@ -14,7 +14,12 @@
             marginRight: `${capsuleRightInterval * 2}px`,
           }"
         >
-          <Bubu :size="400" :font-size="40"></Bubu>
+          <Bubu
+            :size="200"
+            :font-size="40"
+            :img-src="bubuImgSrc"
+            @tap="tapBubu"
+          ></Bubu>
         </view>
         <view class="user-box" @tap="tapDl">
           <view
@@ -74,6 +79,17 @@ const dcScale = ref<number>(1);
 const ddScale = ref<number>(1);
 // 登陆图标的缩放
 const dlScale = ref<number>(1);
+// 布布图片
+const bubuImgSrc = ref<string>("/static/布布/炒菜.png");
+// 布布ref
+const bubuRef = ref();
+
+/**
+ * 点击布布
+ */
+const tapBubu = () => {
+  bubuRef.value.startSay()
+};
 
 /**
  * 点击登陆
@@ -149,13 +165,17 @@ onHide(() => {
 .head {
   display: flex;
   justify-content: space-between;
+  height: 250rpx;
 }
 .bubu-box {
   height: 100%;
+  padding-left: 40rpx;
   background-color: $ele-color;
   border-radius: 15rpx;
   display: flex;
   flex: auto;
+  align-items: center;
+  position: relative;
 }
 .user-box {
   width: 30%;

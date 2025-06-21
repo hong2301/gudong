@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { onLoad, onShow, onHide, onUnload } from "@dcloudio/uni-app";
 
 const props = defineProps({
   size: {
@@ -93,19 +92,6 @@ const startSay = (
 defineExpose({
   tapImg,
   startSay,
-});
-
-onLoad(() => {
-  console.log("character Load");
-});
-onShow(() => {
-  console.log("character Show");
-});
-onHide(() => {
-  console.log("character Hide");
-});
-onUnload(() => {
-  console.log("character Hide");
 });
 </script>
 
