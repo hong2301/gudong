@@ -80,21 +80,41 @@
               :key="tIndex"
               class="dish-list"
             >
-              <view class="text2">{{ tItem.text }}</view>
-              <view
-                v-for="(dItem, dIndex) in tItem.dish"
-                :key="dIndex"
-                class="dish-box"
-              >
-                <view class="dish-img-box">
-                  <image
-                    class="dish-img"
-                    :src="dItem.imgSrc"
-                    mode="heightFix"
-                  />
+              <view class="dish-list-item-content" v-if="tItem.dish?.length">
+                <view class="text2">{{ tItem.text }}</view>
+                <view
+                  v-for="(dItem, dIndex) in tItem.dish"
+                  :key="dIndex"
+                  class="dish-box"
+                  :style="{
+                    marginBottom: `${capsuleRightInterval * 2}px`,
+                  }"
+                >
+                  <view class="dish-img-box">
+                    <image
+                      class="dish-img"
+                      :src="dItem.imgSrc"
+                      mode="heightFix"
+                    />
+                  </view>
+                  <view class="dish-text-box">
+                    <view class="dish-text1">{{ dItem.name }}</view>
+                    <view class="dish-text2">
+                      <view class="num-img-box">
+                        <image
+                          class="num-img"
+                          src="../../../menu-package/static/guochan.png"
+                          mode="widthFix"
+                        />
+                      </view>
+                      {{ dItem.num }}
+                    </view>
+                    <view class="add-btn" @tap="addDish">+</view>
+                  </view>
                 </view>
               </view>
             </view>
+            <view class="space"></view>
           </view>
         </view>
       </view>
@@ -178,11 +198,35 @@ const taps = ref([
     text: "荤菜",
     imgSrc: "../../static/rou.png",
     isNew: false,
+    dish: [
+      {
+        name: "可乐鸡翅",
+        num: "5",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+      {
+        name: "荔枝鸡煲",
+        num: "1",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+    ],
   },
   {
     text: "海鲜",
     imgSrc: "../../static/xia.png",
     isNew: false,
+    dish: [
+      {
+        name: "可乐鸡翅",
+        num: "5",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+      {
+        name: "荔枝鸡煲",
+        num: "1",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+    ],
   },
   {
     text: "招牌",
@@ -231,7 +275,12 @@ const taps = ref([
   },
 ]);
 // 目前激活的菜单
-const activeTap = ref(1);
+const activeTap = ref(0);
+
+// 添加菜
+const addDish = () => {
+  console.log("添加菜");
+};
 
 // 点击菜单
 const tapMenuItem = (index: number) => {
@@ -314,6 +363,19 @@ onHide(() => {
   color: $font-color1;
   font-weight: 400;
 }
+.dish-text1 {
+  font-size: 30rpx;
+  font-weight: 400;
+  color: black;
+}
+.dish-text2 {
+  font-size: 28rpx;
+  color: $main-color;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 .decorate {
   position: absolute;
   width: 40%;
@@ -338,9 +400,48 @@ onHide(() => {
 .dish-img-box {
   height: 100%;
 }
+.num-img-box {
+  width: 13%;
+  display: flex;
+  align-items: center;
+}
+.num-img {
+  width: 100%;
+  aspect-ratio: 1;
+}
+.dish-text-box {
+  height: 100%;
+  flex: 1;
+  margin-left: 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.add-btn {
+  position: absolute;
+  width: 70rpx;
+  height: 50rpx;
+  aspect-ratio: 1;
+  background-color: $main-color;
+  border-radius: 30rpx;
+  color: white;
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 800;
+  bottom: 0;
+  right: 0;
+  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
+}
+.add-btn:active {
+  background-color: $main-color-active;
+}
 .dish-img {
   height: 100%;
   aspect-ratio: 1;
+  border-radius: 15rpx;
 }
 .menu-box {
   width: 100%;
@@ -363,6 +464,9 @@ onHide(() => {
   width: 100%;
 }
 .dish-list {
+  width: 100%;
+}
+.dish-list-item-content {
   width: 100%;
 }
 .item-box {
@@ -424,8 +528,13 @@ onHide(() => {
 }
 .dish-box {
   width: 100%;
-  height: 100rpx;
-  background-color: aqua;
-  margin-block: 15rpx;
+  height: 150rpx;
+  margin-top: 6rpx;
+  display: flex;
+}
+.space {
+  width: 100%;
+  height: 31%;
+  flex-shrink: 0;
 }
 </style>
