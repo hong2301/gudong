@@ -74,7 +74,28 @@
             paddingTop: `${capsuleRightInterval * 2}px`,
           }"
         >
-          <view class="left-content"></view>
+          <view class="left-content">
+            <view
+              v-for="(tItem, tIndex) in taps"
+              :key="tIndex"
+              class="dish-list"
+            >
+              <view class="text2">{{ tItem.text }}</view>
+              <view
+                v-for="(dItem, dIndex) in tItem.dish"
+                :key="dIndex"
+                class="dish-box"
+              >
+                <view class="dish-img-box">
+                  <image
+                    class="dish-img"
+                    :src="dItem.imgSrc"
+                    mode="heightFix"
+                  />
+                </view>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -123,11 +144,35 @@ const taps = ref([
     text: "招牌",
     imgSrc: "../../static/a3.png",
     isNew: true,
+    dish: [
+      {
+        name: "可乐鸡翅",
+        num: "5",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+      {
+        name: "荔枝鸡煲",
+        num: "1",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+    ],
   },
   {
     text: "素菜",
     imgSrc: "../../static/yumi.png",
     isNew: false,
+    dish: [
+      {
+        name: "可乐鸡翅",
+        num: "5",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+      {
+        name: "荔枝鸡煲",
+        num: "1",
+        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+      },
+    ],
   },
   {
     text: "荤菜",
@@ -264,6 +309,11 @@ onHide(() => {
   color: $font-color1;
   font-weight: 300;
 }
+.text2 {
+  font-size: 24rpx;
+  color: $font-color1;
+  font-weight: 400;
+}
 .decorate {
   position: absolute;
   width: 40%;
@@ -285,6 +335,13 @@ onHide(() => {
   width: 100%;
   aspect-ratio: 1;
 }
+.dish-img-box {
+  height: 100%;
+}
+.dish-img {
+  height: 100%;
+  aspect-ratio: 1;
+}
 .menu-box {
   width: 100%;
   flex: 1;
@@ -303,6 +360,9 @@ onHide(() => {
   display: flex;
 }
 .left-content {
+  width: 100%;
+}
+.dish-list {
   width: 100%;
 }
 .item-box {
@@ -361,5 +421,11 @@ onHide(() => {
     rgba(255, 255, 255, 0.19) 90%,
     rgba(255, 255, 255, 0) 100%
   );
+}
+.dish-box {
+  width: 100%;
+  height: 100rpx;
+  background-color: aqua;
+  margin-block: 15rpx;
 }
 </style>
