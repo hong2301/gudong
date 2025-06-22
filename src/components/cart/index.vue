@@ -99,7 +99,10 @@ const tapMask = () => {
 };
 // 点击购物车
 const tapDish = () => {
-  dishListShow.value = !dishListShow.value;
+  rows.value = cartStore.rows;
+  if (rows.value.length !== 0) {
+    dishListShow.value = !dishListShow.value;
+  }
 };
 // 一二状态
 const getYierStatus = () => {
