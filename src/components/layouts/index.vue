@@ -4,7 +4,6 @@
       <view v-if="backBtnShow" class="back-btn" @tap="back">⬅︎</view>
     </Head>
     <view class="body">
-      <FoodBg class="bg"></FoodBg>
       <slot></slot>
     </view>
     <Tail class="tail"></Tail>
@@ -12,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import Head from "@/components/head/index.vue";
 import Tail from "@/components/tail/index.vue";
 import { ref } from "vue";

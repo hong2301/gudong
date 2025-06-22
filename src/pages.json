@@ -45,7 +45,8 @@
   ],
   "globalStyle": {
     "navigationStyle": "custom",
-    "backgroundColor": "#F5F1E6"
+    "backgroundColor": "#F5F1E6",
+    "navigationBarTextStyle": "black"
   },
   "lazyCodeLoading": "requiredComponents"
 }
