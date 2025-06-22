@@ -157,7 +157,7 @@ const bubuRef = ref();
 // 布布imgsrc
 const bubuImgSrc = "/menu-package/static/招待.png";
 // 填写图标的缩放
-const txScale = ref<number>(0);
+const txScale = ref<number>(1);
 // 菜单标签
 const taps = ref([
   {
