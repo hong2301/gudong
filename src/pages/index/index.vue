@@ -78,6 +78,20 @@
           marginBottom: `${capsuleRightInterval * 10}px`,
         }"
       >
+        <view class="item-text2" @tap="tapBx">
+          <view class="item-text2-bg"></view>
+          <view
+            class="item-text2-content"
+            :style="{ transform: `scale(${bxScale}) ` }"
+          >
+            <view class="item-text2-content-text">日 志</view>
+            <image
+              class="bianxie-img"
+              src="/static/bianxie.png"
+              mode="widthFix"
+            />
+          </view>
+        </view>
         <view
           v-for="(fItem, fIndex) in foodRows"
           :key="fIndex"
@@ -130,6 +144,8 @@ const dcScale = ref<number>(1);
 const ddScale = ref<number>(1);
 // 登陆图标的缩放
 const dlScale = ref<number>(1);
+// 编写图标的缩放
+const bxScale = ref<number>(1);
 // 布布图片
 const bubuImgSrc = ref<string>("/static/布布/炒菜.png");
 // 布布ref
@@ -181,6 +197,18 @@ const tapDl = () => {
     uni.navigateTo({
       url: "/pages/login/index",
     });
+  }, 100);
+};
+
+/**
+ * 点击登陆
+ */
+const tapBx = () => {
+  console.log("点击编写");
+  bxScale.value = 1.1;
+  uni.vibrateShort();
+  setTimeout(() => {
+    bxScale.value = 1;
   }, 100);
 };
 
@@ -341,6 +369,7 @@ const tapFoodItem = (id: string | number) => {
   width: 17%;
   aspect-ratio: 1;
 }
+
 .user-box {
   width: 30%;
   background-color: $ele-color;
@@ -411,6 +440,39 @@ const tapFoodItem = (id: string | number) => {
   font-size: 20rpx;
   color: $font-color1;
   font-weight: 300;
+}
+.item-text2 {
+  margin-bottom: 5%;
+  margin-right: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.item-text2-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.bianxie-img {
+  position: absolute;
+  width: 45%;
+  aspect-ratio: 1;
+  right: -70%;
+  top: 20%;
+}
+.item-text2-content-text {
+  font-size: 35rpx;
+  font-weight: 800;
+  color: $font-color;
+}
+.item-text2-bg {
+  border-radius: 15rpx;
+  width: 200%;
+  height: 55%;
+  background-color: $icon-bg-color;
+  position: absolute;
+  bottom: 0;
+  left: -10%;
 }
 .logs {
   position: relative;
