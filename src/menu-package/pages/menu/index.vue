@@ -417,7 +417,7 @@ onHide(() => {
   overflow: auto;
 }
 .left {
-  width: 80%;
+  flex: 1;
   height: 100%;
   overflow: auto;
   display: flex;
