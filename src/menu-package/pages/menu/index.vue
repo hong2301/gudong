@@ -6,6 +6,7 @@
         class="head"
         :style="{
           width: `${eleWidth1 - capsuleRightInterval * 1}px`,
+          height: `${capsuleRightInterval * 10}px`,
         }"
       >
         <view class="text-box" @tap="tapTx">
@@ -33,10 +34,31 @@
           ></Bubu>
         </view>
       </view>
-      <view class="menu-box">
+      <view
+        class="menu-box"
+        :style="{
+          height: `${areaHeight - capsuleRightInterval * 10 - headHeight}px`,
+        }"
+      >
         <view class="right">
-          <view v-for="(tItem, tIndex) in taps" :key="tIndex">
-            {{ tItem.text }}
+          <view
+            v-for="(tItem, tIndex) in taps"
+            :key="tIndex"
+            class="item-box"
+            :style="{ background: `${tIndex === activeTap ? 'none' : ''}` }"
+            @tap="tapMenuItem(tIndex)"
+          >
+            <view
+              class="item-box-content"
+              :class="[
+                `${tIndex === activeTap ? 'item-box-active' : ''}`,
+                `${tIndex === activeTap + 1 ? 'item-box-active-up' : ''}`,
+                `${tIndex === activeTap - 1 ? 'item-box-active-bottom' : ''}`,
+              ]"
+            >
+              <image class="item-img" :src="tItem.imgSrc" mode="widthFix" />
+              <view class="item-text"> {{ tItem.text }}</view>
+            </view>
           </view>
         </view>
       </view>
@@ -64,8 +86,14 @@ const capsuleRightInterval = ref<number>(
 );
 // 屏幕宽度
 const areaWidth = uni.getWindowInfo().safeArea.width;
+// 屏幕高度
+const areaHeight = uni.getWindowInfo().safeArea.height;
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
+// 头部高度
+const headHeight = ref<number>(
+  uni.getMenuButtonBoundingClientRect().bottom + capsuleRightInterval.value
+);
 // 操作存储
 const cmdStore = useCmdStore();
 // 布布ref
@@ -78,21 +106,79 @@ const txScale = ref<number>(1);
 const taps = ref([
   {
     text: "招牌",
-    imgSrc: "",
+    imgSrc: "../../static/a3.png",
     isNew: true,
   },
   {
     text: "素菜",
-    imgSrc: "",
+    imgSrc: "../../static/yumi.png",
     isNew: false,
   },
   {
     text: "荤菜",
+    imgSrc: "../../static/rou.png",
+    isNew: false,
+  },
+  {
+    text: "海鲜",
+    imgSrc: "../../static/xia.png",
+    isNew: false,
+  },
+  {
+    text: "招牌",
+    imgSrc: "../../static/a3.png",
+    isNew: true,
+  },
+  {
+    text: "素菜",
+    imgSrc: "../../static/yumi.png",
+    isNew: false,
+  },
+  {
+    text: "荤菜",
+    imgSrc: "../../static/rou.png",
+    isNew: false,
+  },
+  {
+    text: "海鲜",
+    imgSrc: "../../static/xia.png",
+    isNew: false,
+  },
+  {
+    text: "招牌",
+    imgSrc: "../../static/a3.png",
+    isNew: true,
+  },
+  {
+    text: "素菜",
+    imgSrc: "../../static/yumi.png",
+    isNew: false,
+  },
+  {
+    text: "荤菜",
+    imgSrc: "../../static/rou.png",
+    isNew: false,
+  },
+  {
+    text: "海鲜",
+    imgSrc: "../../static/xia.png",
+    isNew: false,
+  },
+  {
+    text: "",
     imgSrc: "",
     isNew: false,
   },
 ]);
+// 目前激活的菜单
+const activeTap = ref(1);
 
+// 点击菜单
+const tapMenuItem = (index: number) => {
+  if (index != taps.value.length - 1) {
+    activeTap.value = index;
+  }
+};
 // 点击布布
 const tapBubu = () => {
   console.log("点击布布");
@@ -142,7 +228,6 @@ onHide(() => {
   overflow: auto;
 }
 .head {
-  height: 150rpx;
   display: flex;
   position: relative;
   align-items: center;
@@ -189,11 +274,48 @@ onHide(() => {
 .menu-box {
   width: 100%;
   flex: 1;
-  height: auto;
 }
 .right {
   width: 20%;
   height: 100%;
   background-color: $bg-color;
+  overflow: auto;
+}
+.item-box {
+  background-color: white;
+  transition: all 0.3s ease;
+}
+.item-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: 35rpx;
+  background-color: $bg-color;
+  color: $font-color1;
+  font-size: 22rpx;
+}
+.item-box-active {
+  background-color: white;
+  border-radius: 30rpx 0 0 30rpx;
+  box-shadow: 0 4rpx 15rpx -15rpx rgba(0, 0, 0, 0.08),
+    0 -4rpx 15rpx -15rpx transparent; /* 抵消顶部阴影 */
+  color: $main-color;
+  font-size: 24rpx;
+}
+.item-box-active-bottom {
+  border-radius: 0 0 30rpx 0;
+}
+.item-box-active-up {
+  border-radius: 0 30rpx 0 0;
+}
+.item-img {
+  width: 50%;
+  aspect-ratio: 1;
+}
+.item-text {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>
