@@ -17,7 +17,10 @@
 <script setup lang="ts">
 import Yier from "@/components/character/index.vue";
 import { ref } from "vue";
+import { useCartStore } from "@/stores/cart";
 
+// 操作存储
+const cartStore = useCartStore();
 // 一二图片
 const yierImgSrc = ref("/menu-package/static/吃什么.png");
 // 一二ref
@@ -32,6 +35,12 @@ const tapSend = () => {
   console.log("提交");
   uni.vibrateShort();
 };
+
+//获取数据
+uni.$on("cart", function (data) {
+  console.log("cart", data);
+  cartStore.rows.push(data);
+});
 </script>
 
 <style scoped lang="scss">

@@ -40,12 +40,6 @@
           height: `${areaHeight - capsuleRightInterval * 10 - headHeight}px`,
         }"
       >
-        <view
-          class="transition"
-          :style="{
-            height: `${tailHeight}px`,
-          }"
-        ></view>
         <view class="right">
           <view
             v-for="(tItem, tIndex) in taps"
@@ -117,6 +111,12 @@
             <view class="space"></view>
           </view>
         </view>
+        <view
+          class="transition"
+          :style="{
+            height: `${tailHeight}px`,
+          }"
+        ></view>
       </view>
       <Cart
         class="cart"
@@ -291,6 +291,7 @@ const addDish = (tData: tapType, dData: dishType) => {
     tap: tData.text,
     tapImgSrc: tData.imgSrc,
   };
+  uni.$emit("cart", dish);
 };
 
 // 点击菜单
