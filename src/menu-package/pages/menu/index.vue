@@ -189,18 +189,14 @@ const activeTap = ref(0);
 
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
+  uni.$emit("cart", { data: `${dData.dishId}${dData.order}`, mode: 2 });
   dData.order--;
-  const dish = {
-    ...dData,
-    tap: tData.text,
-    tapImgSrc: tData.imgSrc,
-  };
-  uni.$emit("cart", { data: dish, mode: 2 });
 };
 // 添加菜
 const addDish = (tData: tapType, dData: dishType) => {
   dData.order++;
   const dish = {
+    cartDishId: `${dData.dishId}${dData.order}`,
     ...dData,
     tap: tData.text,
     tapImgSrc: tData.imgSrc,

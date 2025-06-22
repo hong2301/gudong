@@ -16,11 +16,11 @@ export const useCartStore = defineStore(
         }
 
         // 删除
-        const del = (data: cartDishType) => {
+        const del = (data: number | string) => {
             if (!Array.isArray(rows.value)) {
                 rows.value = [];
             } else {
-                rows.value = rows.value.filter(item => item.dishId !== data.dishId);
+                rows.value = rows.value.filter(item => item.cartDishId !== data);
             }
         };
 

@@ -15,7 +15,7 @@ export interface dishType {
 }
 
 export interface cartDishType {
-    dishId: string | number,
+    cartDishId: string | number,
     name: string,
     num: number | string,
     imgSrc: string
