@@ -40,6 +40,12 @@
           height: `${areaHeight - capsuleRightInterval * 10 - headHeight}px`,
         }"
       >
+        <view
+          class="transition"
+          :style="{
+            height: `${tailHeight}px`,
+          }"
+        ></view>
         <view class="right">
           <view
             v-for="(tItem, tIndex) in taps"
@@ -110,7 +116,7 @@ const bubuRef = ref();
 // 布布imgsrc
 const bubuImgSrc = "/menu-package/static/招待.png";
 // 填写图标的缩放
-const txScale = ref<number>(1);
+const txScale = ref<number>(0);
 // 菜单标签
 const taps = ref([
   {
@@ -335,5 +341,25 @@ onHide(() => {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.transition {
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.99) 0%,
+    rgba(255, 255, 255, 0.99) 10%,
+    rgba(255, 255, 255, 0.96) 20%,
+    rgba(255, 255, 255, 0.91) 30%,
+    rgba(255, 255, 255, 0.84) 40%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.64) 60%,
+    rgba(255, 255, 255, 0.51) 70%,
+    rgba(255, 255, 255, 0.36) 80%,
+    rgba(255, 255, 255, 0.19) 90%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 </style>
