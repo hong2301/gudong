@@ -48,9 +48,10 @@ uni.$on("cart", function (data) {
 
 .overture {
   width: 100%;
-  height: 70rpx;
+  height: 100rpx;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .yier {
   position: absolute;
@@ -60,10 +61,9 @@ uni.$on("cart", function (data) {
 .content {
   position: relative;
   width: 93%;
-  height: 100%;
-  background-color: aqua;
+  height: 70rpx;
   border-radius: 40rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.5); /* 添加阴影 */
   background-color: rgb(50, 50, 50);
 }
 .btn {
