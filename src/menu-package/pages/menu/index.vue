@@ -14,6 +14,7 @@ const cmdStore = useCmdStore();
 
 onShow(() => {
   cmdStore.backBtnShow = true;
+  cmdStore.searchBtnShow = true;
 });
 </script>
 

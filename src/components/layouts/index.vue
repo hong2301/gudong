@@ -2,6 +2,7 @@
   <view class="overture">
     <Head class="head">
       <view v-if="backBtnShow" class="back-btn" @tap="back"></view>
+      <view v-if="searchBtnShow" class="search-btn" @tap="search">☌</view>
     </Head>
     <view class="body">
       <slot></slot>
@@ -21,20 +22,27 @@ import { useCmdStore } from "@/stores/cmd";
 const cmdStore = useCmdStore();
 // 返回按钮
 const backBtnShow = ref<boolean>(false);
+// 搜索栏
+const searchBtnShow = ref<boolean>(false);
 
 // 返回上一级路由
 const back = () => {
   uni.navigateBack();
   cmdStore.backBtnShow = false;
 };
-// 判断返回按钮是否显示
-const isBackBtnShow = () => {
+// 前往搜索页面
+const search = () => {
+  console.log("前往搜索页面");
+};
+// 判断按钮是否显示
+const isBtnShow = () => {
   backBtnShow.value = cmdStore.backBtnShow;
+  searchBtnShow.value = cmdStore.searchBtnShow;
 };
 
 onShow(() => {
   console.log("layout Show");
-  isBackBtnShow();
+  isBtnShow();
 });
 </script>
 
@@ -87,6 +95,23 @@ onShow(() => {
   background-size: 55% 55%; /* 设置背景图片的具体宽度和高度 */
   background-repeat: no-repeat; /* 防止背景图片重复 */
   background-position: center; /* 背景图片居中显示 */
+}
+.search-btn {
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  color: $cmd-btn-text;
+  font-size: 40rpx;
+  background-color: $cmd-btn-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1rpx solid $cmd-btn-border;
+  /* 新增旋转代码 */
+  transform: rotate(180deg);
+  /* 确保旋转中心在元素中心 */
+  transform-origin: center;
+  margin-left: auto;
 }
 .back-btn:active {
   background-color: $cmd-btn-active;

@@ -7,11 +7,14 @@ export const useCmdStore = defineStore(
         //// 响应式数据
         // 返回按钮显示开关
         const backBtnShow = ref<boolean>(false)
+        // 返回按钮显示开关
+        const searchBtnShow = ref<boolean>(false)
 
 
         //外部可访问
         return {
             backBtnShow,
+            searchBtnShow
         }
     },
 
