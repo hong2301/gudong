@@ -156,6 +156,7 @@ const filteredStatus = computed(() =>
   background-color: rgba(0, 0, 0, 0.1);
   top: 0;
   left: 0;
+  z-index: 1;
 }
 .dish-list {
   position: absolute;
@@ -163,6 +164,7 @@ const filteredStatus = computed(() =>
   background-color: white;
   border-radius: 40rpx 40rpx 0 0;
   transition: transform 0.3s ease;
+  z-index: 2;
 }
 .yier {
   position: absolute;
@@ -177,6 +179,7 @@ const filteredStatus = computed(() =>
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.5); /* 添加阴影 */
   background-color: rgb(50, 50, 50);
   display: flex;
+  z-index: 999;
 }
 .dish-box {
   width: 50%;
