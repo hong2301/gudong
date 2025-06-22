@@ -107,7 +107,10 @@
 import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
+import { useCmdStore } from "@/stores/cmd";
 
+// 操作存储
+const cmdStore = useCmdStore();
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
@@ -170,6 +173,7 @@ const tapBubu = () => {
  */
 const tapDl = () => {
   console.log("点击登陆");
+  cmdStore.backBtnShow = true;
   dlScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -185,6 +189,7 @@ const tapDl = () => {
  */
 const tapDc = () => {
   console.log("点击点餐");
+  cmdStore.backBtnShow = true;
   dcScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -200,6 +205,7 @@ const tapDc = () => {
  */
 const tapDd = () => {
   console.log("点击点餐");
+  cmdStore.backBtnShow = true;
   ddScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -215,6 +221,7 @@ const tapDd = () => {
  */
 const tapFoodItem = (id: string | number) => {
   console.log("点击食物日志");
+  cmdStore.backBtnShow = true;
   uni.vibrateShort();
   uni.navigateTo({
     url: "/diary-package/pages/diary/index",
@@ -398,7 +405,6 @@ const tapFoodItem = (id: string | number) => {
   font-size: 33rpx;
   font-weight: 800;
   color: $font-color;
-  
 }
 .item-text1 {
   margin-top: 1%;

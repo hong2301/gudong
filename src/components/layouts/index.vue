@@ -16,14 +16,27 @@ import { onLoad, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import Head from "@/components/head/index.vue";
 import Tail from "@/components/tail/index.vue";
 import { ref } from "vue";
+import { useCmdStore } from "@/stores/cmd";
 
+// 操作存储
+const cmdStore = useCmdStore();
 // 返回按钮
 const backBtnShow = ref<boolean>(false);
 
 // 返回上一级路由
 const back = () => {
   uni.navigateBack();
+  cmdStore.backBtnShow = false;
 };
+// 判断返回按钮是否显示
+const isBackBtnShow = () => {
+  backBtnShow.value = cmdStore.backBtnShow;
+};
+
+onShow(() => {
+  console.log("layout Show");
+  isBackBtnShow();
+});
 </script>
 
 <style scoped>
