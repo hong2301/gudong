@@ -1,6 +1,25 @@
 <template>
   <view class="overture">
-    <view class="content">
+    <view v-if="dishListShow" class="mask" @tap="tapMask"></view>
+    <view
+      class="dish-list"
+      :style="{
+        height: `${(tailHeight - capsuleRightInterval) * 40}px`,
+        transform: `translateY(${dishListShow ? '0' : '100'}%)`,
+      }"
+    >
+      <view
+        :style="{
+          height: `${(tailHeight - capsuleRightInterval) * 3}px`,
+        }"
+      ></view>
+    </view>
+    <view
+      class="content"
+      :style="{
+        bottom: `${tailHeight - capsuleRightInterval}px`,
+      }"
+    >
       <Yier
         class="yier"
         ref="yierRef"
@@ -9,7 +28,7 @@
         :img-src="yierImgSrc"
         @tap="tapYier"
       ></Yier>
-      <view class="dish-box">
+      <view class="dish-box" @tap="tapDish">
         <view
           v-for="(sItem, sIndex) in filteredStatus"
           :key="sIndex"
@@ -34,6 +53,15 @@ import { useCartStore } from "@/stores/cart";
 import { useMenuStore } from "@/stores/menu";
 import type { cartDishType, tapType } from "@/types/dish";
 
+// 尾巴高度
+const tailHeight = ref<number>(
+  uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
+);
+// 胶囊右间隔
+const capsuleRightInterval = ref<number>(
+  uni.getWindowInfo().safeArea.right -
+    uni.getMenuButtonBoundingClientRect().right
+);
 // 购物车存储
 const cartStore = useCartStore();
 // 菜单存储
@@ -46,6 +74,8 @@ const yierRef = ref();
 const rows = ref<cartDishType[]>([]);
 // 情况
 const status = ref<tapType[]>([]);
+// 购物车列表显示
+const dishListShow = ref(false);
 
 // 点击一二
 const tapYier = () => {
@@ -62,6 +92,14 @@ const getStatus = () => {
   status.value = menuStore.data.filter(
     (item) => item.order !== 0 && item.order
   );
+};
+// 点击mask
+const tapMask = () => {
+  dishListShow.value = !dishListShow.value;
+};
+// 点击购物车
+const tapDish = () => {
+  dishListShow.value = !dishListShow.value;
 };
 // 一二状态
 const getYierStatus = () => {
@@ -106,6 +144,22 @@ const filteredStatus = computed(() =>
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.mask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+}
+.dish-list {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  border-radius: 40rpx 40rpx 0 0;
+  transition: transform 0.3s ease;
 }
 .yier {
   position: absolute;

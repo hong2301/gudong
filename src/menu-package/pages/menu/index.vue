@@ -132,12 +132,7 @@
           }"
         ></view>
       </view>
-      <Cart
-        class="cart"
-        :style="{
-          bottom: `${tailHeight - capsuleRightInterval}px`,
-        }"
-      ></Cart>
+      <Cart class="cart"></Cart>
     </view>
   </Layout>
 </template>
@@ -274,6 +269,7 @@ onHide(() => {
 .cart {
   position: absolute;
   width: 100%;
+  bottom: 0;
 }
 .head {
   display: flex;
