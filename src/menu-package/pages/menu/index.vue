@@ -234,6 +234,9 @@ const tapTx = () => {
   uni.vibrateShort();
   setTimeout(() => {
     txScale.value = 1;
+    uni.navigateTo({
+      url: "/menu-package/pages/edit/index",
+    });
   }, 100);
 };
 

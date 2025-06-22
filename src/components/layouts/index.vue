@@ -33,6 +33,9 @@ const back = () => {
 // 前往搜索页面
 const search = () => {
   console.log("前往搜索页面");
+  uni.navigateTo({
+    url: "/menu-package/pages/search/index",
+  });
 };
 // 判断按钮是否显示
 const isBtnShow = () => {
