@@ -61,6 +61,15 @@
             </view>
           </view>
         </view>
+        <view
+          class="left"
+          :style="{
+            paddingInline: `${capsuleRightInterval * 2}px`,
+            paddingTop: `${capsuleRightInterval * 2}px`,
+          }"
+        >
+          <view class="left-content"></view>
+        </view>
       </view>
     </view>
   </Layout>
@@ -225,7 +234,6 @@ onHide(() => {
   //   rgba(245, 241, 230, 0) 100%
   // );
   position: relative;
-  overflow: auto;
 }
 .head {
   display: flex;
@@ -274,12 +282,22 @@ onHide(() => {
 .menu-box {
   width: 100%;
   flex: 1;
+  display: flex;
 }
 .right {
   width: 20%;
   height: 100%;
   background-color: $bg-color;
   overflow: auto;
+}
+.left {
+  width: 80%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+}
+.left-content {
+  width: 100%;
 }
 .item-box {
   background-color: white;

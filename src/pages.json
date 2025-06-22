@@ -30,7 +30,10 @@
       "root": "menu-package",
       "pages": [
         {
-          "path": "pages/menu/index"
+          "path": "pages/menu/index",
+          "style": {
+            "disableScroll": true
+          }
         }
       ]
     },
