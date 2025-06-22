@@ -122,6 +122,7 @@ import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
+import { onShow } from "@dcloudio/uni-app";
 
 // 操作存储
 const cmdStore = useCmdStore();
@@ -189,7 +190,6 @@ const tapBubu = () => {
  */
 const tapDl = () => {
   console.log("点击登陆");
-  cmdStore.backBtnShow = true;
   dlScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -217,7 +217,6 @@ const tapBx = () => {
  */
 const tapDc = () => {
   console.log("点击点餐");
-  cmdStore.backBtnShow = true;
   dcScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -233,7 +232,6 @@ const tapDc = () => {
  */
 const tapDd = () => {
   console.log("点击点餐");
-  cmdStore.backBtnShow = true;
   ddScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -249,12 +247,16 @@ const tapDd = () => {
  */
 const tapFoodItem = (id: string | number) => {
   console.log("点击食物日志");
-  cmdStore.backBtnShow = true;
   uni.vibrateShort();
   uni.navigateTo({
     url: "/diary-package/pages/diary/index",
   });
 };
+
+onShow(() => {
+  cmdStore.backBtnShow = false;
+  console.log("index", cmdStore.backBtnShow);
+});
 </script>
 
 <style scoped lang="scss">
@@ -452,6 +454,7 @@ const tapFoodItem = (id: string | number) => {
   position: relative;
   display: flex;
   align-items: center;
+  transition: transform 0.3s ease;
 }
 .bianxie-img {
   position: absolute;

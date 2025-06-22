@@ -6,6 +6,15 @@
 
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
+import { onShow } from "@dcloudio/uni-app";
+import { useCmdStore } from "@/stores/cmd";
+
+// 操作存储
+const cmdStore = useCmdStore();
+
+onShow(() => {
+  cmdStore.backBtnShow = true;
+});
 </script>
 
 <style scoped lang="scss">
