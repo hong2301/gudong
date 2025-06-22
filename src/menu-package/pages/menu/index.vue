@@ -33,7 +33,13 @@
           ></Bubu>
         </view>
       </view>
-      <view class="menu-box"> </view>
+      <view class="menu-box">
+        <view class="right">
+          <view v-for="(tItem, tIndex) in taps" :key="tIndex">
+            {{ tItem.text }}
+          </view>
+        </view>
+      </view>
     </view>
   </Layout>
 </template>
@@ -68,6 +74,24 @@ const bubuRef = ref();
 const bubuImgSrc = "/menu-package/static/招待.png";
 // 填写图标的缩放
 const txScale = ref<number>(1);
+// 菜单标签
+const taps = ref([
+  {
+    text: "招牌",
+    imgSrc: "",
+    isNew: true,
+  },
+  {
+    text: "素菜",
+    imgSrc: "",
+    isNew: false,
+  },
+  {
+    text: "荤菜",
+    imgSrc: "",
+    isNew: false,
+  },
+]);
 
 // 点击布布
 const tapBubu = () => {
@@ -107,12 +131,13 @@ onHide(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(
-    to top,
-    rgba(245, 241, 230, 1) 0%,
-    rgba(245, 241, 230, 0.9) 50%,
-    rgba(245, 241, 230, 0) 100%
-  );
+  background-color: white;
+  // background: linear-gradient(
+  //   to top,
+  //   rgba(245, 241, 230, 1) 0%,
+  //   rgba(245, 241, 230, 0.9) 50%,
+  //   rgba(245, 241, 230, 0) 100%
+  // );
   position: relative;
   overflow: auto;
 }
@@ -165,6 +190,10 @@ onHide(() => {
   width: 100%;
   flex: 1;
   height: auto;
-  background-color: aqua;
+}
+.right {
+  width: 20%;
+  height: 100%;
+  background-color: $bg-color;
 }
 </style>
