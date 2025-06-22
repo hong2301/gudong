@@ -1,12 +1,32 @@
 <template>
   <view class="overture">
     <view class="content">
+      <Yier
+        class="yier"
+        ref="yierRef"
+        :size="120"
+        :font-size="40"
+        :img-src="yierImgSrc"
+        @tap="tapYier"
+      ></Yier>
       <view class="btn" @tap="tapSend">吃这些</view>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
+import Yier from "@/components/character/index.vue";
+import { ref } from "vue";
+
+// 一二图片
+const yierImgSrc = ref("/menu-package/static/吃什么.png");
+// 一二ref
+const yierRef = ref();
+
+// 点击一二
+const tapYier = () => {
+  console.log("点击一二");
+};
 // 提交
 const tapSend = () => {
   console.log("提交");
@@ -23,8 +43,14 @@ const tapSend = () => {
   display: flex;
   justify-content: center;
 }
+.yier {
+  position: absolute;
+  top: -60%;
+  left: -2%;
+}
 .content {
-  width: 90%;
+  position: relative;
+  width: 93%;
   height: 100%;
   background-color: aqua;
   border-radius: 40rpx;
