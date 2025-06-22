@@ -109,7 +109,7 @@
                       </view>
                       {{ dItem.num }}
                     </view>
-                    <view class="add-btn" @tap="addDish">+</view>
+                    <view class="add-btn" @tap="addDish(tItem, dItem)">+</view>
                   </view>
                 </view>
               </view>
@@ -136,6 +136,7 @@ import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 import Bubu from "@/components/character/index.vue";
 import Cart from "@/components/cart/index.vue";
+import type { dishType, tapType } from "@/types/dish";
 
 // 尾巴高度
 const tailHeight = ref<number>(
@@ -284,8 +285,12 @@ const taps = ref([
 const activeTap = ref(0);
 
 // 添加菜
-const addDish = () => {
-  console.log("添加菜");
+const addDish = (tData: tapType, dData: dishType) => {
+  const dish = {
+    ...dData,
+    tap: tData.text,
+    tapImgSrc: tData.imgSrc,
+  };
 };
 
 // 点击菜单
