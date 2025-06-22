@@ -7,7 +7,12 @@
       "@/*": ["./src/*"]
     },
     "lib": ["esnext", "dom"],
-    "types": ["@dcloudio/types", "uview-plus/types", "src/types"]
+    "types": [
+      "@dcloudio/types",
+      "uview-plus/types",
+      "src/types",
+      "@pinia/dist/pinia.d.ts"
+    ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
