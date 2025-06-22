@@ -38,7 +38,9 @@ onShow(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../uni.scss";
+
 .overture {
   width: 100vw;
   height: 100vh;
@@ -74,14 +76,14 @@ onShow(() => {
   height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  color: black;
-  background-color: white;
+  color: $cmd-btn-text;
+  background-color: $cmd-btn-color;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1rpx solid rgb(230, 237, 229);
+  border: 1rpx solid $cmd-btn-border;
 }
 .back-btn:active {
-  background-color: rgb(205, 205, 205);
+  background-color: $cmd-btn-active;
 }
 </style>
