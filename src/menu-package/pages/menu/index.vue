@@ -10,19 +10,25 @@
         }"
       >
         <view class="text-box" @tap="tapTx">
-          <view class="text">告诉布布</view>
+          <view class="text"
+            >告诉布布
+            <view
+              class="dc-box"
+              :style="{ transform: `scale(${txScale}) ` }"
+              @tap="tapTx"
+            >
+              <image
+                class="dc"
+                src="../../static/bianji.png"
+                mode="heightFix"
+              />
+            </view>
+          </view>
           <view class="text1">可以加点别的菜哦</view>
           <view
             class="decorate"
             :style="{ transform: `scale(${txScale}) ` }"
           ></view>
-          <view
-            class="dc-box"
-            :style="{ transform: `scale(${txScale}) ` }"
-            @tap="tapTx"
-          >
-            <image class="dc" src="../../static/bianji.png" mode="widthFix" />
-          </view>
         </view>
         <view class="bubu-box">
           <Bubu
@@ -288,10 +294,13 @@ onHide(() => {
   position: relative;
 }
 .text {
+  height: 40rpx;
   font-size: 33rpx;
   font-weight: 800;
   color: black;
   margin-bottom: 7%;
+  display: flex;
+  align-items: center;
 }
 .text1 {
   margin-top: 1%;
@@ -328,14 +337,11 @@ onHide(() => {
   transition: transform 0.3s ease;
 }
 .dc-box {
-  position: absolute;
-  width: 23%;
+  height: 80%;
   transition: transform 0.3s ease;
-  top: 10%;
-  right: -10%;
 }
 .dc {
-  width: 100%;
+  height: 100%;
   aspect-ratio: 1;
 }
 .dish-img-box {
