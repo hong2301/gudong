@@ -184,6 +184,7 @@ const activeTap = ref(0);
 
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
+  uni.vibrateShort();
   uni.$emit("cart", { data: `${dData.dishId}${dData.order}`, mode: 2 });
   if (dData.order > 0) {
     dData.order--;
@@ -199,6 +200,7 @@ const delDish = (tData: tapType, dData: dishType) => {
 };
 // 添加菜
 const addDish = (tData: tapType, dData: dishType) => {
+  uni.vibrateShort();
   dData.order++;
   tData.order++;
   const dish = {

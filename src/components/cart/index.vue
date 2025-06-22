@@ -17,7 +17,7 @@
     <view
       class="content"
       :style="{
-        bottom: `${tailHeight - capsuleRightInterval}px`,
+        bottom: `${tailHeight}px`,
       }"
     >
       <Yier
