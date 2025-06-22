@@ -76,12 +76,12 @@ onShow(() => {
   height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  color: $cmd-btn-text;
-  background-color: $cmd-btn-color;
+  // color: $cmd-btn-text;
+  // background-color: $cmd-btn-color;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1rpx solid $cmd-btn-border;
+  // border: 1rpx solid $cmd-btn-border;
   background-image: url("../../static/back.png");
   background-size: cover;
   background-size: 55% 55%; /* 设置背景图片的具体宽度和高度 */
