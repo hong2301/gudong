@@ -1,13 +1,13 @@
 export interface tapType {
-    tapId: string,
+    tapId: string | number,
     text: string,
     imgSrc: string,
     isNew: boolean,
-    dish: dishType[]
+    dish?: dishType[]
 }
 
 export interface dishType {
-    dishId: string,
+    dishId: string | number,
     name: string,
     num: number | string,
     imgSrc: string
@@ -15,7 +15,7 @@ export interface dishType {
 }
 
 export interface cartDishType {
-    dishId: string,
+    dishId: string | number,
     name: string,
     num: number | string,
     imgSrc: string

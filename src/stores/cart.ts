@@ -13,17 +13,17 @@ export const useCartStore = defineStore(
                 rows.value = []
             }
             rows.value.push(data)
-            console.log(rows.value)
         }
+
         // 删除
         const del = (data: cartDishType) => {
             if (!Array.isArray(rows.value)) {
                 rows.value = [];
             } else {
-                // 过滤掉 dishId 匹配的项
                 rows.value = rows.value.filter(item => item.dishId !== data.dishId);
             }
         };
+
         // 清空
         const clear = () => {
             rows.value = []

@@ -8,10 +8,17 @@
         mode="widthFix"
         width="100%"
         :src="imgSrc"
+        :lazy-load="true"
         :show-loading="true"
+        :fade="true"
+        duration="450"
         class="img"
         @tap="tapImg"
-      ></u-image>
+      >
+        <template v-slot:loading>
+          <up-loading-icon color="red"></up-loading-icon>
+        </template>
+      </u-image>
     </view>
     <view :style="sayOption" class="text-box">
       {{ say }}
@@ -20,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
   size: {
@@ -87,6 +94,13 @@ const startSay = (
       clearInterval(setIntervalData);
     }
   }, seed);
+
+  watch(
+    () => props.imgSrc, // 直接监听 prop
+    (newVal, oldVal) => {
+      console.log("变化后的值:", newVal);
+    }
+  );
 };
 
 defineExpose({
@@ -113,5 +127,8 @@ defineExpose({
   font-weight: 800;
   white-space: nowrap;
   min-width: 200rpx;
+}
+.img {
+  transition: all 0.3s ease;
 }
 </style>

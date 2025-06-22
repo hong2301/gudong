@@ -26,6 +26,8 @@ const cartStore = useCartStore();
 const yierImgSrc = ref("/menu-package/static/吃什么.png");
 // 一二ref
 const yierRef = ref();
+// 购物车数据
+const rows = ref<cartDishType[]>([]);
 
 // 点击一二
 const tapYier = () => {
@@ -43,6 +45,12 @@ uni.$on("cart", function (data: { data: cartDishType; mode: number }) {
     cartStore.add(data.data);
   } else {
     cartStore.del(data.data);
+  }
+  rows.value = cartStore.rows;
+  if (rows.value.length !== 0) {
+    yierImgSrc.value = "/menu-package/static/开心.png";
+  } else {
+    yierImgSrc.value = "/menu-package/static/吃什么.png";
   }
 });
 </script>

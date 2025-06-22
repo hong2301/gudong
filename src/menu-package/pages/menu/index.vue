@@ -146,6 +146,7 @@
 import Layout from "@/components/layouts/index.vue";
 import { onHide, onShow } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
+import { useMenuStore } from "@/stores/menu";
 import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 import Bubu from "@/components/character/index.vue";
@@ -171,6 +172,8 @@ const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 const headHeight = ref<number>(
   uni.getMenuButtonBoundingClientRect().bottom + capsuleRightInterval.value
 );
+// 菜单存储
+const menuStore = useMenuStore();
 // 操作存储
 const cmdStore = useCmdStore();
 // 布布ref
@@ -180,150 +183,7 @@ const bubuImgSrc = "/menu-package/static/招待.png";
 // 填写图标的缩放
 const txScale = ref<number>(1);
 // 菜单标签
-const taps = ref([
-  {
-    tapId: 1,
-    text: "招牌",
-    imgSrc: "../../static/a3.png",
-    isNew: true,
-    dish: [
-      {
-        dishId: 1,
-        name: "可乐鸡翅",
-        num: "5",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-      {
-        dishId: 2,
-        name: "荔枝鸡煲",
-        num: "1",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-    ],
-  },
-  {
-    tapId: 2,
-    text: "素菜",
-    imgSrc: "../../static/yumi.png",
-    isNew: false,
-    dish: [
-      {
-        dishId: 3,
-        name: "可乐鸡翅",
-        num: "5",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-      {
-        dishId: 4,
-        name: "荔枝鸡煲",
-        num: "1",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-    ],
-  },
-  {
-    tapId: 3,
-    text: "荤菜",
-    imgSrc: "../../static/rou.png",
-    isNew: false,
-    dish: [
-      {
-        dishId: 5,
-        name: "可乐鸡翅",
-        num: "5",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-      {
-        dishId: 6,
-        name: "荔枝鸡煲",
-        num: "1",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-    ],
-  },
-  {
-    tapId: 4,
-    text: "海鲜",
-    imgSrc: "../../static/xia.png",
-    isNew: false,
-    dish: [
-      {
-        dishId: 7,
-        name: "可乐鸡翅",
-        num: "5",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-      {
-        dishId: 8,
-        name: "荔枝鸡煲",
-        num: "1",
-        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
-        order: 0,
-      },
-    ],
-  },
-  {
-    tapId: 5,
-    text: "招牌",
-    imgSrc: "../../static/a3.png",
-    isNew: true,
-  },
-  {
-    tapId: 6,
-    text: "素菜",
-    imgSrc: "../../static/yumi.png",
-    isNew: false,
-  },
-  {
-    tapId: 7,
-    text: "荤菜",
-    imgSrc: "../../static/rou.png",
-    isNew: false,
-  },
-  {
-    tapId: 8,
-    text: "海鲜",
-    imgSrc: "../../static/xia.png",
-    isNew: false,
-  },
-  {
-    tapId: 9,
-    text: "招牌",
-    imgSrc: "../../static/a3.png",
-    isNew: true,
-  },
-  {
-    tapId: 10,
-    text: "素菜",
-    imgSrc: "../../static/yumi.png",
-    isNew: false,
-  },
-  {
-    tapId: 11,
-    text: "荤菜",
-    imgSrc: "../../static/rou.png",
-    isNew: false,
-  },
-  {
-    tapId: 12,
-    text: "海鲜",
-    imgSrc: "../../static/xia.png",
-    isNew: false,
-  },
-  {
-    tapId: 13,
-    text: "",
-    imgSrc: "",
-    isNew: false,
-  },
-]);
+const taps = ref();
 // 目前激活的菜单
 const activeTap = ref(0);
 
@@ -377,9 +237,11 @@ const tapTx = () => {
 onShow(() => {
   cmdStore.backBtnShow = true;
   cmdStore.searchBtnShow = true;
+  taps.value = menuStore.data;
 });
 onHide(() => {
   cmdStore.searchBtnShow = false;
+  menuStore.data = taps.value;
 });
 </script>
 
