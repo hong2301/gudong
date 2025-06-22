@@ -103,7 +103,21 @@
                       </view>
                       {{ dItem.num }}
                     </view>
-                    <view class="add-btn" @tap="addDish(tItem, dItem)">+</view>
+                    <view class="btn-box">
+                      <view
+                        v-if="dItem.order !== 0"
+                        class="del-btn"
+                        @tap="delDish(tItem, dItem)"
+                      >
+                        -
+                      </view>
+                      <view class="item-num" v-if="dItem.order !== 0">{{
+                        dItem.order
+                      }}</view>
+                      <view class="add-btn" @tap="addDish(tItem, dItem)">
+                        +
+                      </view>
+                    </view>
                   </view>
                 </view>
               </view>
@@ -168,114 +182,143 @@ const txScale = ref<number>(1);
 // 菜单标签
 const taps = ref([
   {
+    tapId: 1,
     text: "招牌",
     imgSrc: "../../static/a3.png",
     isNew: true,
     dish: [
       {
+        dishId: 1,
         name: "可乐鸡翅",
         num: "5",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
       {
+        dishId: 2,
         name: "荔枝鸡煲",
         num: "1",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
     ],
   },
   {
+    tapId: 2,
     text: "素菜",
     imgSrc: "../../static/yumi.png",
     isNew: false,
     dish: [
       {
+        dishId: 3,
         name: "可乐鸡翅",
         num: "5",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
       {
+        dishId: 4,
         name: "荔枝鸡煲",
         num: "1",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
     ],
   },
   {
+    tapId: 3,
     text: "荤菜",
     imgSrc: "../../static/rou.png",
     isNew: false,
     dish: [
       {
+        dishId: 5,
         name: "可乐鸡翅",
         num: "5",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
       {
+        dishId: 6,
         name: "荔枝鸡煲",
         num: "1",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
     ],
   },
   {
+    tapId: 4,
     text: "海鲜",
     imgSrc: "../../static/xia.png",
     isNew: false,
     dish: [
       {
+        dishId: 7,
         name: "可乐鸡翅",
         num: "5",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
       {
+        dishId: 8,
         name: "荔枝鸡煲",
         num: "1",
         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+        order: 0,
       },
     ],
   },
   {
+    tapId: 5,
     text: "招牌",
     imgSrc: "../../static/a3.png",
     isNew: true,
   },
   {
+    tapId: 6,
     text: "素菜",
     imgSrc: "../../static/yumi.png",
     isNew: false,
   },
   {
+    tapId: 7,
     text: "荤菜",
     imgSrc: "../../static/rou.png",
     isNew: false,
   },
   {
+    tapId: 8,
     text: "海鲜",
     imgSrc: "../../static/xia.png",
     isNew: false,
   },
   {
+    tapId: 9,
     text: "招牌",
     imgSrc: "../../static/a3.png",
     isNew: true,
   },
   {
+    tapId: 10,
     text: "素菜",
     imgSrc: "../../static/yumi.png",
     isNew: false,
   },
   {
+    tapId: 11,
     text: "荤菜",
     imgSrc: "../../static/rou.png",
     isNew: false,
   },
   {
+    tapId: 12,
     text: "海鲜",
     imgSrc: "../../static/xia.png",
     isNew: false,
   },
   {
+    tapId: 13,
     text: "",
     imgSrc: "",
     isNew: false,
@@ -284,14 +327,25 @@ const taps = ref([
 // 目前激活的菜单
 const activeTap = ref(0);
 
-// 添加菜
-const addDish = (tData: tapType, dData: dishType) => {
+// 删除菜
+const delDish = (tData: tapType, dData: dishType) => {
+  dData.order--;
   const dish = {
     ...dData,
     tap: tData.text,
     tapImgSrc: tData.imgSrc,
   };
-  uni.$emit("cart", dish);
+  uni.$emit("cart", { data: dish, mode: 2 });
+};
+// 添加菜
+const addDish = (tData: tapType, dData: dishType) => {
+  dData.order++;
+  const dish = {
+    ...dData,
+    tap: tData.text,
+    tapImgSrc: tData.imgSrc,
+  };
+  uni.$emit("cart", { data: dish, mode: 1 });
 };
 
 // 点击菜单
@@ -434,19 +488,42 @@ onHide(() => {
   justify-content: space-between;
   position: relative;
 }
-.add-btn {
+.btn-box {
   position: absolute;
-  width: 70rpx;
+  bottom: 0;
+  right: 0;
+  height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.del-btn {
+  width: 50rpx;
+  height: 50rpx;
+  aspect-ratio: 1;
+  border: 1rpx solid $icon-bg-color;
+  border-radius: 50%;
+  color: black;
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
+}
+.item-num {
+  margin-inline: 30rpx;
+}
+.add-btn {
+  width: 50rpx;
   height: 50rpx;
   aspect-ratio: 1;
   background-color: $main-color;
-  border-radius: 30rpx;
+  border-radius: 50%;
   color: white;
   display: flex;
   font-size: 40rpx;
   font-weight: 800;
-  bottom: 0;
-  right: 0;
   line-height: 50rpx;
   justify-content: center;
   align-items: center;

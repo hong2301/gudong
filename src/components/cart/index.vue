@@ -18,6 +18,7 @@
 import Yier from "@/components/character/index.vue";
 import { ref } from "vue";
 import { useCartStore } from "@/stores/cart";
+import type { cartDishType } from "@/types/dish";
 
 // 操作存储
 const cartStore = useCartStore();
@@ -37,9 +38,12 @@ const tapSend = () => {
 };
 
 //获取数据
-uni.$on("cart", function (data) {
-  console.log("cart", data);
-  cartStore.rows.push(data);
+uni.$on("cart", function (data: { data: cartDishType; mode: number }) {
+  if (data.mode === 1) {
+    cartStore.add(data.data);
+  } else {
+    cartStore.del(data.data);
+  }
 });
 </script>
 
