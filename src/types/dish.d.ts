@@ -3,6 +3,7 @@ export interface tapType {
     text: string,
     imgSrc: string,
     isNew: boolean,
+    order: number
     dish?: dishType[]
 }
 

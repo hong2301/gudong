@@ -11,6 +11,7 @@ export const useMenuStore = defineStore(
                 text: "招牌",
                 imgSrc: "../../static/a3.png",
                 isNew: true,
+                order: 0,
                 dish: [
                     {
                         dishId: 1,
@@ -33,6 +34,7 @@ export const useMenuStore = defineStore(
                 text: "素菜",
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
+                order: 0,
                 dish: [
                     {
                         dishId: 3,
@@ -55,6 +57,7 @@ export const useMenuStore = defineStore(
                 text: "荤菜",
                 imgSrc: "../../static/rou.png",
                 isNew: false,
+                order: 0,
                 dish: [
                     {
                         dishId: 5,
@@ -77,6 +80,7 @@ export const useMenuStore = defineStore(
                 text: "海鲜",
                 imgSrc: "../../static/xia.png",
                 isNew: false,
+                order: 0,
                 dish: [
                     {
                         dishId: 7,
@@ -99,54 +103,63 @@ export const useMenuStore = defineStore(
                 text: "招牌",
                 imgSrc: "../../static/a3.png",
                 isNew: true,
+                order: 0,
             },
             {
                 tapId: 6,
                 text: "素菜",
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 7,
                 text: "荤菜",
                 imgSrc: "../../static/rou.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 8,
                 text: "海鲜",
                 imgSrc: "../../static/xia.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 9,
                 text: "招牌",
                 imgSrc: "../../static/a3.png",
                 isNew: true,
+                order: 0,
             },
             {
                 tapId: 10,
                 text: "素菜",
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 11,
                 text: "荤菜",
                 imgSrc: "../../static/rou.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 12,
                 text: "海鲜",
                 imgSrc: "../../static/xia.png",
                 isNew: false,
+                order: 0,
             },
             {
                 tapId: 13,
                 text: "",
                 imgSrc: "",
                 isNew: false,
+                order: 0,
             },
         ])
 

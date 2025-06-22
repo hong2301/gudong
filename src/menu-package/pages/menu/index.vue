@@ -190,11 +190,22 @@ const activeTap = ref(0);
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
   uni.$emit("cart", { data: `${dData.dishId}${dData.order}`, mode: 2 });
-  dData.order--;
+  if (dData.order > 0) {
+    dData.order--;
+  } else {
+    dData.order = 0;
+  }
+  if (tData.order > 0) {
+    tData.order--;
+  } else {
+    tData.order = 0;
+  }
+  menuStore.data = taps.value;
 };
 // 添加菜
 const addDish = (tData: tapType, dData: dishType) => {
   dData.order++;
+  tData.order++;
   const dish = {
     cartDishId: `${dData.dishId}${dData.order}`,
     ...dData,
@@ -202,6 +213,7 @@ const addDish = (tData: tapType, dData: dishType) => {
     tapImgSrc: tData.imgSrc,
   };
   uni.$emit("cart", { data: dish, mode: 1 });
+  menuStore.data = taps.value;
 };
 
 // 点击菜单
