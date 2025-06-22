@@ -16,11 +16,7 @@
           class="dish-item"
         >
           <view v-if="sItem.order !== 0" class="dish-item-content">
-            <image
-              class="img"
-              :src="'/menu-package/' + sItem.imgSrc.slice(5)"
-              mode="heightFix"
-            />
+            <image class="img" :src="sItem.imgSrc" mode="heightFix" />
             <viwe class="dish-text">{{ sItem.order }}</viwe>
           </view>
         </view>
