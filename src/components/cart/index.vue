@@ -40,19 +40,22 @@ const tapSend = () => {
 };
 
 //获取数据
-uni.$on("cart", function (data: { data: cartDishType; mode: number }) {
-  if (data.mode === 1) {
-    cartStore.add(data.data);
-  } else {
-    cartStore.del(data.data);
+uni.$on(
+  "cart",
+  function (data: { data: cartDishType | string | number; mode: number }) {
+    if (data.mode === 1) {
+      cartStore.add(data.data as cartDishType);
+    } else {
+      cartStore.del(data.data as string | number);
+    }
+    rows.value = cartStore.rows;
+    if (rows.value.length !== 0) {
+      yierImgSrc.value = "/menu-package/static/开心.png";
+    } else {
+      yierImgSrc.value = "/menu-package/static/吃什么.png";
+    }
   }
-  rows.value = cartStore.rows;
-  if (rows.value.length !== 0) {
-    yierImgSrc.value = "/menu-package/static/开心.png";
-  } else {
-    yierImgSrc.value = "/menu-package/static/吃什么.png";
-  }
-});
+);
 </script>
 
 <style scoped lang="scss">
