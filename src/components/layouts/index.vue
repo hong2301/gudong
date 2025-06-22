@@ -1,7 +1,7 @@
 <template>
   <view class="overture">
     <Head class="head">
-      <view v-if="backBtnShow" class="back-btn" @tap="back">⬅︎</view>
+      <view v-if="backBtnShow" class="back-btn" @tap="back"></view>
     </Head>
     <view class="body">
       <slot></slot>
@@ -82,6 +82,11 @@ onShow(() => {
   justify-content: center;
   align-items: center;
   border: 1rpx solid $cmd-btn-border;
+  background-image: url("../../static/back.png");
+  background-size: cover;
+  background-size: 55% 55%; /* 设置背景图片的具体宽度和高度 */
+  background-repeat: no-repeat; /* 防止背景图片重复 */
+  background-position: center; /* 背景图片居中显示 */
 }
 .back-btn:active {
   background-color: $cmd-btn-active;
