@@ -118,6 +118,12 @@
           </view>
         </view>
       </view>
+      <Cart
+        class="cart"
+        :style="{
+          bottom: `${tailHeight - capsuleRightInterval}px`,
+        }"
+      ></Cart>
     </view>
   </Layout>
 </template>
@@ -129,7 +135,7 @@ import { useCmdStore } from "@/stores/cmd";
 import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 import Bubu from "@/components/character/index.vue";
-import yier from "@/components/character/index.vue";
+import Cart from "@/components/cart/index.vue";
 
 // 尾巴高度
 const tailHeight = ref<number>(
@@ -334,6 +340,10 @@ onHide(() => {
   //   rgba(245, 241, 230, 0) 100%
   // );
   position: relative;
+}
+.cart {
+  position: absolute;
+  width: 100%;
 }
 .head {
   display: flex;
