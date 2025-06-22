@@ -24,12 +24,17 @@ export const useCartStore = defineStore(
                 rows.value = rows.value.filter(item => item.dishId !== data.dishId);
             }
         };
+        // 清空
+        const clear = () => {
+            rows.value = []
+        }
 
         //外部可访问
         return {
             rows,
             add,
-            del
+            del,
+            clear
         }
     },
 
