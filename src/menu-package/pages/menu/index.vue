@@ -29,7 +29,8 @@ onShow(() => {
   background: linear-gradient(
     to top,
     rgba(245, 241, 230, 1) 0%,
-    rgba(245, 241, 230, 0.99) 100%
+    rgba(245, 241, 230, 0.9) 50%,
+    rgba(245, 241, 230, 0) 100%
   );
   position: relative;
   overflow: auto;
