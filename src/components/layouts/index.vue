@@ -74,13 +74,14 @@ onShow(() => {
   height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.3);
+  color: black;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1rpx solid rgb(230, 237, 229);
 }
 .back-btn:active {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(205, 205, 205);
 }
 </style>

@@ -255,7 +255,6 @@ const tapFoodItem = (id: string | number) => {
 
 onShow(() => {
   cmdStore.backBtnShow = false;
-  console.log("index", cmdStore.backBtnShow);
 });
 </script>
 
