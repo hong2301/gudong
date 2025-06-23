@@ -138,8 +138,10 @@ const tapYier = () => {
 };
 // 提交
 const tapSend = () => {
-  console.log("提交");
   uni.vibrateShort();
+  uni.navigateTo({
+    url: "/menu-package/pages/over/index",
+  });
 };
 // 获取status
 const getStatus = () => {

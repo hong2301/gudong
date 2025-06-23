@@ -34,13 +34,15 @@
           "style": {
             "disableScroll": true
           }
-        }
-         {
-          "path": "pages/search/index"
-
         },
-         {
+        {
+          "path": "pages/search/index"
+        },
+        {
           "path": "pages/edit/index"
+        },
+        {
+          "path": "pages/over/index"
         }
       ]
     },
