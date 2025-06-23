@@ -308,7 +308,6 @@ onReady(() => {
 onHide(() => {
   cmdStore.searchBtnShow = false;
   menuStore.data = taps.value;
-  userStore.isFirst = true;
 });
 </script>
 
