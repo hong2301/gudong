@@ -4,13 +4,31 @@
     <view
       class="dish-list"
       :style="{
-        height: `${(tailHeight - capsuleRightInterval) * 40}px`,
         transform: `translateY(${dishListShow ? '0' : '100'}%)`,
       }"
     >
+      <view class="dish-list-content">
+        <view class="dish-list-head">
+          <up-checkbox
+            usedAlone
+            v-model:checked="allSel"
+            activeColor="rgb(239, 156, 82)"
+            @change="checkboxChange"
+          />
+          <up-icon class="" size="20" name="trash" @tap="clear"></up-icon>
+        </view>
+        <view class="dish-list-item">
+          <view
+            v-for="(rItem, rIndex) in rows"
+            :key="rIndex"
+            class="dish-list-item-content"
+          >
+          </view>
+        </view>
+      </view>
       <view
         :style="{
-          height: `${(tailHeight - capsuleRightInterval) * 3}px`,
+          height: `${(tailHeight - capsuleRightInterval) * 4}px`,
         }"
       ></view>
     </view>
@@ -76,6 +94,8 @@ const rows = ref<cartDishType[]>([]);
 const status = ref<tapType[]>([]);
 // 购物车列表显示
 const dishListShow = ref(false);
+// 全选购物车
+const allSel = ref(false);
 
 // 点击一二
 const tapYier = () => {
@@ -113,6 +133,16 @@ const getYierStatus = () => {
   } else {
     yierImgSrc.value = "/menu-package/static/吃什么.png";
   }
+};
+// 全选按钮
+const checkboxChange = () => {
+  console.log("全选");
+  allSel.value = !allSel.value;
+};
+
+// 清除购物车
+const clear = () => {
+  console.log("清除购物车");
 };
 
 //获取数据
@@ -159,13 +189,45 @@ const filteredStatus = computed(() =>
   z-index: 1;
 }
 .dish-list {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  min-height: 2000rpx;
   background-color: white;
   border-radius: 40rpx 40rpx 0 0;
   transition: transform 0.3s ease;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.dish-list-content {
+  width: 100%;
+  border-radius: 30rpx 30rpx 0 0;
+}
+.dish-list-item {
+  width: 100%;
+  max-height: 1000rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.dish-list-item-content {
+  width: 100%;
+  background-color: red;
+  height: 100rpx;
+  margin-bottom: 10rpx;
+  flex-shrink: 0;
+}
+.dish-list-head {
+  height: 80rpx;
+  background-color: rgb(243, 242, 242);
+  border-radius: 30rpx 30rpx 0 0;
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-inline: 30rpx;
+  justify-content: space-between;
 }
 .yier {
   position: absolute;
