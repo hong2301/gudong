@@ -49,7 +49,7 @@
         <scroll-view
           class="right"
           scroll-y
-          scroll-with-animation
+          :scroll-with-animation="true"
           :scroll-top="tapScrollTop"
         >
           <view
@@ -82,7 +82,7 @@
           <scroll-view
             class="left-content"
             scroll-y
-            scroll-with-animation
+            :scroll-with-animation="true"
             :scroll-top="scrollTop"
             @scroll="scroll"
           >
