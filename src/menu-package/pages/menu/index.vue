@@ -413,7 +413,7 @@ onHide(() => {
 .btn-box {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 1%;
   height: 50rpx;
   display: flex;
   justify-content: space-between;
