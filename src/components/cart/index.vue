@@ -17,7 +17,7 @@
             activeColor="rgb(239, 156, 82)"
             @change="checkboxChange"
           />
-          <up-icon class="" size="16" name="trash" @tap="clear"></up-icon>
+          <up-icon size="16" name="trash" @tap="clear"></up-icon>
         </view>
         <view class="dish-list-item">
           <view
