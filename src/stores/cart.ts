@@ -12,7 +12,12 @@ export const useCartStore = defineStore(
             if (!Array.isArray(rows.value)) {
                 rows.value = []
             }
-            rows.value.push(data)
+            const findItem = rows.value.find(item => item.dishId === data.dishId)
+            if (findItem) {
+                findItem.order++
+            } else {
+                rows.value.push(data)
+            }
         }
 
         // 删除
@@ -20,8 +25,13 @@ export const useCartStore = defineStore(
             if (!Array.isArray(rows.value)) {
                 rows.value = [];
             } else {
-                rows.value = rows.value.filter(item => item.cartDishId !== data);
+                const findItem = rows.value.find(item => item.dishId === data)
+                if (findItem) {
+                    findItem.order--
+                }
             }
+            rows.value = rows.value.filter(item => item.order !== 0);
+
         };
 
         // 清空

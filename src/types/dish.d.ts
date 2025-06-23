@@ -16,11 +16,10 @@ export interface dishType {
 }
 
 export interface cartDishType {
-    cartDishId: string | number,
+    dishId: string | number,
     name: string,
-    num: number | string,
-    imgSrc: string
+    dishImgSrc: string
     order: number
     text: string,
-    imgSrc: string,
+    tapImgSrc: string,
 }

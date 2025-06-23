@@ -191,7 +191,7 @@ const activeTap = ref(0);
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
   uni.vibrateShort();
-  uni.$emit("cart", { data: `${dData.dishId}${dData.order}`, mode: 2 });
+  uni.$emit("cart", { data: dData.dishId, mode: 2 });
   if (dData.order > 0) {
     dData.order--;
   } else {
@@ -210,9 +210,11 @@ const addDish = (tData: tapType, dData: dishType) => {
   dData.order++;
   tData.order++;
   const dish = {
-    cartDishId: `${dData.dishId}${dData.order}`,
-    ...dData,
-    tap: tData.text,
+    dishId: dData.dishId,
+    name: dData.name,
+    dishImgSrc: dData.imgSrc,
+    order: 1,
+    text: tData.text,
     tapImgSrc: tData.imgSrc,
   };
   uni.$emit("cart", { data: dish, mode: 1 });
