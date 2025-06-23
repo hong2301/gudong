@@ -497,6 +497,7 @@ onHide(() => {
   background-color: $bg-color;
   color: $font-color1;
   font-size: 22rpx;
+  transition: all 0.3s ease;
 }
 .item-box-active {
   background-color: white;
@@ -505,12 +506,15 @@ onHide(() => {
     0 -4rpx 15rpx -15rpx transparent; /* 抵消顶部阴影 */
   color: $main-color;
   font-size: 24rpx;
+  transition: all 0.3s ease;
 }
 .item-box-active-bottom {
   border-radius: 0 0 30rpx 0;
+  transition: all 0.3s ease;
 }
 .item-box-active-up {
   border-radius: 0 30rpx 0 0;
+  transition: all 0.3s ease;
 }
 .item-img {
   width: 50%;
