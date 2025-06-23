@@ -190,7 +190,7 @@ const bubuImgSrc = "/menu-package/static/招待.png";
 // 填写图标的缩放
 const txScale = ref<number>(1);
 // 菜单标签
-const taps = ref();
+const taps = ref<tapType[]>([]);
 // 目前激活的菜单
 const activeTap = ref(0);
 // 滚动至的Id
@@ -199,6 +199,11 @@ const scrollTop = ref();
 // 滚动
 const scroll = (value: any) => {
   const top = value.target.scrollTop;
+  taps.value.forEach((item, index) => {
+    if (top + 10 > item.topValue) {
+      activeTap.value = index;
+    }
+  });
 };
 
 // 删除菜
