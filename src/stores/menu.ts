@@ -203,13 +203,34 @@ export const useMenuStore = defineStore(
                 })
             })
         }
+        // 获取数据
+        const getData = () => {
+            // 胶囊右间隔
+            const capsuleRightInterval = uni.getWindowInfo().safeArea.right - uni.getMenuButtonBoundingClientRect().right
+            // 屏幕宽度
+            const areaWidth = uni.getWindowInfo().safeArea.width;
+            // rpx/px
+            const rpxRPx = areaWidth / 750
+            data.value.forEach((item, index) => {
+                const targetIndex = index - 1
+                if (targetIndex >= 0) {
+                    const targetItem = data.value[targetIndex]
+                    const itemNum = targetItem?.dish?.length ?? 0
+                    item.topValue = 24 * rpxRPx + (150 + capsuleRightInterval * 2 + 6) * rpxRPx * itemNum + targetItem.topValue
+                } else {
+                    item.topValue = 0
+                }
+            })
+            return data.value
+        }
 
         //外部可访问
         return {
             data,
             claer,
             add,
-            del
+            del,
+            getData
         }
     },
 

@@ -52,7 +52,7 @@
             :key="tIndex"
             class="item-box"
             :style="{ background: `${tIndex === activeTap ? 'none' : ''}` }"
-            @tap="tapMenuItem(tIndex, tItem.tapId)"
+            @tap="tapMenuItem(tIndex, tItem.topValue)"
           >
             <view
               class="item-box-content"
@@ -78,7 +78,8 @@
             class="left-content"
             scroll-y
             scroll-with-animation
-            :scroll-into-view="scrollIntoId"
+            :scroll-top="scrollTop"
+            @scroll="scroll"
           >
             <view
               v-for="(tItem, tIndex) in taps"
@@ -86,9 +87,7 @@
               class="dish-list"
             >
               <view class="dish-list-item-content" v-if="tItem.dish?.length">
-                <view class="text2" :id="`${tItem.tapId}`">{{
-                  tItem.text
-                }}</view>
+                <view class="text2">{{ tItem.text }}</view>
                 <view
                   v-for="(dItem, dIndex) in tItem.dish"
                   :key="dIndex"
@@ -195,7 +194,12 @@ const taps = ref();
 // 目前激活的菜单
 const activeTap = ref(0);
 // 滚动至的Id
-const scrollIntoId = ref("");
+const scrollTop = ref();
+
+// 滚动
+const scroll = (value: any) => {
+  const top = value.target.scrollTop;
+};
 
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
@@ -233,19 +237,18 @@ const addDish = (tData: tapType, dData: dishType) => {
 
 // 菜单变化
 uni.$on("menu", function () {
-  taps.value = menuStore.data;
+  taps.value = menuStore.getData();
 });
 
 // 点击菜单
-const tapMenuItem = (index: number, id: string) => {
+const tapMenuItem = (index: number, topValue: number) => {
   if (index != taps.value.length - 1) {
     activeTap.value = index;
-    scrollIntoId.value = `${id}`;
+    scrollTop.value = topValue;
   }
 };
 // 点击布布
 const tapBubu = () => {
-  console.log("点击布布");
   bubuRef?.value?.startSay("不要客气哟", ["30%", "-150%", "rgb(146,107,77)"], {
     src: "/static/布布/声音/哒哒哒哒哒.m4a",
     volume: 1,
@@ -255,7 +258,6 @@ const tapBubu = () => {
  * 点击填写
  */
 const tapTx = () => {
-  console.log("点击填写");
   txScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -269,7 +271,7 @@ const tapTx = () => {
 onShow(() => {
   cmdStore.backBtnShow = true;
   cmdStore.searchBtnShow = true;
-  taps.value = menuStore.data;
+  taps.value = menuStore.getData();
 });
 onHide(() => {
   cmdStore.searchBtnShow = false;
@@ -328,6 +330,7 @@ onHide(() => {
 }
 .text2 {
   font-size: 24rpx;
+  line-height: 24rpx;
   color: $font-color1;
   font-weight: 400;
 }

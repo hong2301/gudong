@@ -148,9 +148,9 @@ const tapSend = () => {
 // 获取status
 const getStatus = () => {
   status.value = [];
-  status.value = menuStore.data.filter(
-    (item) => item.order !== 0 && item.order
-  );
+  status.value = menuStore
+    .getData()
+    .filter((item) => item.order !== 0 && item.order);
 };
 // 点击mask
 const tapMask = () => {
