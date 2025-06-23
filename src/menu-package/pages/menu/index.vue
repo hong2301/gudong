@@ -216,6 +216,7 @@ const addDish = (tData: tapType, dData: dishType) => {
     order: 1,
     text: tData.text,
     tapImgSrc: tData.imgSrc,
+    isCheck: true,
   };
   uni.$emit("cart", { data: dish, mode: 1 });
   menuStore.data = taps.value;
