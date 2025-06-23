@@ -122,6 +122,7 @@
       </view>
       <view class="transition1" :style="{ height: `${tailHeight}px` }"></view>
     </view>
+    <LoginCard v-model:btn="loginCardBtn"></LoginCard>
   </Layout>
 </template>
 
@@ -132,6 +133,7 @@ import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
 import { onReady, onShow } from "@dcloudio/uni-app";
 import { useUserStore } from "@/stores/user";
+import LoginCard from "@/components/loginCard/index.vue";
 
 // 是否有登陆
 const isLogin = ref(false);
@@ -187,6 +189,8 @@ const foodRows = ref([
     imgSrc: "/static/foods/白灼大虾.jpeg",
   },
 ]);
+// 登陆卡片
+const loginCardBtn = ref(0);
 
 /**
  * 点击布布
@@ -208,13 +212,15 @@ const tapDl = () => {
   setTimeout(() => {
     dlScale.value = 1;
     if (isLogin) {
+      loginCardBtn.value = 1;
     } else {
+      loginCardBtn.value = 2;
     }
   }, 100);
 };
 
 /**
- * 点击登陆
+ * 点击编写
  */
 const tapBx = () => {
   console.log("点击编写");
