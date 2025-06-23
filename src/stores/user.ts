@@ -1,11 +1,17 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { infoType } from '@/types/user'
 
 export const useUserStore = defineStore(
     'user',
     () => {
         // 是否第一次访问
         const isFirst = ref(true)
+        // 用户信息
+        const userInfo = ref<infoType>({
+            id: "",
+            name: "",
+        })
 
         // 检查是否为第一次
         const getFirst = (pages: any, mode: boolean = false) => {
@@ -19,10 +25,20 @@ export const useUserStore = defineStore(
             return false
         }
 
+        // 是否有登陆
+        const isLogin = () => {
+            if (userInfo.value.name === '' || !userInfo.value) {
+                return false
+            }
+            return true
+        }
+
         //外部可访问
         return {
             getFirst,
-            isFirst
+            isFirst,
+            userInfo,
+            isLogin
         }
     },
 
