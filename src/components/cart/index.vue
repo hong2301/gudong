@@ -161,6 +161,7 @@ const filteredStatus = computed(() =>
 .dish-list {
   position: absolute;
   width: 100%;
+  min-height: 2000rpx;
   background-color: white;
   border-radius: 40rpx 40rpx 0 0;
   transition: transform 0.3s ease;
