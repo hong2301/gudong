@@ -166,6 +166,7 @@ export const useMenuStore = defineStore(
         // 清空选择
         const claer = () => {
             data.value.forEach(tItem => {
+                tItem.order = 0
                 tItem.dish?.forEach(dItem => {
                     dItem.order = 0
                 })

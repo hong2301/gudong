@@ -147,6 +147,7 @@ const getStatus = () => {
   status.value = menuStore.data.filter(
     (item) => item.order !== 0 && item.order
   );
+  console.log("获取", status.value);
 };
 // 点击mask
 const tapMask = () => {
@@ -191,6 +192,8 @@ const clear = () => {
   rows.value = [];
   cartStore.rows = rows.value;
   menuStore.claer();
+  status.value = [];
+  getYierStatus();
   close();
 };
 
