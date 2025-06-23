@@ -25,14 +25,13 @@
             :key="rIndex"
             class="dish-list-item-content"
           >
-            <view class="item-check">
+            <view class="item-check" @tap="checkboxChangeItem(rIndex)">
               <up-checkbox
                 shape="circle"
                 usedAlone
                 size="15"
                 v-model:checked="rItem.isCheck"
                 activeColor="rgb(239, 156, 82)"
-                @change="checkboxChangeItem(rIndex)"
               />
             </view>
             <view class="item-img-box">
@@ -177,13 +176,14 @@ const getYierStatus = () => {
 // 全选按钮
 const checkboxChange = () => {
   allSel.value = !allSel.value;
-  rows.value.forEach((item) => {
+  rows.value.filter((item) => {
     item.isCheck = allSel.value;
   });
   cartStore.rows = rows.value;
 };
 // 选择项
 const checkboxChangeItem = (index: number) => {
+  rows.value[index].isCheck = !rows.value[index].isCheck;
   cartStore.rows = rows.value;
 };
 
@@ -235,7 +235,8 @@ const filteredStatus = computed(() =>
 );
 const isAllChecked = computed(() => {
   if (rows.value.length === 0) return false;
-  return rows.value.every((item) => item.isCheck === true);
+  allSel.value = rows.value.every((item) => item.isCheck === true);
+  return allSel.value;
 });
 </script>
 
