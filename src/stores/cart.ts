@@ -6,6 +6,7 @@ export const useCartStore = defineStore(
     'cart',
     () => {
         const rows = ref<cartDishType[]>([])
+        const overRows = ref<cartDishType[]>([])
 
         // 添加
         const add = (data: cartDishType) => {
@@ -37,6 +38,7 @@ export const useCartStore = defineStore(
         // 清空
         const clear = () => {
             rows.value = []
+            overRows.value = []
         }
 
         //外部可访问
@@ -44,7 +46,8 @@ export const useCartStore = defineStore(
             rows,
             add,
             del,
-            clear
+            clear,
+            overRows
         }
     },
 

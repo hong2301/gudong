@@ -152,6 +152,7 @@ const tapYier = () => {
 // 提交
 const tapSend = () => {
   if (filteredRows.value.length !== 0) {
+    cartStore.overRows = rows.value.filter((item) => item?.isCheck);
     uni.vibrateShort();
     uni.navigateTo({
       url: "/menu-package/pages/over/index",
@@ -205,9 +206,9 @@ const checkboxChangeItem = (index: number) => {
 // 清除购物车
 const clear = () => {
   rows.value = [];
-  cartStore.rows = rows.value;
-  menuStore.claer();
   status.value = [];
+  cartStore.clear();
+  menuStore.claer();
   getYierStatus();
   close();
 };
