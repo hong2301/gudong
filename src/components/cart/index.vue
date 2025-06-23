@@ -10,12 +10,14 @@
       <view class="dish-list-content">
         <view class="dish-list-head">
           <up-checkbox
+            shape="circle"
             usedAlone
+            size="16"
             v-model:checked="allSel"
             activeColor="rgb(239, 156, 82)"
             @change="checkboxChange"
           />
-          <up-icon class="" size="20" name="trash" @tap="clear"></up-icon>
+          <up-icon class="" size="16" name="trash" @tap="clear"></up-icon>
         </view>
         <view class="dish-list-item">
           <view
