@@ -222,6 +222,12 @@ const addDish = (tData: tapType, dData: dishType) => {
   menuStore.data = taps.value;
 };
 
+// 菜单变化
+uni.$on("menu", function () {
+  console.log("菜单变化");
+  taps.value = menuStore.data;
+});
+
 // 点击菜单
 const tapMenuItem = (index: number) => {
   if (index != taps.value.length - 1) {

@@ -173,11 +173,43 @@ export const useMenuStore = defineStore(
             })
             return data.value
         }
+        // 添加
+        const add = (id: number | string) => {
+            data.value.forEach(tItem => {
+                tItem.dish?.forEach(dItem => {
+                    if (id === dItem.dishId) {
+                        dItem.order++
+                        tItem.order++
+                    }
+                })
+            })
+        }
+        // 删除
+        const del = (id: number | string) => {
+            data.value.forEach(tItem => {
+                tItem.dish?.forEach(dItem => {
+                    if (id === dItem.dishId) {
+                        if (dItem.order > 0) {
+                            dItem.order--
+                        } else {
+                            dItem.order = 0
+                        }
+                        if (tItem.order > 0) {
+                            tItem.order--
+                        } else {
+                            tItem.order = 0
+                        }
+                    }
+                })
+            })
+        }
 
         //外部可访问
         return {
             data,
-            claer
+            claer,
+            add,
+            del
         }
     },
 
