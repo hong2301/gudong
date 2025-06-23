@@ -13,7 +13,7 @@
             shape="circle"
             usedAlone
             size="16"
-            v-model:checked="allSel"
+            v-model:checked="isAllChecked"
             activeColor="rgb(239, 156, 82)"
             @change="checkboxChange"
           />
@@ -34,6 +34,29 @@
                 activeColor="rgb(239, 156, 82)"
                 @change="checkboxChangeItem(rIndex)"
               />
+            </view>
+            <view class="item-img-box">
+              <image
+                class="item-img"
+                :src="rItem.dishImgSrc"
+                mode="heightFix"
+              />
+            </view>
+            <view class="item-name">
+              {{ rItem.name }}
+            </view>
+            <view class="item-num-box">
+              <view
+                v-if="rItem.order !== 0"
+                class="del-btn"
+                @tap="delDish(tItem, dItem)"
+              >
+                -
+              </view>
+              <view class="item-num" v-if="rItem.order !== 0">{{
+                rItem.order
+              }}</view>
+              <view class="add-btn" @tap="addDish(tItem, dItem)"> + </view>
             </view>
           </view>
         </view>
@@ -77,7 +100,7 @@
 
 <script setup lang="ts">
 import Yier from "@/components/character/index.vue";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { onShow } from "@dcloudio/uni-app";
 import { useCartStore } from "@/stores/cart";
 import { useMenuStore } from "@/stores/menu";
@@ -127,14 +150,18 @@ const getStatus = () => {
 };
 // 点击mask
 const tapMask = () => {
-  dishListShow.value = !dishListShow.value;
+  close();
 };
 // 点击购物车
 const tapDish = () => {
   rows.value = cartStore.rows;
   if (rows.value.length !== 0) {
-    dishListShow.value = !dishListShow.value;
+    close();
   }
+};
+// 关闭
+const close = () => {
+  dishListShow.value = !dishListShow.value;
 };
 // 一二状态
 const getYierStatus = () => {
@@ -148,15 +175,23 @@ const getYierStatus = () => {
 };
 // 全选按钮
 const checkboxChange = () => {
-  console.log("全选");
   allSel.value = !allSel.value;
+  rows.value.forEach((item) => {
+    item.isCheck = allSel.value;
+  });
+  cartStore.rows = rows.value;
 };
 // 选择项
-const checkboxChangeItem = (index: number) => {};
+const checkboxChangeItem = (index: number) => {
+  cartStore.rows = rows.value;
+};
 
 // 清除购物车
 const clear = () => {
-  console.log("清除购物车");
+  rows.value = [];
+  cartStore.rows = rows.value;
+  menuStore.claer();
+  close();
 };
 
 //获取数据
@@ -179,6 +214,19 @@ onShow(() => {
 });
 const filteredStatus = computed(() =>
   status.value.filter((item) => item.order !== 0)
+);
+const isAllChecked = computed(() => {
+  if (rows.value.length === 0) return false;
+  return rows.value.every((item) => item.isCheck === true);
+});
+watch(
+  () => rows.value,
+  () => {
+    cartStore.rows = rows.value;
+  },
+  {
+    immediate: true,
+  }
 );
 </script>
 
@@ -227,10 +275,12 @@ const filteredStatus = computed(() =>
 }
 .dish-list-item-content {
   width: 100%;
-  background-color: red;
-  height: 100rpx;
+  height: 150rpx;
   margin-bottom: 10rpx;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 .item-check {
   width: 15px;
@@ -238,7 +288,62 @@ const filteredStatus = computed(() =>
   display: flex;
   align-items: center;
   margin-left: 30.5rpx;
-  background-color: aqua;
+  margin-right: 30.5rpx;
+}
+.item-img-box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30.5rpx;
+}
+.item-name {
+  height: 80%;
+  display: contents;
+  align-items: center;
+}
+.item-num-box {
+  position: absolute;
+  height: 80%;
+  right: 0;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+}
+.del-btn {
+  width: 40rpx;
+  height: 40rpx;
+  aspect-ratio: 1;
+  border: 1rpx solid $icon-bg-color;
+  border-radius: 50%;
+  color: black;
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
+}
+.item-num {
+  margin-inline: 30rpx;
+  font-size: 30rpx;
+}
+.add-btn {
+  width: 40rpx;
+  height: 40rpx;
+  aspect-ratio: 1;
+  background-color: $main-color;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
+}
+.item-img {
+  height: 80%;
 }
 .dish-list-head {
   height: 80rpx;
