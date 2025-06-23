@@ -176,6 +176,8 @@ const capsuleRightInterval = ref<number>(
 );
 // 屏幕宽度
 const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 // 屏幕高度
 const areaHeight = uni.getWindowInfo().safeArea.height;
 // 元素宽度
@@ -209,11 +211,11 @@ const scroll = (value: any) => {
   taps.value.forEach((item, index) => {
     if (top + 10 > item.topValue) {
       activeTap.value = index;
-      tapScrollTop.value = item.tapTopValue;
+      tapScrollTop.value = item.tapTopValue - 170 * rpxRPx;
     }
     if (top < 0) {
       activeTap.value = 0;
-      tapScrollTop.value = taps.value[0].tapTopValue;
+      tapScrollTop.value = taps.value[0].tapTopValue - 170 * rpxRPx;
     }
   });
 };
