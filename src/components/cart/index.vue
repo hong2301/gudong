@@ -135,6 +135,19 @@ const allSel = ref(false);
 // 点击一二
 const tapYier = () => {
   console.log("点击一二");
+  if (rows.value.length !== 0) {
+    yierRef?.value?.startSay(" ", ["30%", "-150%", "rgb(146,107,77)"], {
+      src: "/static/一二/声音/lll.m4a",
+      volume: 1,
+    });
+    yierImgSrc.value = "/menu-package/static/开心.png";
+  } else {
+    yierRef?.value?.startSay(" ", ["30%", "-150%", "rgb(146,107,77)"], {
+      src: "/static/一二/声音/ddd.m4a",
+      volume: 1,
+    });
+    yierImgSrc.value = "/menu-package/static/吃什么.png";
+  }
 };
 // 提交
 const tapSend = () => {
