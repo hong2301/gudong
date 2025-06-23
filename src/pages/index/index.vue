@@ -222,9 +222,6 @@ const tapBx = () => {
   uni.vibrateShort();
   setTimeout(() => {
     bxScale.value = 1;
-    uni.navigateTo({
-      url: "/diary-package/pages/diary/index",
-    });
   }, 100);
 };
 
@@ -264,9 +261,6 @@ const tapDd = () => {
 const tapFoodItem = (id: string | number) => {
   console.log("点击食物日志");
   uni.vibrateShort();
-  uni.navigateTo({
-    url: "/diary-package/pages/diary/index",
-  });
 };
 
 // 布布开始
