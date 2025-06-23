@@ -25,6 +25,16 @@
             :key="rIndex"
             class="dish-list-item-content"
           >
+            <view class="item-check">
+              <up-checkbox
+                shape="circle"
+                usedAlone
+                size="15"
+                v-model:checked="rItem.isCheck"
+                activeColor="rgb(239, 156, 82)"
+                @change="checkboxChangeItem(rIndex)"
+              />
+            </view>
           </view>
         </view>
       </view>
@@ -141,6 +151,8 @@ const checkboxChange = () => {
   console.log("全选");
   allSel.value = !allSel.value;
 };
+// 选择项
+const checkboxChangeItem = (index: number) => {};
 
 // 清除购物车
 const clear = () => {
@@ -219,6 +231,14 @@ const filteredStatus = computed(() =>
   height: 100rpx;
   margin-bottom: 10rpx;
   flex-shrink: 0;
+}
+.item-check {
+  width: 15px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 30.5rpx;
+  background-color: aqua;
 }
 .dish-list-head {
   height: 80rpx;

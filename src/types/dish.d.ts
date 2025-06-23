@@ -22,4 +22,5 @@ export interface cartDishType {
     order: number
     text: string,
     tapImgSrc: string,
+    isCheck: boolean
 }
