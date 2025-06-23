@@ -209,6 +209,9 @@ const tapBx = () => {
   uni.vibrateShort();
   setTimeout(() => {
     bxScale.value = 1;
+    uni.navigateTo({
+      url: "/diary-package/pages/diary/index",
+    });
   }, 100);
 };
 
