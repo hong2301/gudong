@@ -36,9 +36,17 @@
             class="item-img-box1"
             :style="{ transform: `scale(${dlScale}) ` }"
           >
-            <image class="item-img" src="/static/shouye.png" mode="widthFix" />
+            <image
+              class="item-img"
+              :src="`${
+                isLogin ? userStore.userInfo.profile : '/static/shouye.png'
+              }`"
+              mode="widthFix"
+            />
           </view>
-          <view class="item-text" style="font-weight: 400">登记</view>
+          <view class="item-text" style="font-weight: 400">{{
+            isLogin ? userStore.userInfo.name : "登记"
+          }}</view>
         </view>
       </view>
       <view
@@ -122,8 +130,13 @@ import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
 import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
-import { onShow } from "@dcloudio/uni-app";
+import { onReady, onShow } from "@dcloudio/uni-app";
+import { useUserStore } from "@/stores/user";
 
+// 是否有登陆
+const isLogin = ref(false);
+// 用户存储
+const userStore = useUserStore();
 // 操作存储
 const cmdStore = useCmdStore();
 // 尾巴高度
@@ -194,9 +207,15 @@ const tapDl = () => {
   uni.vibrateShort();
   setTimeout(() => {
     dlScale.value = 1;
-    uni.navigateTo({
-      url: "/pages/login/index",
-    });
+    if (isLogin) {
+      uni.navigateTo({
+        url: "/pages/user/index",
+      });
+    } else {
+      uni.navigateTo({
+        url: "/pages/login/index",
+      });
+    }
   }, 100);
 };
 
@@ -256,9 +275,32 @@ const tapFoodItem = (id: string | number) => {
   });
 };
 
+// 布布开始
+const bubuStart = () => {
+  if (isLogin.value) {
+    bubuRef?.value?.startSay(
+      userStore.userInfo.startText,
+      ["40%", "100%", "rgb(146,107,77)"],
+      {
+        src: "/static/布布/声音/哒哒哒哒哒.m4a",
+        volume: 1,
+      }
+    );
+  } else {
+    bubuRef?.value?.startSay("欢迎欢迎", ["40%", "100%", "rgb(146,107,77)"], {
+      src: "/static/布布/声音/哒哒哒哒哒.m4a",
+      volume: 1,
+    });
+  }
+};
+
 onShow(() => {
   cmdStore.backBtnShow = false;
   cmdStore.searchBtnShow = false;
+  isLogin.value = userStore.isLogin();
+});
+onReady(() => {
+  bubuStart();
 });
 </script>
 

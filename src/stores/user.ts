@@ -9,8 +9,11 @@ export const useUserStore = defineStore(
         const isFirst = ref(true)
         // 用户信息
         const userInfo = ref<infoType>({
-            id: "",
-            name: "",
+            id: "1",
+            name: "刘慧",
+            profile: "/static/shouye.png",
+            startText: "是小宝! 是小宝!",
+            role: 1
         })
 
         // 检查是否为第一次

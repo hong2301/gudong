@@ -95,7 +95,7 @@ const startSay = (
     }
     setTimeout(() => {
       say.value = "";
-    }, 2000);
+    }, 3000);
   }, seed);
 
   watch(
