@@ -156,7 +156,7 @@
 
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
-import { onHide, onShow } from "@dcloudio/uni-app";
+import { onHide, onShow, onReady } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
 import { useMenuStore } from "@/stores/menu";
 import Head from "@/components/head/index.vue";
@@ -164,6 +164,7 @@ import { ref } from "vue";
 import Bubu from "@/components/character/index.vue";
 import Cart from "@/components/cart/index.vue";
 import type { dishType, tapType } from "@/types/dish";
+import { useUserStore } from "@/stores/user";
 
 // 尾巴高度
 const tailHeight = ref<number>(
@@ -186,6 +187,8 @@ const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 const headHeight = ref<number>(
   uni.getMenuButtonBoundingClientRect().bottom + capsuleRightInterval.value
 );
+// 用户存储
+const userStore = useUserStore();
 // 菜单存储
 const menuStore = useMenuStore();
 // 操作存储
@@ -299,9 +302,13 @@ onShow(() => {
   cmdStore.searchBtnShow = true;
   taps.value = menuStore.getData();
 });
+onReady(() => {
+  userStore.getFirst(getCurrentPages());
+});
 onHide(() => {
   cmdStore.searchBtnShow = false;
   menuStore.data = taps.value;
+  userStore.isFirst = true;
 });
 </script>
 
