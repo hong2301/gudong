@@ -355,6 +355,7 @@ const isAllChecked = computed(() => {
 }
 .item-img {
   height: 80%;
+  border-radius: 15rpx;
 }
 .dish-list-head {
   height: 80rpx;
