@@ -198,9 +198,19 @@ const clear = () => {
 };
 
 // 删除
-const delDish = (index: number) => {};
+const delDish = (index: number) => {
+  if (rows.value[index].order > 0) {
+    rows.value[index].order--;
+  } else {
+    rows.value[index].order = 0;
+  }
+  cartStore.rows = rows.value;
+};
 // 添加
-const addDish = (index: number) => {};
+const addDish = (index: number) => {
+  rows.value[index].order++;
+  cartStore.rows = rows.value;
+};
 
 //获取数据
 uni.$on(
@@ -305,9 +315,10 @@ const isAllChecked = computed(() => {
   position: absolute;
   height: 80%;
   right: 0;
-  width: 200rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-right: 30.5rpx;
 }
 .del-btn {
   width: 40rpx;
