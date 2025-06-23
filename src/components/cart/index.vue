@@ -21,7 +21,7 @@
         </view>
         <view class="dish-list-item">
           <view
-            v-for="(rItem, rIndex) in rows"
+            v-for="(rItem, rIndex) in filteredRows"
             :key="rIndex"
             class="dish-list-item-content"
           >
@@ -164,9 +164,6 @@ const close = () => {
 };
 // 一二状态
 const getYierStatus = () => {
-  rows.value = cartStore.rows;
-  console.log(rows.value);
-
   if (rows.value.length !== 0) {
     yierImgSrc.value = "/menu-package/static/开心.png";
   } else {
@@ -204,6 +201,12 @@ const delDish = (index: number) => {
   } else {
     rows.value[index].order = 0;
   }
+  if (filteredRows.value.length === 0) {
+    status.value = [];
+    rows.value = [];
+    close();
+    getYierStatus();
+  }
   cartStore.rows = rows.value;
 };
 // 添加
@@ -232,6 +235,9 @@ onShow(() => {
 });
 const filteredStatus = computed(() =>
   status.value.filter((item) => item.order !== 0)
+);
+const filteredRows = computed(() =>
+  rows.value.filter((item) => item.order !== 0)
 );
 const isAllChecked = computed(() => {
   if (rows.value.length === 0) return false;
