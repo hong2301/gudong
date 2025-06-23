@@ -209,7 +209,7 @@ const tapDl = () => {
     dlScale.value = 1;
     if (isLogin) {
       uni.navigateTo({
-        url: "/pages/user/index",
+        url: "/user-package/pages/info/index",
       });
     } else {
       uni.navigateTo({

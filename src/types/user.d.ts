@@ -3,5 +3,7 @@ export interface infoType {
     name: string,
     profile: string,
     startText: string,
-    role: 1,
+    role: number,
+    eatNum: number,
+    writeNum: number
 }
