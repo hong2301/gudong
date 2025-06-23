@@ -211,6 +211,7 @@ const clear = () => {
   menuStore.claer();
   getYierStatus();
   close();
+  uni.$emit("menu");
 };
 
 // 删除
