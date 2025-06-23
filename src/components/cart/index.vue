@@ -61,8 +61,9 @@
         </view>
       </view>
       <view
+        class="space"
         :style="{
-          height: `${(tailHeight - capsuleRightInterval) * 4}px`,
+          height: `${(tailHeight - capsuleRightInterval) * 6}px`,
         }"
       ></view>
     </view>
@@ -378,6 +379,9 @@ const isAllChecked = computed(() => {
   position: absolute;
   top: -60%;
   left: -2%;
+}
+.space {
+  min-height: 400rpx;
 }
 .content {
   position: relative;
