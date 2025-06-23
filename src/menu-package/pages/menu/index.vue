@@ -46,7 +46,12 @@
           height: `${areaHeight - capsuleRightInterval * 10 - headHeight}px`,
         }"
       >
-        <view class="right">
+        <scroll-view
+          class="right"
+          scroll-y
+          scroll-with-animation
+          :scroll-top="tapScrollTop"
+        >
           <view
             v-for="(tItem, tIndex) in taps"
             :key="tIndex"
@@ -66,7 +71,7 @@
               <view class="item-text"> {{ tItem.text }}</view>
             </view>
           </view>
-        </view>
+        </scroll-view>
         <view
           class="left"
           :style="{
@@ -195,6 +200,8 @@ const taps = ref<tapType[]>([]);
 const activeTap = ref(0);
 // 滚动至的Id
 const scrollTop = ref();
+// 滚动至的标签
+const tapScrollTop = ref();
 
 // 滚动
 const scroll = (value: any) => {
@@ -202,6 +209,11 @@ const scroll = (value: any) => {
   taps.value.forEach((item, index) => {
     if (top + 10 > item.topValue) {
       activeTap.value = index;
+      tapScrollTop.value = item.tapTopValue;
+    }
+    if (top < 0) {
+      activeTap.value = 0;
+      tapScrollTop.value = taps.value[0].tapTopValue;
     }
   });
 };
@@ -468,8 +480,15 @@ onHide(() => {
 .item-box {
   background-color: white;
   transition: all 0.3s ease;
+  height: 170rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .item-box-content {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

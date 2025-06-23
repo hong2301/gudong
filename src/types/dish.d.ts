@@ -5,6 +5,7 @@ export interface tapType {
     isNew: boolean,
     order: number,
     topValue?: number,
+    tapTopValue?: number,
     dish?: dishType[]
 }
 

@@ -357,6 +357,7 @@ export const useMenuStore = defineStore(
             const rpxRPx = areaWidth / 750
             data.value.forEach((item, index) => {
                 const targetIndex = index - 1
+                item.tapTopValue = index * rpxRPx * 170
                 if (targetIndex >= 0) {
                     const targetItem = data.value[targetIndex]
                     const itemNum = targetItem?.dish?.length ?? 0
