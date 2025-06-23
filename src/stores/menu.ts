@@ -104,6 +104,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/a3.png",
                 isNew: true,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 9,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 10,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't6',
@@ -111,6 +127,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 11,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 12,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't7',
@@ -118,6 +150,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/rou.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 13,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 14,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't8',
@@ -125,6 +173,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/xia.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 15,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 16,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't9',
@@ -132,6 +196,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/a3.png",
                 isNew: true,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 17,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 18,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't10',
@@ -139,6 +219,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 19,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 20,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't11',
@@ -146,6 +242,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/rou.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 21,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 22,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't12',
@@ -153,6 +265,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "../../static/xia.png",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 23,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 24,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
             {
                 tapId: 't13',
@@ -160,6 +288,22 @@ export const useMenuStore = defineStore(
                 imgSrc: "",
                 isNew: false,
                 order: 0,
+                dish: [
+                    {
+                        dishId: 25,
+                        name: "可乐鸡翅",
+                        num: "5",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                    {
+                        dishId: 26,
+                        name: "荔枝鸡煲",
+                        num: "1",
+                        imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
+                        order: 0,
+                    },
+                ],
             },
         ])
 
