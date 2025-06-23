@@ -231,12 +231,14 @@ uni.$on(
     } else {
       cartStore.del(data.data as string | number);
     }
+    rows.value = cartStore.rows;
     getYierStatus();
     getStatus();
   }
 );
 
 onShow(() => {
+  rows.value = cartStore.rows;
   getYierStatus();
   getStatus();
 });
