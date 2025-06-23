@@ -19,6 +19,7 @@ export const useMenuStore = defineStore(
                         num: "5",
                         imgSrc: "../../static/foods/荔枝鸡煲.jpeg",
                         order: 0,
+                        des: '好吃'
                     },
                     {
                         dishId: 2,

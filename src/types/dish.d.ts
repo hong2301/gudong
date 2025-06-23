@@ -15,6 +15,7 @@ export interface dishType {
     num: number | string,
     imgSrc: string
     order: number
+    des?: string
 }
 
 export interface cartDishType {

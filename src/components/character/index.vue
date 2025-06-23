@@ -93,6 +93,9 @@ const startSay = (
     } else {
       clearInterval(setIntervalData);
     }
+    setTimeout(() => {
+      say.value = "";
+    }, 2000);
   }, seed);
 
   watch(

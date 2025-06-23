@@ -250,6 +250,13 @@ const addDish = (tData: tapType, dData: dishType) => {
   };
   uni.$emit("cart", { data: dish, mode: 1 });
   menuStore.data = taps.value;
+
+  if (dData.order === 1) {
+    bubuRef?.value?.startSay(dData.des, ["30%", "-150%", "rgb(146,107,77)"], {
+      src: "/static/布布/声音/哒哒哒哒哒.m4a",
+      volume: 1,
+    });
+  }
 };
 
 // 菜单变化
