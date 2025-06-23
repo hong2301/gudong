@@ -208,13 +208,7 @@ const tapDl = () => {
   setTimeout(() => {
     dlScale.value = 1;
     if (isLogin) {
-      uni.navigateTo({
-        url: "/user-package/pages/info/index",
-      });
     } else {
-      uni.navigateTo({
-        url: "/pages/login/index",
-      });
     }
   }, 100);
 };
