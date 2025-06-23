@@ -49,14 +49,14 @@
               <view
                 v-if="rItem.order !== 0"
                 class="del-btn"
-                @tap="delDish(tItem, dItem)"
+                @tap="delDish(rIndex)"
               >
                 -
               </view>
               <view class="item-num" v-if="rItem.order !== 0">{{
                 rItem.order
               }}</view>
-              <view class="add-btn" @tap="addDish(tItem, dItem)"> + </view>
+              <view class="add-btn" @tap="addDish(rIndex)"> + </view>
             </view>
           </view>
         </view>
@@ -147,7 +147,6 @@ const getStatus = () => {
   status.value = menuStore.data.filter(
     (item) => item.order !== 0 && item.order
   );
-  console.log("获取", status.value);
 };
 // 点击mask
 const tapMask = () => {
@@ -167,6 +166,7 @@ const close = () => {
 // 一二状态
 const getYierStatus = () => {
   rows.value = cartStore.rows;
+  console.log(rows.value);
 
   if (rows.value.length !== 0) {
     yierImgSrc.value = "/menu-package/static/开心.png";
@@ -197,6 +197,11 @@ const clear = () => {
   close();
 };
 
+// 删除
+const delDish = (index: number) => {};
+// 添加
+const addDish = (index: number) => {};
+
 //获取数据
 uni.$on(
   "cart",
@@ -222,15 +227,6 @@ const isAllChecked = computed(() => {
   if (rows.value.length === 0) return false;
   return rows.value.every((item) => item.isCheck === true);
 });
-watch(
-  () => rows.value,
-  () => {
-    cartStore.rows = rows.value;
-  },
-  {
-    immediate: true,
-  }
-);
 </script>
 
 <style scoped lang="scss">
