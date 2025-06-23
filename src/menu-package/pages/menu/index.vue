@@ -52,7 +52,7 @@
             :key="tIndex"
             class="item-box"
             :style="{ background: `${tIndex === activeTap ? 'none' : ''}` }"
-            @tap="tapMenuItem(tIndex)"
+            @tap="tapMenuItem(tIndex, tItem.tapId)"
           >
             <view
               class="item-box-content"
@@ -74,14 +74,21 @@
             paddingTop: `${capsuleRightInterval * 2}px`,
           }"
         >
-          <view class="left-content">
+          <scroll-view
+            class="left-content"
+            scroll-y
+            scroll-with-animation
+            :scroll-into-view="scrollIntoId"
+          >
             <view
               v-for="(tItem, tIndex) in taps"
               :key="tIndex"
               class="dish-list"
             >
               <view class="dish-list-item-content" v-if="tItem.dish?.length">
-                <view class="text2">{{ tItem.text }}</view>
+                <view class="text2" :id="`${tItem.tapId}`">{{
+                  tItem.text
+                }}</view>
                 <view
                   v-for="(dItem, dIndex) in tItem.dish"
                   :key="dIndex"
@@ -129,7 +136,7 @@
               </view>
             </view>
             <view class="space"></view>
-          </view>
+          </scroll-view>
         </view>
         <view
           class="transition"
@@ -187,6 +194,8 @@ const txScale = ref<number>(1);
 const taps = ref();
 // 目前激活的菜单
 const activeTap = ref(0);
+// 滚动至的Id
+const scrollIntoId = ref("");
 
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
@@ -224,14 +233,14 @@ const addDish = (tData: tapType, dData: dishType) => {
 
 // 菜单变化
 uni.$on("menu", function () {
-  console.log("菜单变化");
   taps.value = menuStore.data;
 });
 
 // 点击菜单
-const tapMenuItem = (index: number) => {
+const tapMenuItem = (index: number, id: string) => {
   if (index != taps.value.length - 1) {
     activeTap.value = index;
+    scrollIntoId.value = `${id}`;
   }
 };
 // 点击布布
