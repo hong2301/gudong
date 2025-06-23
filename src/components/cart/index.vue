@@ -138,10 +138,12 @@ const tapYier = () => {
 };
 // 提交
 const tapSend = () => {
-  uni.vibrateShort();
-  uni.navigateTo({
-    url: "/menu-package/pages/over/index",
-  });
+  if (filteredRows.value.length !== 0) {
+    uni.vibrateShort();
+    uni.navigateTo({
+      url: "/menu-package/pages/over/index",
+    });
+  }
 };
 // 获取status
 const getStatus = () => {
