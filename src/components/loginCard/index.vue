@@ -13,11 +13,7 @@
     >
       ⟨
     </view>
-    <view
-      v-if="mainBtn === 2"
-      class="content"
-      :style="{ marginBottom: `${tailHeight + 10}px` }"
-    >
+    <view v-if="mainBtn === 2" class="content">
       <view v-if="!passwordBtn" class="title"
         >取一个喜欢的昵称，让我们认识!</view
       >
@@ -217,6 +213,7 @@ watch(
 }
 .content {
   margin-top: 120rpx;
+  margin-bottom: 300rpx;
   width: 100%;
   display: flex;
   flex-direction: column;

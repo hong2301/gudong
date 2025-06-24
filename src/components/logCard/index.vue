@@ -14,6 +14,27 @@
       ⟨
     </view>
     <view class="content" :style="{ marginBottom: `${tailHeight + 10}px` }">
+      <view class="img-box">
+        <up-upload
+          :fileList="fileList1"
+          @afterRead="afterRead"
+          @delete="deletePic"
+          name="1"
+          multiple
+          :maxCount="1"
+        ></up-upload>
+      </view>
+      <view class="input-box">
+        <up-textarea
+          v-model="logText"
+          placeholder="请输入日志内容"
+          count
+          autoHeight
+          focus
+          :maxlength="50"
+        ></up-textarea>
+      </view>
+
       <view class="btn-box">
         <up-button
           text="完成"
@@ -49,6 +70,56 @@ const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
 );
 const mainBtn = ref(0);
+const fileList1 = ref([]);
+const logText = ref("");
+
+// 删除图片
+const deletePic = (event: { index: number }) => {
+  fileList1.value.splice(event.index, 1);
+};
+
+// 新增图片
+const afterRead = async (event: { file: ConcatArray<never> }) => {
+  // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+  let lists = [].concat(event.file);
+  let fileListLen = fileList1.value.length;
+  lists.map((item) => {
+    fileList1.value.push({
+      ...item,
+      status: "uploading",
+      message: "上传中",
+    });
+  });
+  for (let i = 0; i < lists.length; i++) {
+    const result = await uploadFilePromise(lists[i].url);
+    let item = fileList1.value[fileListLen];
+    fileList1.value.splice(fileListLen, 1, {
+      ...item,
+      status: "success",
+      message: "",
+      url: result,
+    });
+    fileListLen++;
+  }
+};
+
+const uploadFilePromise = (url: any) => {
+  return new Promise((resolve, reject) => {
+    let a = uni.uploadFile({
+      url: "http://192.168.2.21:7001/upload", // 仅为示例，非真实的接口地址
+      filePath: url,
+      name: "file",
+      formData: {
+        user: "test",
+      },
+      success: (res) => {
+        setTimeout(() => {
+          resolve(res.data.data);
+        }, 1000);
+      },
+    });
+  });
+};
 
 // 点击mask
 const tapMask = () => {
@@ -63,7 +134,9 @@ const tapBottom = () => {
 const ok = () => {};
 
 // 取消
-const cancel = () => {};
+const cancel = () => {
+  mainBtn.value = 0;
+};
 watch(
   () => props.btn,
   (value) => {
@@ -114,12 +187,19 @@ watch(
   transition: opacity 3s ease;
 }
 .content {
-  margin-top: 120rpx;
-  margin-bottom: 300rpx;
+  margin-top: 70rpx;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.img-box {
+  width: 90%;
+  margin-top: 5%;
+}
+.input-box {
+  width: 90%;
+  margin-top: 5%;
 }
 .btn-box {
   width: 90%;
