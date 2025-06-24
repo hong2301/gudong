@@ -40,7 +40,7 @@ export const useLogStore = defineStore(
 
         //外部可访问
         return {
-            rows
+            rows,
         }
     },
 

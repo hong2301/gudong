@@ -281,6 +281,17 @@ const isLoginFn = () => {
   isLogin.value = userStore.isLogin();
 };
 
+// 获取日志
+const getLogRows = async () => {
+  await uniCloud
+    .callFunction({
+      name: "logGet",
+    })
+    .then((res) => {
+      foodRows.value = res.result.data;
+    });
+};
+
 uni.$on("login", (mode) => {
   isLoginFn();
   if (mode) {
@@ -288,10 +299,14 @@ uni.$on("login", (mode) => {
   }
 });
 
+uni.$on("log", () => {
+  getLogRows();
+});
+
 onShow(() => {
   cmdStore.backBtnShow = false;
   cmdStore.searchBtnShow = false;
-  foodRows.value = logStore.rows;
+  getLogRows();
   isLoginFn();
 });
 onReady(() => {

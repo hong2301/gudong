@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import FileUpload from "@/components/fileUpload/index.vue";
+import { useUserStore } from "@/stores/user";
 
 const props = defineProps({
   btn: {
@@ -58,6 +59,7 @@ const props = defineProps({
     default: 0,
   },
 });
+const userStore = useUserStore();
 const emit = defineEmits(["update:btn"]);
 // 尾巴高度
 const tailHeight = ref<number>(
@@ -90,11 +92,18 @@ const ok = () => {
         time: getNowTime(),
         imgSrc: imgSrc.value,
         describe: logText.value,
+        userName: userStore.userInfo.name,
       },
     })
     .then((res) => {
-      console.log(res);
+      uni.showToast({
+        title: "搞定", // 提示内容
+        icon: "success", // 图标（success/loading/none）
+        duration: 2000, // 显示时长（ms），默认1500
+        mask: false, // 是否显示透明蒙层，防止触摸穿透
+      });
       mainBtn.value = 0;
+      uni.$emit("log");
     });
 };
 

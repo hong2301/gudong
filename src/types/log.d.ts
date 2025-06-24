@@ -5,12 +5,14 @@ export interface logType {
     orderId: string,
     time: string,
     imgSrc: string,
-    describe: strnig
+    describe: strnig,
+    userName?: string,
 }
 
 export interface orderType {
     orderId: string,
     time: string,
     dishs: dishType[],
-    status: number
+    status: number,
+    userName: string,
 }
