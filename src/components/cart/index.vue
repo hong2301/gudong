@@ -254,7 +254,25 @@ uni.$on(
     } else {
       cartStore.del(data.data as string | number);
     }
-    rows.value = cartStore.rows;
+    rows.value = [];
+    menuStore.data.forEach((tItem) => {
+      if (tItem.order !== 0) {
+        tItem.dish?.forEach((dItem) => {
+          if (dItem.order !== 0) {
+            rows.value.push({
+              _id: dItem._id,
+              name: dItem.name,
+              dishImgSrc: dItem.imgSrc,
+              order: dItem.order,
+              text: tItem.text,
+              tapImgSrc: tItem.imgSrc,
+              isCheck: true,
+            });
+          }
+        });
+      }
+    });
+    cartStore.rows = rows.value;
     getYierStatus();
     getStatus();
   }
