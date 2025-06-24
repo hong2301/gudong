@@ -156,6 +156,7 @@
       </view>
       <Cart class="cart"></Cart>
     </view>
+    <DishCard v-model:btn="dishBtn"></DishCard>
   </Layout>
 </template>
 
@@ -170,6 +171,7 @@ import Bubu from "@/components/character/index.vue";
 import Cart from "@/components/cart/index.vue";
 import type { dishType, tapType } from "@/types/dish";
 import { useUserStore } from "@/stores/user";
+import DishCard from "@/components/dishCard/index.vue";
 
 // 尾巴高度
 const tailHeight = ref<number>(
@@ -213,6 +215,8 @@ const activeTap = ref(0);
 const scrollTop = ref();
 // 滚动至的标签
 const tapScrollTop = ref();
+// 菜品卡片开关
+const dishBtn = ref(0);
 
 // 滚动
 const scroll = (value: any) => {
@@ -277,8 +281,8 @@ uni.$on("menu", function () {
 
 // 点击菜单
 const tapMenuItem = (index: number, topValue: number) => {
-    activeTap.value = index;
-    scrollTop.value = topValue;
+  activeTap.value = index;
+  scrollTop.value = topValue;
 };
 // 点击布布
 const tapBubu = () => {
@@ -295,9 +299,7 @@ const tapTx = () => {
   uni.vibrateShort();
   setTimeout(() => {
     txScale.value = 1;
-    uni.navigateTo({
-      url: "/menu-package/pages/edit/index",
-    });
+    dishBtn.value = 1;
   }, 100);
 };
 
