@@ -13,7 +13,7 @@ export const useCartStore = defineStore(
             if (!Array.isArray(rows.value)) {
                 rows.value = []
             }
-            const findItem = rows.value.find(item => item.dishId === data.dishId)
+            const findItem = rows.value.find(item => item._id === data._id)
             if (findItem) {
                 findItem.order++
             } else {
@@ -26,7 +26,7 @@ export const useCartStore = defineStore(
             if (!Array.isArray(rows.value)) {
                 rows.value = [];
             } else {
-                const findItem = rows.value.find(item => item.dishId === data)
+                const findItem = rows.value.find(item => item._id === data)
                 if (findItem) {
                     findItem.order--
                 }

@@ -13,9 +13,45 @@
     >
       ⟨
     </view>
-    <view class="content">
+    <view class="content" :style="{ marginBottom: `${tailHeight + 10}px` }">
       <view class="img-box">
+        <view class="text">图片</view>
         <FileUpload @upload="upload"></FileUpload>
+      </view>
+      <view class="input-box">
+        <view class="text">名字</view>
+        <up-input
+          placeholder="请输入名字"
+          border="surround"
+          v-model="dishName"
+        ></up-input>
+      </view>
+      <view class="tap-box">
+        <view class="text">标签</view>
+        <picker
+          mode="selector"
+          :range="columns"
+          range-key="name"
+          @change="Picker"
+        >
+          <view class="tap">{{ tap }}</view>
+        </picker>
+      </view>
+      <view class="btn-box">
+        <up-button
+          text="完成"
+          type="primary"
+          color="rgb(239, 156, 82)"
+          style="margin-right: 5%"
+          @tap="ok"
+        ></up-button>
+        <up-button
+          type="primary"
+          color="rgb(239, 156, 82)"
+          :plain="true"
+          text="取消"
+          @tap="cancel"
+        ></up-button>
       </view>
     </view>
   </view>
@@ -23,6 +59,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import FileUpload from "@/components/fileUpload/index.vue";
+import { useMenuStore } from "@/stores/menu";
 
 const props = defineProps({
   btn: {
@@ -30,10 +68,22 @@ const props = defineProps({
     default: 0,
   },
 });
+const menuStore = useMenuStore();
 const emit = defineEmits(["update:btn"]);
 const imgSrc = ref("");
-
+const dishName = ref("");
 const mainBtn = ref(0);
+const columns = ref(
+  menuStore.data.map((item) => ({
+    name: item.text,
+    id: item._id,
+  }))
+);
+const tap = ref(columns.value[0].name);
+// 尾巴高度
+const tailHeight = ref<number>(
+  uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
+);
 
 // 点击mask
 const tapMask = () => {
@@ -46,6 +96,16 @@ const tapBottom = () => {
 // 上传图片
 const upload = (data: { curr: string; all: string[] }) => {
   imgSrc.value = data.curr;
+};
+// 选择器
+const Picker = (event: { detail: { value: string } }) => {
+  tap.value = event.detail.value;
+};
+
+// ok
+const ok = () => {};
+const cancel = () => {
+  mainBtn.value = 0;
 };
 
 watch(
@@ -98,17 +158,51 @@ watch(
   transition: opacity 3s ease;
 }
 .content {
-  margin-top: 120rpx;
-  margin-bottom: 300rpx;
-  height: 100rpx;
-  background-color: red;
+  margin-top: 60rpx;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.text {
+  width: 100%;
+  font-weight: 400;
+  font-size: 27rpx;
+  display: flex;
+  justify-content: flex-start;
+  color: $font-color;
+  margin-bottom: 1%;
+}
 .img-box {
   width: 90%;
+  margin-top: 2%;
+}
+.input-box {
+  width: 90%;
+  margin-top: 2%;
+}
+.tap-box {
+  width: 90%;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+}
+.tap {
+  width: 100rpx;
+  border-radius: 15rpx;
+  background-color: $main-color;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 70rpx;
+  flex-shrink: 0;
+  font-size: 30rpx;
+}
+.btn-box {
+  width: 90%;
   margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

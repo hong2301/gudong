@@ -224,7 +224,7 @@ const clear = () => {
 const delDish = (index: number) => {
   if (rows.value[index].order > 0) {
     rows.value[index].order--;
-    menuStore.del(rows.value[index].dishId);
+    menuStore.del(rows.value[index]._id);
     uni.$emit("menu");
   } else {
     rows.value[index].order = 0;
@@ -241,7 +241,7 @@ const delDish = (index: number) => {
 const addDish = (index: number) => {
   rows.value[index].order++;
   cartStore.rows = rows.value;
-  menuStore.add(rows.value[index].dishId);
+  menuStore.add(rows.value[index]._id);
   uni.$emit("menu");
 };
 

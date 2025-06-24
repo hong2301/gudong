@@ -236,7 +236,7 @@ const scroll = (value: any) => {
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
   uni.vibrateShort();
-  uni.$emit("cart", { data: dData.dishId, mode: 2 });
+  uni.$emit("cart", { data: dData._id, mode: 2 });
   if (dData.order > 0) {
     dData.order--;
   } else {
@@ -255,7 +255,7 @@ const addDish = (tData: tapType, dData: dishType) => {
   dData.order++;
   tData.order++;
   const dish = {
-    dishId: dData.dishId,
+    id: dData._id,
     name: dData.name,
     dishImgSrc: dData.imgSrc,
     order: 1,

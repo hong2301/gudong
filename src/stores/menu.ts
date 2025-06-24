@@ -7,7 +7,7 @@ export const useMenuStore = defineStore(
     () => {
         const data = ref<tapType[]>([
             {
-                tapId: 't1',
+                id: 't1',
                 text: "招牌",
                 imgSrc: "../../static/a3.png",
                 isNew: true,
@@ -16,7 +16,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't2',
+                id: 't2',
                 text: "素菜",
                 imgSrc: "../../static/yumi.png",
                 isNew: false,
@@ -25,7 +25,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't3',
+                id: 't3',
                 text: "荤菜",
                 imgSrc: "../../static/rou.png",
                 isNew: false,
@@ -35,7 +35,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't4',
+                id: 't4',
                 text: "汤",
                 imgSrc: "../../static/tang.png",
                 isNew: false,
@@ -45,7 +45,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't5',
+                id: 't5',
                 text: "海鲜",
                 imgSrc: "../../static/xia.png",
                 isNew: false,
@@ -55,7 +55,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't6',
+                id: 't6',
                 text: "烧烤",
                 imgSrc: "../../static/shaokao.png",
                 isNew: false,
@@ -65,7 +65,7 @@ export const useMenuStore = defineStore(
                 ],
             },
             {
-                tapId: 't7',
+                id: 't7',
                 text: "饮料",
                 imgSrc: "../../static/yinliao.png",
                 isNew: false,
@@ -92,7 +92,7 @@ export const useMenuStore = defineStore(
         const add = (id: number | string) => {
             data.value.forEach(tItem => {
                 tItem.dish?.forEach(dItem => {
-                    if (id === dItem.dishId) {
+                    if (id === dItem._id) {
                         dItem.order++
                         tItem.order++
                     }
@@ -103,7 +103,7 @@ export const useMenuStore = defineStore(
         const del = (id: number | string) => {
             data.value.forEach(tItem => {
                 tItem.dish?.forEach(dItem => {
-                    if (id === dItem.dishId) {
+                    if (id === dItem._id) {
                         if (dItem.order > 0) {
                             dItem.order--
                         } else {

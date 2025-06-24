@@ -1,5 +1,5 @@
 export interface tapType {
-    tapId: string | number,
+    _id: string | number,
     text: string,
     imgSrc: string,
     isNew: boolean,
@@ -10,7 +10,7 @@ export interface tapType {
 }
 
 export interface dishType {
-    dishId: string | number,
+    _id: string | number,
     name: string,
     num: number | string,
     imgSrc: string
@@ -19,7 +19,7 @@ export interface dishType {
 }
 
 export interface cartDishType {
-    dishId: string | number,
+    _id: string | number,
     name: string,
     dishImgSrc: string
     order: number
