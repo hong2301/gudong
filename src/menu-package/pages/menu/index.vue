@@ -196,7 +196,8 @@ const cmdStore = useCmdStore();
 // 布布ref
 const bubuRef = ref();
 // 布布imgsrc
-const bubuImgSrc = "/menu-package/static/招待.png";
+const bubuImgSrc =
+  "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/招待.png";
 // 填写图标的缩放
 const txScale = ref<number>(1);
 // 菜单标签

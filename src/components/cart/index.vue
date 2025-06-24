@@ -120,7 +120,9 @@ const cartStore = useCartStore();
 // 菜单存储
 const menuStore = useMenuStore();
 // 一二图片
-const yierImgSrc = ref("/menu-package/static/吃什么.png");
+const yierImgSrc = ref(
+  "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/吃什么.png"
+);
 // 一二ref
 const yierRef = ref();
 // 购物车数据
@@ -140,13 +142,15 @@ const tapYier = () => {
       src: "/static/一二/声音/lll.m4a",
       volume: 1,
     });
-    yierImgSrc.value = "/menu-package/static/开心.png";
+    yierImgSrc.value =
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/开心.png";
   } else {
     yierRef?.value?.startSay(" ", ["30%", "-150%", "rgb(146,107,77)"], {
       src: "/static/一二/声音/ddd.m4a",
       volume: 1,
     });
-    yierImgSrc.value = "/menu-package/static/吃什么.png";
+    yierImgSrc.value =
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/吃什么.png";
   }
 };
 // 提交
@@ -184,9 +188,11 @@ const close = () => {
 // 一二状态
 const getYierStatus = () => {
   if (rows.value.length !== 0) {
-    yierImgSrc.value = "/menu-package/static/开心.png";
+    yierImgSrc.value =
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/开心.png";
   } else {
-    yierImgSrc.value = "/menu-package/static/吃什么.png";
+    yierImgSrc.value =
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/吃什么.png";
   }
 };
 // 全选按钮
