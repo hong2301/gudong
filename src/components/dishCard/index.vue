@@ -13,13 +13,16 @@
     >
       ⟨
     </view>
-    <view class="content"> </view>
+    <view class="content">
+      <view class="img-box">
+        <FileUpload @upload="upload"></FileUpload>
+      </view>
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useUserStore } from "@/stores/user";
 
 const props = defineProps({
   btn: {
@@ -28,6 +31,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["update:btn"]);
+const imgSrc = ref("");
 
 const mainBtn = ref(0);
 
@@ -38,6 +42,10 @@ const tapMask = () => {
 // 点击关闭
 const tapBottom = () => {
   mainBtn.value = 0;
+};
+// 上传图片
+const upload = (data: { curr: string; all: string[] }) => {
+  imgSrc.value = data.curr;
 };
 
 watch(
@@ -98,5 +106,9 @@ watch(
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.img-box {
+  width: 90%;
+  margin-top: 5%;
 }
 </style>

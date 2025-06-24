@@ -40,7 +40,11 @@ const afterRead = async (event: { file: ConcatArray<never> }) => {
     });
   });
   for (let i = 0; i < lists.length; i++) {
-    const result = await uploadFilePromise(lists[i].url);
+    const result = await uploadFilePromise(
+      lists[i].url,
+      lists[i].name,
+      lists[i]
+    );
     let item = fileList1.value[fileListLen];
     fileList1.value.splice(fileListLen, 1, {
       ...item,
@@ -52,11 +56,12 @@ const afterRead = async (event: { file: ConcatArray<never> }) => {
   }
 };
 
-const uploadFilePromise = (url: any) => {
+const uploadFilePromise = (url: any, name: any, data) => {
   return new Promise((resolve, reject) => {
+    console.log(data);
     uniCloud.uploadFile({
       filePath: url,
-      cloudPath: "a.jpg",
+      cloudPath: name,
       onUploadProgress: function (progressEvent) {
         console.log(progressEvent);
         var percentCompleted = Math.round(
