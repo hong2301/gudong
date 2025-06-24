@@ -123,6 +123,7 @@
       <view class="transition1" :style="{ height: `${tailHeight}px` }"></view>
     </view>
     <LoginCard v-model:btn="loginCardBtn"></LoginCard>
+    <LogCard v-model:btn="logCardBtn"></LogCard>
   </Layout>
 </template>
 
@@ -134,6 +135,7 @@ import { useCmdStore } from "@/stores/cmd";
 import { onReady, onShow } from "@dcloudio/uni-app";
 import { useUserStore } from "@/stores/user";
 import LoginCard from "@/components/loginCard/index.vue";
+import LogCard from "@/components/logCard/index.vue";
 
 // 是否有登陆
 const isLogin = ref(false);
@@ -191,6 +193,8 @@ const foodRows = ref([
 ]);
 // 登陆卡片
 const loginCardBtn = ref(0);
+// 日志卡片
+const logCardBtn = ref(0);
 
 /**
  * 点击布布
@@ -227,6 +231,7 @@ const tapBx = () => {
   bxScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
+    logCardBtn.value = 1;
     bxScale.value = 1;
   }, 100);
 };
@@ -262,7 +267,7 @@ const tapDd = () => {
 };
 
 /**
- * 点击订单
+ * 点击日志
  */
 const tapFoodItem = (id: string | number) => {
   console.log("点击食物日志");
