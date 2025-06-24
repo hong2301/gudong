@@ -3,7 +3,10 @@
     <view class="overture">
       <view class="introduce">
         <view class="introduce-imgs">
-          <image src="/static/xbh.png" mode="widthFix" />
+          <image
+            src="https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/xbh.png"
+            mode="widthFix"
+          />
         </view>
         <view class="transition"></view>
       </view>
