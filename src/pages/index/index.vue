@@ -288,10 +288,19 @@ const bubuStart = () => {
   }
 };
 
+// 检查是否登陆
+const isLoginFn = () => {
+  isLogin.value = userStore.isLogin();
+};
+
+uni.$on("login", () => {
+  isLoginFn();
+});
+
 onShow(() => {
   cmdStore.backBtnShow = false;
   cmdStore.searchBtnShow = false;
-  isLogin.value = userStore.isLogin();
+  isLoginFn();
 });
 onReady(() => {
   bubuStart();
