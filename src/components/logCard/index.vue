@@ -17,6 +17,11 @@
       <view class="img-box">
         <FileUpload @upload="upload"></FileUpload>
       </view>
+      <view class="time-box">
+        <picker class="date" mode="date" @change="Picker"
+          >{{ today.year }} 年 - {{ today.month }} 月 - {{ today.day }}
+        </picker>
+      </view>
       <view class="input-box">
         <up-textarea
           v-model="logText"
@@ -68,6 +73,15 @@ const tailHeight = ref<number>(
 const mainBtn = ref(0);
 const logText = ref("");
 const imgSrc = ref("");
+const today = ref<{
+  year: number;
+  month: number;
+  day: number;
+}>({
+  year: new Date().getFullYear(),
+  month: new Date().getMonth() + 1, // 月份是 0-11，所以要 +1
+  day: new Date().getDate(),
+});
 
 // 点击mask
 const tapMask = () => {
@@ -81,6 +95,14 @@ const tapBottom = () => {
 // 上传图片
 const upload = (data: { curr: string; all: string[] }) => {
   imgSrc.value = data.curr;
+};
+
+// 时间选择器
+const Picker = (event: { detail: { value: string } }) => {
+  let temp = event.detail.value;
+  today.value.year = Number(temp.split("-")[0]);
+  today.value.month = Number(temp.split("-")[1]);
+  today.value.day = Number(temp.split("-")[2]);
 };
 
 // ok
@@ -109,19 +131,7 @@ const ok = () => {
 
 // 获取当前时间
 const getNowTime = () => {
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat("zh-CN", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  });
-  const formattedDate = formatter.format(now); // 例如："2024/5/1"
-
-  // 替换斜杠为 "年"、"月"、"日"
-  const finalDate =
-    formattedDate.replace(/\//g, "年").replace("年", "年").replace("年", "月") +
-    "日";
-  return finalDate;
+  return `${today.value.year}年${today.value.month}月${today.value.day}日`;
 };
 
 // 取消
@@ -187,6 +197,15 @@ watch(
 .img-box {
   width: 90%;
   margin-top: 5%;
+}
+.time-box {
+  width: 90%;
+  margin-top: 5%;
+  padding-left: 1%;
+  display: flex;
+}
+.date {
+  border-bottom: 5rpx dashed $main-color;
 }
 .input-box {
   width: 90%;
