@@ -26,6 +26,14 @@
           v-model="dishName"
         ></up-input>
       </view>
+      <view class="input-box">
+        <view class="text">描述</view>
+        <up-input
+          placeholder="请输入描述"
+          border="surround"
+          v-model="des"
+        ></up-input>
+      </view>
       <view class="tap-box">
         <view class="text">标签</view>
         <picker
@@ -79,11 +87,14 @@ const columns = ref(
     id: item._id,
   }))
 );
+const tapId = ref(columns.value[0].id);
 const tap = ref(columns.value[0].name);
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
 );
+// 描述
+const des = ref("");
 
 // 点击mask
 const tapMask = () => {
@@ -99,11 +110,59 @@ const upload = (data: { curr: string; all: string[] }) => {
 };
 // 选择器
 const Picker = (event: { detail: { value: string } }) => {
-  tap.value = event.detail.value;
+  tapId.value = columns.value[Number(event.detail.value)].id;
+  tap.value = columns.value[Number(event.detail.value)].name;
 };
 
 // ok
-const ok = () => {};
+const ok = () => {
+  uniCloud
+    .callFunction({
+      name: "dishAdd",
+      data: {
+        dish: {
+          name: dishName.value,
+          imgSrc: imgSrc.value,
+          num: 0,
+          order: 0,
+          des: des.value,
+        },
+        tapId: tapId.value,
+      },
+    })
+    .then((res) => {
+      if (res.result.status === 1) {
+        uni.showToast({
+          title: "搞定", // 提示内容
+          icon: "success", // 图标（success/loading/none）
+          duration: 2000, // 显示时长（ms），默认1500
+          mask: false, // 是否显示透明蒙层，防止触摸穿透
+        });
+        getMenu();
+      } else {
+        uni.showToast({
+          title: "已存在", // 提示内容
+          icon: "none", // 图标（success/loading/none）
+          duration: 2000, // 显示时长（ms），默认1500
+          mask: false, // 是否显示透明蒙层，防止触摸穿透
+        });
+      }
+      mainBtn.value = 0;
+    });
+};
+/**
+ * 获取菜单
+ */
+const getMenu = () => {
+  uniCloud
+    .callFunction({
+      name: "tapGet",
+    })
+    .then((res) => {
+      menuStore.data = res.result.data;
+      uni.$emit("menu", true);
+    });
+};
 const cancel = () => {
   mainBtn.value = 0;
 };

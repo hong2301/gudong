@@ -1,0 +1,7 @@
+{
+  "name": "dishAdd",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
