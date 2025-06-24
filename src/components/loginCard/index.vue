@@ -113,18 +113,34 @@ const passwordColor = ref("");
 
 // 确认密码
 const deter = () => {
-  const result = userStore.loginAndPassword(name.value, password.value);
-  if (result) {
-    mainBtn.value = 0;
-    uni.$emit("login", true);
-    passwordBtn.value = false;
-  } else {
-    passwordColor.value = "red";
-    setTimeout(() => {
-      passwordColor.value = "";
-      password.value = "";
-    }, 500);
-  }
+  uniCloud
+    .callFunction({
+      name: "userLogin",
+      data: {
+        name: name.value,
+        passWord: password.value,
+      },
+    })
+    .then((res) => {
+      if (res.result.status === 3) {
+        mainBtn.value = 0;
+        passwordBtn.value = false;
+        userStore.userInfo = res.result.data;
+        uni.showToast({
+          title: "搞定", // 提示内容
+          icon: "success", // 图标（success/loading/none）
+          duration: 2000, // 显示时长（ms），默认1500
+          mask: false, // 是否显示透明蒙层，防止触摸穿透
+        });
+        uni.$emit("login", true);
+      } else {
+        passwordColor.value = "red";
+        setTimeout(() => {
+          passwordColor.value = "";
+          password.value = "";
+        }, 500);
+      }
+    });
 };
 // 返回
 const back = () => {
@@ -132,13 +148,29 @@ const back = () => {
 };
 // ok
 const ok = () => {
-  const result = userStore.pair(name.value);
-  if (result === 1) {
-    passwordBtn.value = true;
-  } else if (result === 2 || result === 3) {
-    mainBtn.value = 0;
-    uni.$emit("login", true);
-  }
+  uniCloud
+    .callFunction({
+      name: "userLogin",
+      data: {
+        name: name.value,
+      },
+    })
+    .then((res) => {
+      if (res.result.status === 1) {
+        passwordBtn.value = true;
+      } else if (res.result.status === 2 || res.result.status === 3) {
+        mainBtn.value = 0;
+        userStore.userInfo = res.result.data;
+        uni.showToast({
+          title: "搞定", // 提示内容
+          icon: "success", // 图标（success/loading/none）
+          duration: 2000, // 显示时长（ms），默认1500
+          mask: false, // 是否显示透明蒙层，防止触摸穿透
+        });
+        mainBtn.value = 0;
+        uni.$emit("login", true);
+      }
+    });
 };
 // 取消
 const canel = () => {
