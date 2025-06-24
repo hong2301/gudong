@@ -21,6 +21,9 @@ exports.main = async (event, context) => {
 	if(findItem){
 		status=2
 	}else{
+		if (!Array.isArray(findData.dish)) {
+		  findData.dish = [];
+		}
 		findData.dish.push(event.dish)
 		const { _id, ...newObj } = findData
 		await collection.doc(event.tapId).update(newObj);
