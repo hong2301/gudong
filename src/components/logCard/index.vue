@@ -27,7 +27,7 @@
           color="rgb(239, 156, 82)"
           :plain="true"
           text="取消"
-          @tap="canel"
+          @tap="cancel"
         ></up-button>
       </view>
     </view>
@@ -59,6 +59,11 @@ const tapBottom = () => {
   mainBtn.value = 0;
 };
 
+// ok
+const ok = () => {};
+
+// 取消
+const cancel = () => {};
 watch(
   () => props.btn,
   (value) => {
