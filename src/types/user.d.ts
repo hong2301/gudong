@@ -5,5 +5,6 @@ export interface infoType {
     startText: string,
     role: number,
     eatNum: number,
-    writeNum: number
+    writeNum: number,
+    passWord?: string,
 }

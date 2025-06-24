@@ -211,7 +211,7 @@ const tapDl = () => {
   uni.vibrateShort();
   setTimeout(() => {
     dlScale.value = 1;
-    if (isLogin) {
+    if (isLogin.value) {
       loginCardBtn.value = 1;
     } else {
       loginCardBtn.value = 2;

@@ -13,8 +13,11 @@
     >
       ⟨
     </view>
-    <view class="content">
-      <view class="title">取一个喜欢的昵称，让我们认识</view>
+    <view v-if="mainBtn === 2" class="content">
+      <view v-if="!passwordBtn" class="title"
+        >取一个喜欢的昵称，让我们认识!</view
+      >
+      <view v-else class="title">就差最后一步啦!</view>
       <view class="input-box">
         <u-input
           class="input"
@@ -26,7 +29,36 @@
         >
         </u-input>
       </view>
-      <view class="btn-box">
+      <view v-if="passwordBtn" class="input-box1">
+        <u-input
+          class="input"
+          type="password"
+          placeholder="请输入密码"
+          clearable
+          :color="passwordColor"
+          maxlength="10"
+          border="surround"
+          v-model="password"
+        >
+        </u-input>
+      </view>
+      <view v-if="passwordBtn" class="btn-box">
+        <up-button
+          text="确定"
+          type="primary"
+          color="rgb(239, 156, 82)"
+          style="margin-right: 5%"
+          @tap="deter"
+        ></up-button>
+        <up-button
+          type="primary"
+          color="rgb(239, 156, 82)"
+          :plain="true"
+          text="返回"
+          @tap="back"
+        ></up-button>
+      </view>
+      <view v-else class="btn-box">
         <up-button
           text="完成"
           type="primary"
@@ -43,6 +75,7 @@
         ></up-button>
       </view>
     </view>
+    <view v-if="mainBtn === 1" class="content"> xx </view>
   </view>
 </template>
 
@@ -59,17 +92,41 @@ const props = defineProps({
 const emit = defineEmits(["update:btn"]);
 const mainBtn = ref(0);
 const name = ref("");
+const password = ref("");
+const passwordBtn = ref(false);
 // 用户存储
 const userStore = useUserStore();
+// 密码颜色
+const passwordColor = ref("");
 
+// 确认密码
+const deter = () => {
+  const result = userStore.loginAndPassword(name.value, password.value);
+  if (result) {
+    mainBtn.value = 1;
+    uni.$emit("login");
+    passwordBtn.value = false;
+  } else {
+    passwordColor.value = "red";
+    setTimeout(() => {
+      passwordColor.value = "";
+      password.value = "";
+    }, 500);
+  }
+};
+// 返回
+const back = () => {
+  passwordBtn.value = false;
+};
 // ok
 const ok = () => {
-  userStore.userInfo.name = name.value;
-  // 调用api配对是否有该用户
-  // 没有则直接加入并显示用户页
-  // 有则检查是否需要密码，需要则弹出密码框
-  mainBtn.value = 2;
-  uni.$emit("login");
+  const result = userStore.pair(name.value);
+  if (result === 1) {
+    passwordBtn.value = true;
+  } else if (result === 2 || result === 3) {
+    mainBtn.value = 1;
+    uni.$emit("login");
+  }
 };
 // 取消
 const canel = () => {
@@ -79,18 +136,22 @@ const canel = () => {
 // 点击mask
 const tapMask = () => {
   mainBtn.value = 0;
-  emit("update:btn", mainBtn.value);
 };
 // 点击关闭
 const tapBottom = () => {
   mainBtn.value = 0;
-  emit("update:btn", mainBtn.value);
 };
 
 watch(
   () => props.btn,
   (value) => {
     mainBtn.value = value;
+  }
+);
+watch(
+  () => mainBtn.value,
+  (value) => {
+    emit("update:btn", value);
   }
 );
 </script>
@@ -148,6 +209,10 @@ watch(
 .input-box {
   width: 70%;
   margin-top: 10%;
+}
+.input-box1 {
+  width: 70%;
+  margin-top: 5%;
 }
 .btn-box {
   width: 70%;
