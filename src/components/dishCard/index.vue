@@ -69,6 +69,7 @@
 import { ref, watch } from "vue";
 import FileUpload from "@/components/fileUpload/index.vue";
 import { useMenuStore } from "@/stores/menu";
+import type { dishType, tapType } from "@/types/dish";
 
 const props = defineProps({
   btn: {
@@ -150,6 +151,7 @@ const ok = () => {
       mainBtn.value = 0;
     });
 };
+
 /**
  * 获取菜单
  */
@@ -159,7 +161,22 @@ const getMenu = () => {
       name: "tapGet",
     })
     .then((res) => {
-      menuStore.data = res.result.data;
+      const taps = ref<tapType[]>([]);
+      taps.value = menuStore.data;
+      res.result.data.forEach((tItem: tapType, tIndex: number) => {
+        const tempDish = taps.value[tIndex].dish;
+        const tempOrder = taps.value[tIndex].order;
+        taps.value[tIndex] = tItem;
+        taps.value[tIndex]?.dish.forEach((dItem, dIndex) => {
+          tempDish?.forEach((dtItem: dishType) => {
+            if (dtItem.name === dItem.name) {
+              dItem.order = dtItem.order;
+            }
+          });
+        });
+        taps.value[tIndex].order = tempOrder;
+      });
+      menuStore.data = taps.value;
       uni.$emit("menu", true);
     });
 };

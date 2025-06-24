@@ -312,7 +312,20 @@ const getMenu = () => {
       name: "tapGet",
     })
     .then((res) => {
-      taps.value = res.result.data;
+      taps.value = menuStore.data;
+      res.result.data.forEach((tItem: tapType, tIndex: number) => {
+        const tempDish = taps.value[tIndex].dish;
+        const tempOrder = taps.value[tIndex].order;
+        taps.value[tIndex] = tItem;
+        taps.value[tIndex]?.dish.forEach((dItem, dIndex) => {
+          tempDish?.forEach((dtItem: dishType) => {
+            if (dtItem.name === dItem.name) {
+              dItem.order = dtItem.order;
+            }
+          });
+        });
+        taps.value[tIndex].order = tempOrder;
+      });
       menuStore.data = taps.value;
     });
 };
