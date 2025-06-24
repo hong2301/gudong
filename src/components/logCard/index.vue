@@ -15,14 +15,7 @@
     </view>
     <view class="content" :style="{ marginBottom: `${tailHeight + 30}px` }">
       <view class="img-box">
-        <up-upload
-          :fileList="fileList1"
-          @afterRead="afterRead"
-          @delete="deletePic"
-          name="1"
-          multiple
-          :maxCount="1"
-        ></up-upload>
+        <FileUpload @upload="upload"></FileUpload>
       </view>
       <view class="input-box">
         <up-textarea
@@ -57,6 +50,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import FileUpload from "@/components/fileUpload/index.vue";
 
 const props = defineProps({
   btn: {
@@ -70,61 +64,8 @@ const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
 );
 const mainBtn = ref(0);
-const fileList1 = ref([]);
 const logText = ref("");
-
-// 删除图片
-const deletePic = (event: { index: number }) => {
-  fileList1.value.splice(event.index, 1);
-};
-
-// 新增图片
-const afterRead = async (event: { file: ConcatArray<never> }) => {
-  // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-  let lists = [].concat(event.file);
-  let fileListLen = fileList1.value.length;
-  lists.map((item) => {
-    fileList1.value.push({
-      ...item,
-      status: "uploading",
-      message: "上传中",
-    });
-  });
-  for (let i = 0; i < lists.length; i++) {
-    const result = await uploadFilePromise(lists[i].url);
-    let item = fileList1.value[fileListLen];
-    fileList1.value.splice(fileListLen, 1, {
-      ...item,
-      status: "success",
-      message: "",
-      url: result,
-    });
-    fileListLen++;
-  }
-};
-
-const uploadFilePromise = (url: any) => {
-  return new Promise((resolve, reject) => {
-    uniCloud.uploadFile({
-      filePath: url,
-      cloudPath: "a.jpg",
-      onUploadProgress: function (progressEvent) {
-        console.log(progressEvent);
-        var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-      },
-      success: (res) => {
-        setTimeout(() => {
-          res.fileID;
-          resolve(true);
-        }, 1000);
-      },
-      fail() {},
-      complete() {},
-    });
-  });
-};
+const imgSrc = ref("");
 
 // 点击mask
 const tapMask = () => {
@@ -135,8 +76,44 @@ const tapBottom = () => {
   mainBtn.value = 0;
 };
 
+// 上传图片
+const upload = (data: { curr: string; all: string[] }) => {
+  imgSrc.value = data.curr;
+};
+
 // ok
-const ok = () => {};
+const ok = () => {
+  uniCloud
+    .callFunction({
+      name: "logAdd",
+      data: {
+        time: getNowTime(),
+        imgSrc: imgSrc.value,
+        describe: logText.value,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      mainBtn.value = 0;
+    });
+};
+
+// 获取当前时间
+const getNowTime = () => {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+  const formattedDate = formatter.format(now); // 例如："2024/5/1"
+
+  // 替换斜杠为 "年"、"月"、"日"
+  const finalDate =
+    formattedDate.replace(/\//g, "年").replace("年", "年").replace("年", "月") +
+    "日";
+  return finalDate;
+};
 
 // 取消
 const cancel = () => {

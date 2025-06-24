@@ -8,28 +8,28 @@ export const useLogStore = defineStore(
         //// 响应式数据
         const rows = ref<logType[]>([
             {
-                logId: "1",
+                id: "1",
                 orderId: "1",
                 time: "2025年6月15日",
                 describe: "鸡腿肉太加分了",
                 imgSrc: "/static/foods/荔枝鸡煲.jpeg",
             },
             {
-                logId: "2",
+                id: "2",
                 orderId: "2",
                 time: "2025年6月14日",
                 describe: "牛肉有点腥味",
                 imgSrc: "/static/foods/菠萝牛肉粒.jpeg",
             },
             {
-                logId: "3",
+                id: "3",
                 orderId: "3",
                 time: "2025年6月13日",
                 describe: "咖喱咖喱",
                 imgSrc: "/static/foods/咖喱鸡翅.jpeg",
             },
             {
-                logId: "4",
+                id: "4",
                 orderId: "4",
                 time: "2025年6月12日",
                 describe: "挑虾线是一件很恐怖的事情",

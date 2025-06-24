@@ -6,16 +6,6 @@ onLaunch(() => {
 });
 onShow(() => {
   console.log("App Show");
-  // uniCloud
-  //   .callFunction({
-  //     name: "logAdd",
-  //     data: {
-  //       name: "123",
-  //     },
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //   });
 });
 onHide(() => {
   console.log("App Hide");

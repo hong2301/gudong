@@ -1,7 +1,7 @@
 import type { dishType } from "./dish.d.ts"
 
 export interface logType {
-    logId: string,
+    id: string,
     orderId: string,
     time: string,
     imgSrc: string,
