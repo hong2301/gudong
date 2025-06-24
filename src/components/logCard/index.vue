@@ -28,7 +28,6 @@
           placeholder="请输入日志内容"
           count
           autoHeight
-          focus
           :maxlength="50"
         ></up-textarea>
       </view>
