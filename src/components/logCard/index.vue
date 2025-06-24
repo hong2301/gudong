@@ -13,7 +13,7 @@
     >
       ⟨
     </view>
-    <view class="content" :style="{ marginBottom: `${tailHeight + 10}px` }">
+    <view class="content" :style="{ marginBottom: `${tailHeight + 30}px` }">
       <view class="img-box">
         <up-upload
           :fileList="fileList1"

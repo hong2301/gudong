@@ -76,7 +76,7 @@ export const useUserStore = defineStore(
                 }
 
             } else {
-                userRows.value.push({
+                userInfo.value = {
                     id: `${userRows.value.length}`,
                     name: name,
                     profile: "/static/shouye.png",
@@ -85,7 +85,9 @@ export const useUserStore = defineStore(
                     eatNum: 0,
                     writeNum: 0,
                     passWord: '88888888'
-                })
+                }
+                userRows.value.push(userInfo.value)
+
                 return 2
             }
         }
