@@ -71,6 +71,11 @@
               <view class="item-text"> {{ tItem.text }}</view>
             </view>
           </view>
+          <view
+            :style="{
+              height: `${capsuleRightInterval * 40}px`,
+            }"
+          ></view>
         </scroll-view>
         <view
           class="left"
@@ -272,10 +277,8 @@ uni.$on("menu", function () {
 
 // 点击菜单
 const tapMenuItem = (index: number, topValue: number) => {
-  if (index != taps.value.length - 1) {
     activeTap.value = index;
     scrollTop.value = topValue;
-  }
 };
 // 点击布布
 const tapBubu = () => {
