@@ -115,8 +115,8 @@ const passwordColor = ref("");
 const deter = () => {
   const result = userStore.loginAndPassword(name.value, password.value);
   if (result) {
-    mainBtn.value = 1;
-    uni.$emit("login");
+    mainBtn.value = 0;
+    uni.$emit("login", true);
     passwordBtn.value = false;
   } else {
     passwordColor.value = "red";
@@ -136,8 +136,8 @@ const ok = () => {
   if (result === 1) {
     passwordBtn.value = true;
   } else if (result === 2 || result === 3) {
-    mainBtn.value = 1;
-    uni.$emit("login");
+    mainBtn.value = 0;
+    uni.$emit("login", true);
   }
 };
 // 取消
@@ -156,7 +156,7 @@ const tapBottom = () => {
 // 退出
 const out = () => {
   userStore.out();
-  uni.$emit("login");
+  uni.$emit("login", false);
   mainBtn.value = 2;
   passwordBtn.value = false;
   password.value = "";

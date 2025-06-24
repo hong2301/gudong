@@ -293,8 +293,11 @@ const isLoginFn = () => {
   isLogin.value = userStore.isLogin();
 };
 
-uni.$on("login", () => {
+uni.$on("login", (mode) => {
   isLoginFn();
+  if (mode) {
+    bubuStart();
+  }
 });
 
 onShow(() => {
