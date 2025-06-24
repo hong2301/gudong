@@ -75,7 +75,15 @@
         ></up-button>
       </view>
     </view>
-    <view v-if="mainBtn === 1" class="content"> xx </view>
+    <view
+      v-if="mainBtn === 1"
+      class="content1"
+      :style="{ marginBottom: `${tailHeight + 10}px` }"
+    >
+      <view class="btn-box1">
+        <up-button text="退出" @tap="out"></up-button>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -90,6 +98,10 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["update:btn"]);
+// 尾巴高度
+const tailHeight = ref<number>(
+  uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
+);
 const mainBtn = ref(0);
 const name = ref("");
 const password = ref("");
@@ -140,6 +152,14 @@ const tapMask = () => {
 // 点击关闭
 const tapBottom = () => {
   mainBtn.value = 0;
+};
+// 退出
+const out = () => {
+  userStore.out();
+  uni.$emit("login");
+  mainBtn.value = 2;
+  passwordBtn.value = false;
+  password.value = "";
 };
 
 watch(
@@ -199,6 +219,13 @@ watch(
   flex-direction: column;
   align-items: center;
 }
+.content1 {
+  margin-top: 120rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .title {
   width: 100%;
   display: flex;
@@ -216,6 +243,12 @@ watch(
 }
 .btn-box {
   width: 70%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-box1 {
+  width: 90%;
   margin-top: 5%;
   display: flex;
   justify-content: space-between;

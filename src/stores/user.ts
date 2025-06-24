@@ -107,6 +107,19 @@ export const useUserStore = defineStore(
             return result
         };
 
+        // 退出登陆
+        const out = () => {
+            userInfo.value = {
+                id: "",
+                name: "",
+                profile: "",
+                startText: "",
+                role: -1,
+                eatNum: 0,
+                writeNum: 0,
+            }
+        }
+
         //外部可访问
         return {
             getFirst,
@@ -114,7 +127,8 @@ export const useUserStore = defineStore(
             userInfo,
             isLogin,
             pair,
-            loginAndPassword
+            loginAndPassword,
+            out
         }
     },
 
