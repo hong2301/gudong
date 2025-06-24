@@ -5,7 +5,7 @@ export interface logType {
     orderId: string,
     time: string,
     imgSrc: string,
-    des: strnig
+    describe: strnig
 }
 
 export interface orderType {

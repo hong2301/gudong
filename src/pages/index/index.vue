@@ -134,8 +134,10 @@ import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
 import { onReady, onShow } from "@dcloudio/uni-app";
 import { useUserStore } from "@/stores/user";
+import { useLogStore } from "@/stores/log";
 import LoginCard from "@/components/loginCard/index.vue";
 import LogCard from "@/components/logCard/index.vue";
+import type { logType } from "@/types/log";
 
 // 是否有登陆
 const isLogin = ref(false);
@@ -143,6 +145,8 @@ const isLogin = ref(false);
 const userStore = useUserStore();
 // 操作存储
 const cmdStore = useCmdStore();
+// 日志存储
+const logStore = useLogStore();
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
@@ -169,28 +173,7 @@ const bubuImgSrc = ref<string>("/static/布布/炒菜.png");
 // 布布ref
 const bubuRef = ref();
 // 食物日志
-const foodRows = ref([
-  {
-    time: "2025年6月15日",
-    describe: "鸡腿肉太加分了",
-    imgSrc: "/static/foods/荔枝鸡煲.jpeg",
-  },
-  {
-    time: "2025年6月14日",
-    describe: "牛肉有点腥味",
-    imgSrc: "/static/foods/菠萝牛肉粒.jpeg",
-  },
-  {
-    time: "2025年6月13日",
-    describe: "咖喱咖喱",
-    imgSrc: "/static/foods/咖喱鸡翅.jpeg",
-  },
-  {
-    time: "2025年6月12日",
-    describe: "挑虾线是一件很恐怖的事情",
-    imgSrc: "/static/foods/白灼大虾.jpeg",
-  },
-]);
+const foodRows = ref<logType[]>([]);
 // 登陆卡片
 const loginCardBtn = ref(0);
 // 日志卡片
@@ -308,6 +291,7 @@ uni.$on("login", (mode) => {
 onShow(() => {
   cmdStore.backBtnShow = false;
   cmdStore.searchBtnShow = false;
+  foodRows.value = logStore.rows;
   isLoginFn();
 });
 onReady(() => {
