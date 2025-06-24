@@ -419,6 +419,7 @@ onHide(() => {
 }
 .dish-img-box {
   height: 100%;
+    width:  150rpx;
 }
 .num-img-box {
   width: 13%;
