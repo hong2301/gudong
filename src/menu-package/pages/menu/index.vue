@@ -303,10 +303,24 @@ const tapTx = () => {
   }, 100);
 };
 
+/**
+ * 获取菜单
+ */
+const getMenu = () => {
+  uniCloud
+    .callFunction({
+      name: "tapGet",
+    })
+    .then((res) => {
+      taps.value = res.result.data;
+      menuStore.data = taps.value;
+    });
+};
+
 onShow(() => {
   cmdStore.backBtnShow = true;
   cmdStore.searchBtnShow = true;
-  taps.value = menuStore.getData();
+  getMenu();
 });
 onReady(() => {
   userStore.getFirst(getCurrentPages());

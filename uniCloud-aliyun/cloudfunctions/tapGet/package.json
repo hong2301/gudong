@@ -1,0 +1,7 @@
+{
+  "name": "tapGet",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
