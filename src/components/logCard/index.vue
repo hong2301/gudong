@@ -105,18 +105,23 @@ const afterRead = async (event: { file: ConcatArray<never> }) => {
 
 const uploadFilePromise = (url: any) => {
   return new Promise((resolve, reject) => {
-    let a = uni.uploadFile({
-      url: "http://192.168.2.21:7001/upload", // 仅为示例，非真实的接口地址
+    uniCloud.uploadFile({
       filePath: url,
-      name: "file",
-      formData: {
-        user: "test",
+      cloudPath: "a.jpg",
+      onUploadProgress: function (progressEvent) {
+        console.log(progressEvent);
+        var percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
       },
       success: (res) => {
         setTimeout(() => {
-          resolve(res.data.data);
+          res.fileID;
+          resolve(true);
         }, 1000);
       },
+      fail() {},
+      complete() {},
     });
   });
 };
