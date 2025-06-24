@@ -172,7 +172,9 @@ const dlScale = ref<number>(1);
 // 编写图标的缩放
 const bxScale = ref<number>(1);
 // 布布图片
-const bubuImgSrc = ref<string>("/static/布布/炒菜.png");
+const bubuImgSrc = ref<string>(
+  "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/炒菜.png"
+);
 // 布布ref
 const bubuRef = ref();
 // 食物日志

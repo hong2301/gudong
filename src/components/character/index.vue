@@ -42,7 +42,8 @@ const props = defineProps({
   },
   imgSrc: {
     type: String,
-    default: "/static/布布/蟑螂布.png",
+    default:
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/蟑螂布.png",
   },
 });
 const bgm = uni.createInnerAudioContext();
