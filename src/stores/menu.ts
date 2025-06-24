@@ -64,6 +64,16 @@ export const useMenuStore = defineStore(
 
                 ],
             },
+            {
+                tapId: 't7',
+                text: "饮料",
+                imgSrc: "../../static/yinliao.png",
+                isNew: false,
+                order: 0,
+                dish: [
+
+                ],
+            },
 
 
         ])
