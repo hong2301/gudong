@@ -71,6 +71,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  logId: {
+    type: String,
+    default: "",
+  },
 });
 
 const userStore = useUserStore();
@@ -154,16 +158,38 @@ watch(
 watch(
   () => props.time,
   (value) => {
-    const { year, month, day } = formatTimestampToDate(value);
-    today.value.year = year;
-    today.value.month = month;
-    today.value.day = day;
+    if (props.logId === "") {
+      const { year, month, day } = formatTimestampToDate(value);
+      today.value.year = year;
+      today.value.month = month;
+      today.value.day = day;
+    }
   }
 );
 watch(
   () => mainBtn.value,
   (value) => {
     emit("update:btn", value);
+  }
+);
+watch(
+  () => props.logId,
+  (value) => {
+    uniCloud
+      .callFunction({
+        name: "logGetById",
+        data: {
+          logId: value.logId,
+        },
+      })
+      .then((res) => {
+        logText.value = res.result[0].describe;
+        imgSrc.value = res.result[0].imgSrc;
+        const { year, month, day } = formatTimestampToDate(res.result[0].time);
+        today.value.year = year;
+        today.value.month = month;
+        today.value.day = day;
+      });
   }
 );
 </script>

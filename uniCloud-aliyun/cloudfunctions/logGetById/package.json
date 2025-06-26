@@ -1,0 +1,7 @@
+{
+  "name": "logGetById",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
