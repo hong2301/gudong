@@ -2,15 +2,26 @@
   <view class="overture">
     <Head class="head">
       <view v-if="backBtnShow" class="back-btn" @tap="back"></view>
-      <view v-if="searchBtnShow" class="search-btn" @tap="search">☌</view>
-      <view
-        class="bgm-btn"
-        :style="{
-          transform: `rotate(${bgmBtnRotate}deg)`,
-        }"
-        @tap="bgm"
-        >🎵</view
-      >
+      <view class="right-box">
+        <view
+          v-if="searchBtnShow"
+          :style="{
+            marginLeft: `${capsuleRightInterval}px`,
+          }"
+          class="search-btn"
+          @tap="search"
+          >☌</view
+        >
+        <view
+          class="bgm-btn"
+          :style="{
+            marginLeft: `${capsuleRightInterval}px`,
+            transform: `rotate(${bgmBtnRotate}deg)`,
+          }"
+          @tap="bgm"
+          >🎵</view
+        >
+      </view>
     </Head>
     <view class="body">
       <slot></slot>
@@ -20,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { onShow } from "@dcloudio/uni-app";
+import { onHide, onShow } from "@dcloudio/uni-app";
 import Head from "@/components/head/index.vue";
 import Tail from "@/components/tail/index.vue";
 import { ref } from "vue";
@@ -36,6 +47,11 @@ const searchBtnShow = ref<boolean>(false);
 const bgmBtnRotate = ref(0);
 // bgm按钮
 const bgmBtn = ref(false);
+// 胶囊右间隔
+const capsuleRightInterval = ref<number>(
+  uni.getWindowInfo().safeArea.right -
+    uni.getMenuButtonBoundingClientRect().right
+);
 
 // 返回上一级路由
 const back = () => {
@@ -78,6 +94,7 @@ onShow(() => {
   isBtnShow();
   time();
 });
+onHide(() => {});
 </script>
 
 <style scoped lang="scss">
@@ -130,6 +147,10 @@ onShow(() => {
   background-repeat: no-repeat; /* 防止背景图片重复 */
   background-position: center; /* 背景图片居中显示 */
 }
+.right-box {
+  height: 100%;
+  display: flex;
+}
 .search-btn {
   height: 100%;
   aspect-ratio: 1;
@@ -145,7 +166,6 @@ onShow(() => {
   transform: rotate(180deg);
   /* 确保旋转中心在元素中心 */
   transform-origin: center;
-  margin-left: auto;
 }
 .bgm-btn {
   height: 100%;
@@ -158,7 +178,6 @@ onShow(() => {
   align-items: center;
   border: 1rpx solid $cmd-btn-border;
   transform-origin: center;
-  margin-left: auto;
 }
 .back-btn:active {
   background-color: $cmd-btn-active;

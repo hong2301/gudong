@@ -48,5 +48,6 @@ const headHeight = ref<number>(
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 </style>
