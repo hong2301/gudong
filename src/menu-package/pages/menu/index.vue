@@ -109,7 +109,7 @@
                   <view class="dish-img-box">
                     <image
                       class="dish-img"
-                      :src="dItem.imgSrc"
+                      :src="dItem.imgSrc || '/static/load.jpeg'"
                       mode="heightFix"
                     />
                   </view>
