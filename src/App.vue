@@ -2,15 +2,32 @@
 import { onLaunch, onShow, onHide, onReady } from "@dcloudio/uni-app";
 // 背景音乐
 const mainBgm = uni.createInnerAudioContext();
+// 音乐集合
+const bgms: { src: string; volume: number }[] = [
+  {
+    src: "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/末白镇_吉他.m4a",
+    volume: 1,
+  },
+  {
+    src: "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/末白镇-爵士.m4a",
+    volume: 0.5,
+  },
+];
 
-// 背景音乐
-const bgmPlay = () => {
+// 播放背景音乐
+const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
   mainBgm.autoplay = true;
-  mainBgm.src =
-    "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/末白镇_吉他.m4a";
-  mainBgm.loop = true;
+  mainBgm.src = bgms[index].src;
+  mainBgm.volume = bgms[index].volume;
+  mainBgm.currentTime = 0;
   mainBgm.play();
-  console.log("播放");
+  mainBgm.onEnded(() => {
+    mainBgm.stop();
+    bgmPlay();
+  });
+  mainBgm.onError(() => {
+    bgmPlay();
+  });
 };
 
 onLaunch(() => {
