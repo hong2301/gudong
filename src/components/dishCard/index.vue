@@ -188,6 +188,13 @@ watch(
   () => props.btn,
   (value) => {
     mainBtn.value = value;
+    if (mainBtn.value) {
+      dishName.value = "";
+      imgSrc.value = "";
+      des.value = "";
+      tapId.value = columns.value[0].id;
+      tap.value = columns.value[0].name;
+    }
   }
 );
 watch(
