@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide, onReady } from "@dcloudio/uni-app";
+import { useCmdStore } from "@/stores/cmd";
+// bgm存储
+const cmdStore = useCmdStore();
 // 背景音乐
 const mainBgm = uni.createInnerAudioContext();
 // 音乐集合
@@ -13,14 +16,20 @@ const bgms: { src: string; volume: number }[] = [
     volume: 0.5,
   },
 ];
+// 声音开关
+let bgmBtn = true;
 
 // 播放背景音乐
 const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
-  mainBgm.autoplay = true;
   mainBgm.src = bgms[index].src;
   mainBgm.volume = bgms[index].volume;
   mainBgm.currentTime = 0;
-  mainBgm.play();
+  if (bgmBtn) {
+    mainBgm.play();
+  } else {
+    mainBgm.pause();
+  }
+
   mainBgm.onEnded(() => {
     mainBgm.stop();
     bgmPlay();
@@ -30,11 +39,21 @@ const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
   });
 };
 
+uni.$on("bgm", (btn: boolean) => {
+  bgmBtn = btn;
+  if (bgmBtn) {
+    mainBgm.play();
+  } else {
+    mainBgm.pause();
+  }
+});
+
 onLaunch(() => {
   console.log("App Launch");
 });
 onShow(() => {
   console.log("App Show");
+  bgmBtn = cmdStore.bgmBtn;
   bgmPlay();
 });
 
