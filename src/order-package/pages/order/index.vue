@@ -11,7 +11,7 @@
           marginBottom: `${capsuleRightInterval}px`,
         }"
       >
-        <view class="time">{{ oItem.time }}</view>
+        <view class="time">{{ formatTimestampToDate(oItem.time) }}</view>
         <view
           v-for="(dItem, dIndex) in oItem.dish"
           :key="dIndex"
@@ -45,6 +45,7 @@ import { ref } from "vue";
 import Head from "@/components/head/index.vue";
 import type { orderType } from "@/types/dish";
 import LogCard from "@/components/logCard/index.vue";
+import { formatTimestampToDate } from "@/utils/time";
 
 // 胶囊右间隔
 const capsuleRightInterval = ref<number>(
