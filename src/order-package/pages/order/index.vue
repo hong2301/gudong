@@ -11,7 +11,7 @@
           marginBottom: `${capsuleRightInterval}px`,
         }"
       >
-        <view class="time">{{ formatTimestampToDate(oItem.time) }}</view>
+        <view class="time">{{ formatTimestampToDate(oItem.time).str }}</view>
         <view
           v-for="(dItem, dIndex) in oItem.dish"
           :key="dIndex"
@@ -25,14 +25,31 @@
         </view>
         <view class="btn-box">
           <view class="btn">
-            <u-button color="rgb(239, 156, 82)" size="mini" @tap="logAdd"
+            <u-button
+              v-if="!oItem?.logId"
+              color="rgb(239, 156, 82)"
+              size="mini"
+              @tap="logAdd(oItem)"
               >记录一下</u-button
+            >
+            <u-button
+              v-else
+              color="rgb(239, 156, 82)"
+              size="mini"
+              @tap="lookLog(oItem.logId)"
+              >回味一下</u-button
             >
           </view>
         </view>
       </view>
     </view>
-    <LogCard v-model:btn="logCardBtn" :time="logTime"></LogCard>
+    <LogCard
+      v-model:btn="logCardBtn"
+      :time="Number(orderData.time)"
+      :orderId="orderData._id + ''"
+      :logId="logCardId"
+      @updated="logUpdated"
+    ></LogCard>
   </Layout>
 </template>
 
@@ -64,8 +81,30 @@ const userStore = useUserStore();
 const order = ref<orderType[]>([]);
 // 日志卡片
 const logCardBtn = ref(0);
-// 时间
-const logTime = ref<string>("");
+// 订单数据
+const orderData = ref<orderType>({});
+// 日志Id
+const logCardId = ref("");
+
+// 数据更新
+const logUpdated = (logId: string) => {
+  const { _id, ...rest } = orderData.value;
+  const temp = {
+    ...rest,
+    logId: logId,
+  };
+  uniCloud
+    .callFunction({
+      name: "orderUpdate",
+      data: {
+        id: orderData.value._id,
+        updateData: temp,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    });
+};
 
 // 获取订单
 const getOrder = () => {
@@ -81,7 +120,13 @@ const getOrder = () => {
     });
 };
 // 写日志
-const logAdd = () => {
+const logAdd = (item: orderType) => {
+  logCardBtn.value = 1;
+  orderData.value = item;
+};
+// 看日志
+const lookLog = (logId: string) => {
+  logCardId.value = logId;
   logCardBtn.value = 1;
 };
 

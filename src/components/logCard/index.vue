@@ -56,15 +56,26 @@
 import { ref, watch } from "vue";
 import FileUpload from "@/components/fileUpload/index.vue";
 import { useUserStore } from "@/stores/user";
+import { formatTimestampToDate } from "@/utils/time";
 
 const props = defineProps({
   btn: {
     type: Number,
     default: 0,
   },
+  time: {
+    type: Number,
+    default: 0,
+  },
+  orderId: {
+    type: String,
+    default: "",
+  },
 });
+
 const userStore = useUserStore();
-const emit = defineEmits(["update:btn"]);
+const emit = defineEmits(["update:btn", "updated"]);
+
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
@@ -110,10 +121,11 @@ const ok = () => {
     .callFunction({
       name: "logAdd",
       data: {
-        time: getNowTime(),
+        time: props.orderId !== "" ? props.time : Date.now(),
         imgSrc: imgSrc.value,
         describe: logText.value,
         userName: userStore.userInfo.name,
+        orderId: props.orderId,
       },
     })
     .then((res) => {
@@ -125,12 +137,8 @@ const ok = () => {
       });
       mainBtn.value = 0;
       uni.$emit("log");
+      emit("updated", { logId: res.result.id });
     });
-};
-
-// 获取当前时间
-const getNowTime = () => {
-  return `${today.value.year}年${today.value.month}月${today.value.day}日`;
 };
 
 // 取消
@@ -141,6 +149,15 @@ watch(
   () => props.btn,
   (value) => {
     mainBtn.value = value;
+  }
+);
+watch(
+  () => props.time,
+  (value) => {
+    const { year, month, day } = formatTimestampToDate(value);
+    today.value.year = year;
+    today.value.month = month;
+    today.value.day = day;
   }
 );
 watch(

@@ -29,9 +29,10 @@ export interface cartDishType {
 }
 
 export interface orderType {
-    _id: string | number,
-    time: string | number,
-    userId: string
-    userName: number
-    dish: cartDishType[],
+    _id: string,
+    logId: string,
+    time: string,
+    dishs: dishType[],
+    status: number,
+    userName: string,
 }

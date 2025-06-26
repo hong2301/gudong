@@ -116,7 +116,9 @@
           <view class="food-item-content">
             <image class="food-item-img" :src="fItem.imgSrc" mode="heightFix" />
             <view class="food-item-text-box">
-              <view class="food-item-text-time">{{ fItem.time }}</view>
+              <view class="food-item-text-time">{{
+                formatTimestampToDate(fItem.time).str
+              }}</view>
               <view class="food-item-text-des">{{ fItem.describe }}</view>
             </view>
           </view>
@@ -141,6 +143,7 @@ import { useLogStore } from "@/stores/log";
 import LoginCard from "@/components/loginCard/index.vue";
 import LogCard from "@/components/logCard/index.vue";
 import type { logType } from "@/types/log";
+import { formatTimestampToDate } from "@/utils/time";
 
 // 是否有登陆
 const isLogin = ref(false);
