@@ -236,7 +236,7 @@ const scroll = (value: any) => {
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
   uni.vibrateShort();
-  uni.$emit("cart", { data: dData._id, mode: 2 });
+  menuStore.data = taps.value;
   if (dData.order > 0) {
     dData.order--;
   } else {
@@ -247,23 +247,14 @@ const delDish = (tData: tapType, dData: dishType) => {
   } else {
     tData.order = 0;
   }
-  menuStore.data = taps.value;
+  uni.$emit("cart");
 };
 // 添加菜
 const addDish = (tData: tapType, dData: dishType) => {
   uni.vibrateShort();
   dData.order++;
   tData.order++;
-  const dish = {
-    id: dData._id,
-    name: dData.name,
-    dishImgSrc: dData.imgSrc,
-    order: 1,
-    text: tData.text,
-    tapImgSrc: tData.imgSrc,
-    isCheck: true,
-  };
-  uni.$emit("cart", { data: dish, mode: 1 });
+  uni.$emit("cart");
   menuStore.data = taps.value;
 
   if (dData.order === 1 && dData.des) {

@@ -246,42 +246,40 @@ const addDish = (index: number) => {
 };
 
 //获取数据
-uni.$on(
-  "cart",
-  function (data: { data: cartDishType | string | number; mode: number }) {
-    if (data.mode === 1) {
-      cartStore.add(data.data as cartDishType);
-    } else {
-      cartStore.del(data.data as string | number);
+uni.$on("cart", function () {
+  getGwc();
+
+  getYierStatus();
+  getStatus();
+});
+// 确认购物车
+const getGwc = () => {
+  rows.value = [];
+  menuStore.data.forEach((tItem) => {
+    if (tItem.order !== 0) {
+      tItem.dish?.forEach((dItem) => {
+        if (dItem.order !== 0) {
+          rows.value.push({
+            _id: dItem._id,
+            name: dItem.name,
+            dishImgSrc: dItem.imgSrc,
+            order: dItem.order,
+            text: tItem.text,
+            tapImgSrc: tItem.imgSrc,
+            isCheck: true,
+          });
+        }
+      });
     }
-    rows.value = [];
-    menuStore.data.forEach((tItem) => {
-      if (tItem.order !== 0) {
-        tItem.dish?.forEach((dItem) => {
-          if (dItem.order !== 0) {
-            rows.value.push({
-              _id: dItem._id,
-              name: dItem.name,
-              dishImgSrc: dItem.imgSrc,
-              order: dItem.order,
-              text: tItem.text,
-              tapImgSrc: tItem.imgSrc,
-              isCheck: true,
-            });
-          }
-        });
-      }
-    });
-    cartStore.rows = rows.value;
-    getYierStatus();
-    getStatus();
-  }
-);
+  });
+  cartStore.rows = rows.value;
+};
 
 onShow(() => {
   rows.value = cartStore.rows;
   getYierStatus();
   getStatus();
+  getGwc();
 });
 const filteredStatus = computed(() =>
   status.value.filter((item) => item.order !== 0)
