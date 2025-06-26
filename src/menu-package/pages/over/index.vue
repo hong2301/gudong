@@ -96,7 +96,7 @@ const ok = () => {
     .callFunction({
       name: "orderAdd",
       data: {
-        time: formatDate(),
+        time: Date.now(),
         dish: rows.value,
         userId: userStore.userInfo?._id,
         userName: userStore.userInfo?.name,

@@ -30,7 +30,7 @@ export interface cartDishType {
 
 export interface orderType {
     _id: string | number,
-    time: string,
+    time: string | number,
     userId: string
     userName: number
     dish: cartDishType[],
