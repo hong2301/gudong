@@ -126,9 +126,8 @@ const logAdd = (item: orderType) => {
 };
 // 看日志
 const lookLog = (logId: string) => {
-  console.log(logId);
   logCardId.value = logId;
-  logCardBtn.value = 1;
+  logCardBtn.value = 3;
 };
 
 onShow(() => {

@@ -1,5 +1,5 @@
 <template>
-  <view v-if="mainBtn" class="mask" @tap="tapMask"></view>
+  <view v-if="mainBtn || mainBtn === 3" class="mask" @tap="tapMask"></view>
   <view
     class="overture"
     :style="{
@@ -14,8 +14,15 @@
       ⟨
     </view>
     <view class="content" :style="{ marginBottom: `${tailHeight + 30}px` }">
-      <view class="img-box">
+      <view v-if="mainBtn !== 3" class="img-box">
         <FileUpload @upload="upload"></FileUpload>
+      </view>
+      <view v-else class="img-box">
+        <image
+          class="img"
+          :src="imgSrc || '/static/load.jpeg'"
+          mode="heightFix"
+        />
       </view>
       <view class="time-box">
         <picker class="date" mode="date" @change="Picker"
@@ -32,7 +39,7 @@
         ></up-textarea>
       </view>
 
-      <view class="btn-box">
+      <view v-if="mainBtn !== 3" class="btn-box">
         <up-button
           text="完成"
           type="primary"
@@ -45,6 +52,15 @@
           color="rgb(239, 156, 82)"
           :plain="true"
           text="取消"
+          @tap="cancel"
+        ></up-button>
+      </view>
+      <view v-else class="btn-box">
+        <up-button
+          type="primary"
+          color="rgb(239, 156, 82)"
+          :plain="true"
+          text="关 闭"
           @tap="cancel"
         ></up-button>
       </view>
@@ -239,6 +255,10 @@ watch(
 .img-box {
   width: 90%;
   margin-top: 5%;
+  height: 150rpx;
+}
+.img {
+  height: 100%;
 }
 .time-box {
   width: 90%;
