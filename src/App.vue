@@ -18,16 +18,21 @@ const bgms: { src: string; volume: number }[] = [
 ];
 // 声音开关
 let bgmBtn = true;
+// 当前声音
+let nowIndex = 0;
 
 // 播放背景音乐
 const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
+  nowIndex = index;
   mainBgm.src = bgms[index].src;
   mainBgm.volume = bgms[index].volume;
   mainBgm.currentTime = 0;
   if (bgmBtn) {
     mainBgm.play();
+    mainBgm.volume = bgms[nowIndex].volume;
   } else {
     mainBgm.pause();
+    mainBgm.volume = 0;
   }
 
   mainBgm.onEnded(() => {
@@ -43,8 +48,10 @@ uni.$on("bgm", (btn: boolean) => {
   bgmBtn = btn;
   if (bgmBtn) {
     mainBgm.play();
+    mainBgm.volume = bgms[nowIndex].volume;
   } else {
     mainBgm.pause();
+    mainBgm.volume = 0;
   }
 });
 
