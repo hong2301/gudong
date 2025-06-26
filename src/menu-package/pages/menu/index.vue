@@ -286,7 +286,7 @@ const tapMenuItem = (index: number, topValue: number) => {
 };
 // 点击布布
 const tapBubu = () => {
-  bubuRef?.value?.startSay("不要客气哟", ["30%", "-150%", "rgb(146,107,77)"], {
+  bubuRef?.value?.startSay("不要客气哟", ["30%", "-170%", "rgb(146,107,77)"], {
     src: "/static/布布/声音/哒哒哒哒哒.m4a",
     volume: 1,
   });
