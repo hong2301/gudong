@@ -112,6 +112,8 @@ const today = ref<{
   month: new Date().getMonth() + 1, // 月份是 0-11，所以要 +1
   day: new Date().getDate(),
 });
+// 点击上传的时间戳
+let timestamp = 0;
 
 // 点击mask
 const tapMask = () => {
@@ -133,6 +135,23 @@ const Picker = (event: { detail: { value: string } }) => {
   today.value.year = Number(temp.split("-")[0]);
   today.value.month = Number(temp.split("-")[1]);
   today.value.day = Number(temp.split("-")[2]);
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  // 3. 组合成完整日期对象
+  const fullDate = new Date(
+    today.value.year,
+    today.value.month,
+    today.value.day,
+    hours,
+    minutes,
+    seconds
+  );
+
+  // 4. 计算时间戳（毫秒）
+  timestamp = fullDate.getTime();
 };
 
 // ok
@@ -141,7 +160,7 @@ const ok = () => {
     .callFunction({
       name: "logAdd",
       data: {
-        time: props.orderId !== "" ? props.time : Date.now(),
+        time: props.orderId !== "" ? props.time : timestamp,
         imgSrc: imgSrc.value,
         describe: logText.value,
         userName: userStore.userInfo.name,
