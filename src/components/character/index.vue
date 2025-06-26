@@ -96,11 +96,11 @@ const startSay = (
     if (say.value.length != text.length) {
       say.value += text[say.value.length];
     } else {
+      setTimeout(() => {
+        say.value = "";
+      }, 3000);
       clearInterval(setIntervalData);
     }
-    setTimeout(() => {
-      say.value = "";
-    }, 3000);
   }, seed);
 
   watch(
