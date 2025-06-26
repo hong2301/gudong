@@ -148,8 +148,6 @@ const isLogin = ref(false);
 const userStore = useUserStore();
 // 操作存储
 const cmdStore = useCmdStore();
-// 日志存储
-const logStore = useLogStore();
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom

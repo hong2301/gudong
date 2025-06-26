@@ -25,11 +25,14 @@
         </view>
         <view class="btn-box">
           <view class="btn">
-            <u-button color="rgb(239, 156, 82)" size="mini">记录一下</u-button>
+            <u-button color="rgb(239, 156, 82)" size="mini" @tap="logAdd"
+              >记录一下</u-button
+            >
           </view>
         </view>
       </view>
     </view>
+    <LogCard v-model:btn="logCardBtn" :time="logTime"></LogCard>
   </Layout>
 </template>
 
@@ -41,6 +44,7 @@ import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import Head from "@/components/head/index.vue";
 import type { orderType } from "@/types/dish";
+import LogCard from "@/components/logCard/index.vue";
 
 // 胶囊右间隔
 const capsuleRightInterval = ref<number>(
@@ -57,6 +61,10 @@ const cmdStore = useCmdStore();
 const userStore = useUserStore();
 // 订单列表
 const order = ref<orderType[]>([]);
+// 日志卡片
+const logCardBtn = ref(0);
+// 时间
+const logTime = ref<string>("");
 
 // 获取订单
 const getOrder = () => {
@@ -70,6 +78,10 @@ const getOrder = () => {
     .then((res) => {
       order.value = res.result;
     });
+};
+// 写日志
+const logAdd = () => {
+  logCardBtn.value = 1;
 };
 
 onShow(() => {
