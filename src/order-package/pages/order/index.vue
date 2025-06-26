@@ -8,12 +8,30 @@
 import Layout from "@/components/layouts/index.vue";
 import { onShow } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
+import { useUserStore } from "@/stores/user";
 
 // 操作存储
 const cmdStore = useCmdStore();
+// 用户存储
+const userStore = useUserStore();
+
+// 获取订单
+const getOrder = () => {
+  uniCloud
+    .callFunction({
+      name: "orderGet",
+      data: {
+        userId: userStore.userInfo?._id,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    });
+};
 
 onShow(() => {
   cmdStore.backBtnShow = true;
+  getOrder();
 });
 </script>
 
