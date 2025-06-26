@@ -2,6 +2,7 @@
   <view class="overture">
     <Head class="head">
       <view v-if="backBtnShow" class="back-btn" @tap="back"></view>
+      <view v-if="backBtnShowToIndex" class="back-btn" @tap="backIndex"></view>
       <view class="right-box">
         <view
           v-if="searchBtnShow"
@@ -39,6 +40,8 @@ import { useCmdStore } from "@/stores/cmd";
 
 // 操作存储
 const cmdStore = useCmdStore();
+// 返回首页按钮
+const backBtnShowToIndex = ref<boolean>(false);
 // 返回按钮
 const backBtnShow = ref<boolean>(false);
 // 搜索栏
@@ -60,6 +63,15 @@ const back = () => {
   uni.navigateBack();
   cmdStore.backBtnShow = false;
 };
+
+// 返回返回首页
+const backIndex = () => {
+  uni.navigateTo({
+    url: "/pages/index/index",
+  });
+  cmdStore.backBtnShowToIndex = false;
+};
+
 // 前往搜索页面
 const search = () => {
   console.log("前往搜索页面");
@@ -89,7 +101,12 @@ const isBtnShow = () => {
   backBtnShow.value = cmdStore.backBtnShow;
   searchBtnShow.value = cmdStore.searchBtnShow;
   bgmBtn.value = cmdStore.bgmBtn;
+  backBtnShowToIndex.value = cmdStore.backBtnShowToIndex;
 };
+
+uni.$on("cmd", () => {
+  isBtnShow();
+});
 
 onShow(() => {
   console.log("layout Show");

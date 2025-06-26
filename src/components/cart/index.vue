@@ -100,7 +100,7 @@
 
 <script setup lang="ts">
 import Yier from "@/components/character/index.vue";
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { onShow } from "@dcloudio/uni-app";
 import { useCartStore } from "@/stores/cart";
 import { useMenuStore } from "@/stores/menu";

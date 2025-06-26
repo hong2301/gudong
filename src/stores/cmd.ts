@@ -11,13 +11,16 @@ export const useCmdStore = defineStore(
         const searchBtnShow = ref<boolean>(false)
         // 音乐开关
         const bgmBtn = ref<boolean>(true)
+        // 返回首页按钮
+        const backBtnShowToIndex = ref<boolean>(false)
 
 
         //外部可访问
         return {
             backBtnShow,
             searchBtnShow,
-            bgmBtn
+            bgmBtn,
+            backBtnShowToIndex
         }
     },
 
