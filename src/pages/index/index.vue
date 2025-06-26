@@ -311,6 +311,7 @@ uni.$on("log", () => {
 onShow(() => {
   cmdStore.backBtnShow = false;
   cmdStore.searchBtnShow = false;
+  cmdStore.backBtnShowToIndex = false;
   getLogRows();
   isLoginFn();
 });

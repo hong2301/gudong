@@ -276,10 +276,9 @@ const getGwc = () => {
 };
 
 onShow(() => {
-  rows.value = cartStore.rows;
+  getGwc();
   getYierStatus();
   getStatus();
-  getGwc();
 });
 const filteredStatus = computed(() =>
   status.value.filter((item) => item.order !== 0)

@@ -55,6 +55,7 @@ const sayOption = ref({
 });
 const say = ref("");
 const imgScale = ref(1);
+let setIntervalData: number | undefined = undefined;
 
 /**
  * 点击图片
@@ -75,6 +76,7 @@ const startSay = (
   sound: { src: string; volume: number },
   seed: number = 100
 ) => {
+  clearInterval(setIntervalData);
   say.value = "";
   sayOption.value = JSON.parse(
     JSON.stringify({
@@ -88,7 +90,7 @@ const startSay = (
   bgm.src = sound.src;
   bgm.volume = sound.volume;
   bgm.play();
-  const setIntervalData = setInterval(() => {
+  setIntervalData = setInterval(() => {
     if (say.value.length != text.length) {
       say.value += text[say.value.length];
     } else {
