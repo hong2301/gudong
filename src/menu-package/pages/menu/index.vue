@@ -258,7 +258,7 @@ const addDish = (tData: tapType, dData: dishType) => {
   menuStore.data = taps.value;
 
   if (dData.order === 1 && dData.des) {
-    bubuRef?.value?.startSay(dData.des, ["30%", "-150%", "rgb(146,107,77)"], {
+    bubuRef?.value?.startSay(dData.des, ["30%", "-170%", "rgb(146,107,77)"], {
       src: "/static/布布/声音/哒哒哒哒哒.m4a",
       volume: 1,
     });
