@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCmdStore } from "@/stores/cmd";
 import { ref, watch } from "vue";
 
 const props = defineProps({
@@ -48,6 +49,7 @@ const props = defineProps({
 });
 const bgm = uni.createInnerAudioContext();
 
+const cmdStore = useCmdStore();
 const sayOption = ref({
   top: "0%",
   left: "0%",
@@ -88,7 +90,7 @@ const startSay = (
   bgm.currentTime = 0;
   bgm.autoplay = true;
   bgm.src = sound.src;
-  bgm.volume = sound.volume;
+  bgm.volume = cmdStore.bgmBtn ? sound.volume : 0;
   bgm.play();
   setIntervalData = setInterval(() => {
     if (say.value.length != text.length) {
