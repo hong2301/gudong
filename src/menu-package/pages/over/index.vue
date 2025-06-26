@@ -42,7 +42,10 @@ import { useCmdStore } from "@/stores/cmd";
 import { useMenuStore } from "@/stores/menu";
 import type { cartDishType } from "@/types/dish";
 import Bubu from "@/components/character/index.vue";
+import { useUserStore } from "@/stores/user";
 
+// 用户存储
+const userStore = useUserStore();
 // 操作存储
 const cmdStore = useCmdStore();
 // 购物车数据
@@ -89,19 +92,40 @@ const getGwc = () => {
 
 // ok
 const ok = () => {
-  bubuRef?.value?.startSay("开整!", ["30%", "100%", "rgb(146,107,77)"], {
-    src: "/static/布布/声音/哒哒哒哒哒.m4a",
-    volume: 1,
-  });
-  bubuImgSrc.value =
-    "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/炒菜.png";
-  isOk.value = true;
-  // 返回按钮换为返回首页的
-  cmdStore.backBtnShow = false;
-  cmdStore.backBtnShowToIndex = true;
-  uni.$emit("cmd");
-  // 清空菜单
-  menuStore.claer();
+  uniCloud
+    .callFunction({
+      name: "orderAdd",
+      data: {
+        time: formatDate(),
+        dish: rows.value,
+        userId: userStore.userInfo?._id,
+        userName: userStore.userInfo?.name,
+      },
+    })
+    .then((res) => {
+      bubuRef?.value?.startSay("开整!", ["30%", "100%", "rgb(146,107,77)"], {
+        src: "/static/布布/声音/哒哒哒哒哒.m4a",
+        volume: 1,
+      });
+      bubuImgSrc.value =
+        "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/炒菜.png";
+      isOk.value = true;
+      // 返回按钮换为返回首页的
+      cmdStore.backBtnShow = false;
+      cmdStore.backBtnShowToIndex = true;
+      uni.$emit("cmd");
+      // 清空菜单
+      menuStore.claer();
+    });
+};
+
+// 获取当前时间并格式化
+const formatDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // 月份从0开始，需+1
+  const day = date.getDate();
+  return `${year}年${month}月${day}日`;
 };
 
 onShow(() => {

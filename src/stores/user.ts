@@ -8,29 +8,10 @@ export const useUserStore = defineStore(
         // 是否第一次访问
         const isFirst = ref(true)
         // 用户数据库
-        const userRows = ref<infoType[]>([{
-            id: "1",
-            name: "刘慧",
-            profile: "/static/shouye.png",
-            startText: "是小宝! 是小宝!",
-            role: 1,
-            eatNum: 5,
-            writeNum: 0,
-            passWord: '88888888'
-        }, {
-            id: "1",
-            name: "李泽枫",
-            profile: "/static/shouye.png",
-            startText: "欢迎老大",
-            role: 1,
-            eatNum: 5,
-            writeNum: 0,
-            passWord: '88888888'
-        }
-        ])
+        const userRows = ref<infoType[]>([])
         // 用户信息
         const userInfo = ref<infoType>({
-            id: "",
+            _id: "",
             name: "",
             profile: "",
             startText: "",
@@ -77,7 +58,7 @@ export const useUserStore = defineStore(
 
             } else {
                 userInfo.value = {
-                    id: `${userRows.value.length}`,
+                    _id: `${userRows.value.length}`,
                     name: name,
                     profile: "/static/shouye.png",
                     startText: "",
@@ -112,7 +93,7 @@ export const useUserStore = defineStore(
         // 退出登陆
         const out = () => {
             userInfo.value = {
-                id: "",
+                _id: "",
                 name: "",
                 profile: "",
                 startText: "",

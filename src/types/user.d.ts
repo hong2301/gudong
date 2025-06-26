@@ -1,5 +1,5 @@
 export interface infoType {
-    id: string,
+    _id: string,
     name: string,
     profile: string,
     startText: string,
