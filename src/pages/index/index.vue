@@ -114,7 +114,11 @@
           @tap="tapFoodItem(fIndex)"
         >
           <view class="food-item-content">
-            <image class="food-item-img" :src="fItem.imgSrc" mode="heightFix" />
+            <image
+              class="food-item-img"
+              :src="fItem.imgSrc || '/static/load.jpeg'"
+              mode="heightFix"
+            />
             <view class="food-item-text-box">
               <view class="food-item-text-time">{{
                 formatTimestampToDate(fItem.time).str
