@@ -27,3 +27,11 @@ export interface cartDishType {
     tapImgSrc: string,
     isCheck: boolean
 }
+
+export interface orderType {
+    _id: string | number,
+    time: string,
+    userId: string
+    userName: number
+    dish: cartDishType[],
+}
