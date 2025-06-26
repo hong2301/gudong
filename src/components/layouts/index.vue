@@ -52,6 +52,8 @@ const capsuleRightInterval = ref<number>(
   uni.getWindowInfo().safeArea.right -
     uni.getMenuButtonBoundingClientRect().right
 );
+// 计时器
+let jsq: number | undefined = undefined;
 
 // 返回上一级路由
 const back = () => {
@@ -76,7 +78,7 @@ const bgm = () => {
 };
 // 计时器
 const time = () => {
-  setInterval(() => {
+  jsq = setInterval(() => {
     if (bgmBtn.value) {
       bgmBtnRotate.value += 0.2;
     }
@@ -94,7 +96,12 @@ onShow(() => {
   isBtnShow();
   time();
 });
-onHide(() => {});
+onHide(() => {
+  uni.$off("bgm");
+  if (jsq) {
+    clearInterval(jsq);
+  }
+});
 </script>
 
 <style scoped lang="scss">
