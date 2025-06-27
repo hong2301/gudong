@@ -40,7 +40,10 @@
             :style="{ transform: `scale(${dlScale}) ` }"
           >
             <image
-              class="item-img"
+              :style="{
+                width: `${eleWidth1 * 0.5 * 0.4 * 0.4}px`,
+                height: `${eleWidth1 * 0.5 * 0.4 * 0.4}px`,
+              }"
               :src="`${
                 isLogin ? userStore.userInfo.profile : '/static/shouye.png'
               }`"
@@ -64,7 +67,14 @@
             class="item-img-box"
             :style="{ transform: `scale(${dcScale}) ` }"
           >
-            <image class="item-img" src="/static/dianpu.png" mode="widthFix" />
+            <image
+              :style="{
+                width: `${eleWidth1 * 0.5 * 0.4 * 0.5}px`,
+                height: `${eleWidth1 * 0.5 * 0.4 * 0.5}px`,
+              }"
+              src="/static/dianpu.png"
+              mode="widthFix"
+            />
           </view>
           <view class="item-text">烟火集</view>
           <view class="item-text1">看看想吃点什么</view>
@@ -75,7 +85,14 @@
             class="item-img-box"
             :style="{ transform: `scale(${ddScale}) ` }"
           >
-            <image class="item-img" src="/static/dingdan.png" mode="widthFix" />
+            <image
+              :style="{
+                width: `${eleWidth1 * 0.5 * 0.4 * 0.5}px`,
+                height: `${eleWidth1 * 0.5 * 0.4 * 0.5}px`,
+              }"
+              src="/static/dingdan.png"
+              mode="widthFix"
+            />
           </view>
           <view class="item-text">食味笺</view>
           <view class="item-text1">记录你的每一餐</view>
@@ -451,7 +468,7 @@ onReady(() => {
   position: absolute;
   top: 58%;
   right: 10%;
-  width: 17%;
+  width: 80rpx;
   aspect-ratio: 1;
 }
 
@@ -511,9 +528,6 @@ onReady(() => {
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
-.item-img {
-  width: 50%;
-}
 .item-text {
   margin-top: 5%;
   font-size: 33rpx;
@@ -541,7 +555,7 @@ onReady(() => {
 }
 .bianxie-img {
   position: absolute;
-  width: 45%;
+  width: 35rpx;
   aspect-ratio: 1;
   right: -70%;
   top: 20%;
