@@ -161,6 +161,13 @@ const tapSend = () => {
     uni.navigateTo({
       url: "/menu-package/pages/over/index",
     });
+  } else {
+    uni.showToast({
+      title: "还没点菜哦", // 提示内容
+      icon: "none", // 图标（success/loading/none）
+      duration: 2000, // 显示时长（ms），默认1500
+      mask: false, // 是否显示透明蒙层，防止触摸穿透
+    });
   }
 };
 // 获取status
