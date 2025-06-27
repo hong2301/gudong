@@ -17,11 +17,12 @@
       <view v-if="mainBtn !== 3" class="img-box">
         <FileUpload ref="upRef"></FileUpload>
       </view>
-      <view v-else class="img-box">
+      <view v-else class="img-box1">
         <image
           class="img"
           :src="imgSrc || '/static/load.jpeg'"
           mode="heightFix"
+          @click="clickImg(imgSrc)"
         />
       </view>
       <view class="time-box">
@@ -119,6 +120,19 @@ const today = ref<{
 });
 // 点击上传的时间戳
 let timestamp = Date.now();
+// 图片
+const imgSrc = ref("");
+
+// 预览图片
+const clickImg = (src: string) => {
+  uni.previewImage({
+    current: 0, // 当前显示的图片
+    urls: [src],
+    fail: (err) => {
+      console.error("预览失败:", err);
+    },
+  });
+};
 
 // 点击mask
 const tapMask = () => {
@@ -217,10 +231,11 @@ watch(
       .callFunction({
         name: "logGetById",
         data: {
-          logId: value.logId,
+          logId: value,
         },
       })
       .then((res) => {
+        console.log(res);
         logText.value = res.result[0].describe;
         imgSrc.value = res.result[0].imgSrc;
         const { year, month, day } = formatTimestampToDate(res.result[0].time);
@@ -278,6 +293,11 @@ watch(
   width: 90%;
   margin-top: 5%;
   height: 150rpx;
+}
+.img-box1 {
+  width: 90%;
+  margin-top: 5%;
+  height: 300rpx;
 }
 .img {
   height: 100%;

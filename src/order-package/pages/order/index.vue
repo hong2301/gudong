@@ -39,7 +39,7 @@
               v-else
               color="rgb(239, 156, 82)"
               size="mini"
-              @tap="lookLog(oItem.logId)"
+              @tap="lookLog(oItem?.logId)"
               >回味一下</u-button
             >
           </view>
