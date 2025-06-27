@@ -107,11 +107,23 @@
                   }"
                 >
                   <view class="dish-img-box">
-                    <image
-                      class="dish-img"
+                    <up-image
+                      :height="150 * rpxRPx"
+                      :width="200 * rpxRPx"
+                      :radius="15 * rpxRPx"
                       :src="dItem.imgSrc || '/static/load.jpeg'"
                       mode="heightFix"
-                    />
+                    >
+                      <template #error>
+                        <up-image
+                          :height="150 * rpxRPx"
+                          :width="200 * rpxRPx"
+                          :radius="15 * rpxRPx"
+                          src="/static/load.jpeg"
+                          mode="heightFix"
+                        />
+                      </template>
+                    </up-image>
                   </view>
                   <view class="dish-text-box">
                     <view class="dish-text1">{{ dItem.name }}</view>
@@ -485,11 +497,6 @@ onHide(() => {
 }
 .add-btn:active {
   background-color: $main-color-active;
-}
-.dish-img {
-  height: 100%;
-  aspect-ratio: 1;
-  border-radius: 15rpx;
 }
 .menu-box {
   width: 100%;
