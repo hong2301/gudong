@@ -113,6 +113,7 @@
                       :radius="15 * rpxRPx"
                       :src="dItem.imgSrc || '/static/load.jpeg'"
                       mode="aspectFill"
+                      @click="clickImg(dItem.imgSrc)"
                     >
                       <template #error>
                         <up-image
@@ -247,6 +248,17 @@ const scroll = (value: any) => {
       activeTap.value = 0;
       tapScrollTop.value = taps.value[0].tapTopValue - 170 * rpxRPx;
     }
+  });
+};
+
+// 预览图片
+const clickImg = (src: string) => {
+  uni.previewImage({
+    current: 0, // 当前显示的图片
+    urls: [src],
+    fail: (err) => {
+      console.error("预览失败:", err);
+    },
   });
 };
 
