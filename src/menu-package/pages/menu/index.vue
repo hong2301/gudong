@@ -112,7 +112,7 @@
                       :width="200 * rpxRPx"
                       :radius="15 * rpxRPx"
                       :src="dItem.imgSrc || '/static/load.jpeg'"
-                      mode="heightFix"
+                      mode="aspectFill"
                     >
                       <template #error>
                         <up-image
