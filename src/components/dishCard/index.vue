@@ -51,6 +51,8 @@
           type="primary"
           color="rgb(239, 156, 82)"
           style="margin-right: 5%"
+          :loading="loading"
+          :disabled="loading"
           @tap="ok"
         ></up-button>
         <up-button
@@ -96,6 +98,8 @@ const tailHeight = ref<number>(
 );
 // 描述
 const des = ref("");
+// 加载
+const loading = ref(false);
 
 // 点击mask
 const tapMask = () => {
@@ -117,6 +121,7 @@ const Picker = (event: { detail: { value: string } }) => {
 
 // ok
 const ok = () => {
+  loading.value = true;
   uniCloud
     .callFunction({
       name: "dishAdd",
@@ -132,6 +137,7 @@ const ok = () => {
       },
     })
     .then((res) => {
+      loading.value = false;
       if (res.result.status === 1) {
         uni.showToast({
           title: "搞定", // 提示内容
