@@ -137,6 +137,7 @@
               :radius="15 * rpxRPx"
               :src="fItem.imgSrc || '/static/load.jpeg'"
               mode="aspectFill"
+              @click="clickImg(fItem.imgSrc)"
             >
               <template #error>
                 <up-image
@@ -318,6 +319,17 @@ const bubuStart = () => {
       volume: 1,
     });
   }
+};
+
+// 预览图片
+const clickImg = (src: string) => {
+  uni.previewImage({
+    current: 0, // 当前显示的图片
+    urls: [src],
+    fail: (err) => {
+      console.error("预览失败:", err);
+    },
+  });
 };
 
 // 检查是否登陆
