@@ -123,6 +123,11 @@
                           mode="heightFix"
                         />
                       </template>
+                      <template v-slot:loading>
+                        <up-loading-icon
+                          color="rgb(239, 156, 82)"
+                        ></up-loading-icon>
+                      </template>
                     </up-image>
                   </view>
                   <view class="dish-text-box">
