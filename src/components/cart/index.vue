@@ -63,7 +63,7 @@
       <view
         class="space"
         :style="{
-          height: `${(tailHeight - capsuleRightInterval) * 6}px`,
+          height: `${(tailHeight - capsuleRightInterval) * 5}px`,
         }"
       ></view>
     </view>
@@ -334,7 +334,9 @@ const isAllChecked = computed(() => {
 }
 .dish-list-content {
   width: 100%;
+  max-height: 750rpx;
   border-radius: 30rpx 30rpx 0 0;
+  overflow: auto;
 }
 .dish-list-item {
   width: 100%;
@@ -434,7 +436,6 @@ const isAllChecked = computed(() => {
   left: -2%;
 }
 .space {
-  min-height: 400rpx;
 }
 .content {
   position: relative;
