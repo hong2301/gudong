@@ -23,6 +23,7 @@ let nowIndex = 0;
 
 // 播放背景音乐
 const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
+  mainBgm.destroy();
   mainBgm = uni.createInnerAudioContext();
   nowIndex = index;
   mainBgm.src = bgms[index].src;
