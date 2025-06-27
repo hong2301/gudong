@@ -8,17 +8,19 @@
         :img-src="bubuImgSrc"
         @tap="tapBubu"
       ></Bubu>
-      <view v-for="(rItem, rIndex) in rows" :key="rIndex" class="item">
-        <view class="dish-img-box">
-          <image
-            class="dish-img"
-            :src="rItem.dishImgSrc || '/static/load.jpeg'"
-            mode="heightFix"
-          />
-        </view>
-        <view class="text-box">
-          <view class="name">{{ rItem.name }}</view>
-          <view class="num">{{ `x ${rItem.order}` }}</view>
+      <view class="content">
+        <view v-for="(rItem, rIndex) in rows" :key="rIndex" class="item">
+          <view class="dish-img-box">
+            <image
+              class="dish-img"
+              :src="rItem.dishImgSrc || '/static/load.jpeg'"
+              mode="aspectFill"
+            />
+          </view>
+          <view class="text-box">
+            <view class="name">{{ rItem.name }}</view>
+            <view class="num">{{ `x ${rItem.order}` }}</view>
+          </view>
         </view>
       </view>
       <view v-if="!isOk" class="btn-box">
@@ -119,7 +121,6 @@ const ok = () => {
     });
 };
 
-
 onShow(() => {
   cmdStore.backBtnShow = true;
   cmdStore.searchBtnShow = false;
@@ -155,6 +156,15 @@ onReady(() => {
   position: relative;
   overflow: auto;
   justify-content: center;
+}
+.content {
+  width: 100%;
+  max-height: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
 }
 .item {
   width: 80%;

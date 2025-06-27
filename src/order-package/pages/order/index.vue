@@ -16,6 +16,9 @@
           v-for="(dItem, dIndex) in oItem.dish"
           :key="dIndex"
           class="dish-item"
+          :style="{
+            marginBottom: `${capsuleRightInterval}px`,
+          }"
         >
           <image class="dish-img" :src="dItem.dishImgSrc" mode="heightFix" />
           <view class="text-box">
@@ -42,6 +45,17 @@
           </view>
         </view>
       </view>
+      <view
+        v-if="order.length === 0"
+        class="item"
+        :style="{
+          width: `${eleWidth1}px`,
+          marginBottom: `${capsuleRightInterval}px`,
+        }"
+      >
+        <view class="dish-item1">尚未品尝</view>
+      </view>
+      <view class="space"></view>
     </view>
     <LogCard
       v-model:btn="logCardBtn"
@@ -167,9 +181,17 @@ onShow(() => {
 .dish-item {
   width: 100%;
   height: 150rpx;
-  margin-bottom: 15rpx;
   display: flex;
   justify-content: space-between;
+}
+.dish-item1 {
+  width: 100%;
+  height: 150rpx;
+  margin-bottom: 15rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $font-color1;
 }
 .dish-img {
   height: 100%;
@@ -206,5 +228,10 @@ onShow(() => {
 .btn {
   margin-top: 15rpx;
   width: 120rpx;
+}
+.space {
+  width: 100%;
+  height: 400rpx;
+  flex-shrink: 0;
 }
 </style>
