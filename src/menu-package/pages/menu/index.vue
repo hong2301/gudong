@@ -335,6 +335,7 @@ const getMenu = () => {
         taps.value[tIndex].order = tempOrder;
       });
       menuStore.data = taps.value;
+      taps.value = menuStore.getData();
     });
 };
 
