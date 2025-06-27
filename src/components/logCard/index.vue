@@ -15,7 +15,7 @@
     </view>
     <view class="content" :style="{ marginBottom: `${tailHeight + 30}px` }">
       <view v-if="mainBtn !== 3" class="img-box">
-        <FileUpload @upload="upload"></FileUpload>
+        <FileUpload ref="upRef"></FileUpload>
       </view>
       <view v-else class="img-box">
         <image
@@ -45,6 +45,8 @@
           type="primary"
           color="rgb(239, 156, 82)"
           style="margin-right: 5%"
+          :loading="loading"
+          :disabled="loading"
           @tap="ok"
         ></up-button>
         <up-button
@@ -96,13 +98,16 @@ const props = defineProps({
 const userStore = useUserStore();
 const emit = defineEmits(["update:btn", "updated"]);
 
+// 上传组件
+const upRef = ref();
+// 加载
+const loading = ref(false);
 // 尾巴高度
 const tailHeight = ref<number>(
   uni.getWindowInfo().screenHeight - uni.getWindowInfo().safeArea.bottom
 );
 const mainBtn = ref(0);
 const logText = ref("");
-const imgSrc = ref("");
 const today = ref<{
   year: number;
   month: number;
@@ -113,7 +118,7 @@ const today = ref<{
   day: new Date().getDate(),
 });
 // 点击上传的时间戳
-let timestamp = 0;
+let timestamp = Date.now();
 
 // 点击mask
 const tapMask = () => {
@@ -122,11 +127,6 @@ const tapMask = () => {
 // 点击关闭
 const tapBottom = () => {
   mainBtn.value = 0;
-};
-
-// 上传图片
-const upload = (data: { curr: string; all: string[] }) => {
-  imgSrc.value = data.curr;
 };
 
 // 时间选择器
@@ -143,7 +143,7 @@ const Picker = (event: { detail: { value: string } }) => {
   // 3. 组合成完整日期对象
   const fullDate = new Date(
     today.value.year,
-    today.value.month,
+    today.value.month - 1,
     today.value.day,
     hours,
     minutes,
@@ -155,19 +155,22 @@ const Picker = (event: { detail: { value: string } }) => {
 };
 
 // ok
-const ok = () => {
+const ok = async () => {
+  loading.value = true;
+  const { curr } = await upRef.value.trueUpload();
   uniCloud
     .callFunction({
       name: "logAdd",
       data: {
         time: props.orderId !== "" ? props.time : timestamp,
-        imgSrc: imgSrc.value,
+        imgSrc: curr,
         describe: logText.value,
         userName: userStore.userInfo.name,
         orderId: props.orderId,
       },
     })
     .then((res) => {
+      loading.value = true;
       uni.showToast({
         title: "搞定", // 提示内容
         icon: "success", // 图标（success/loading/none）
