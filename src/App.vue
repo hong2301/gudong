@@ -4,7 +4,7 @@ import { useCmdStore } from "@/stores/cmd";
 // bgm存储
 const cmdStore = useCmdStore();
 // 背景音乐
-const mainBgm = uni.createInnerAudioContext();
+let mainBgm = uni.createInnerAudioContext();
 // 音乐集合
 const bgms: { src: string; volume: number }[] = [
   {
@@ -23,17 +23,12 @@ let nowIndex = 0;
 
 // 播放背景音乐
 const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
+  mainBgm = uni.createInnerAudioContext();
   nowIndex = index;
   mainBgm.src = bgms[index].src;
   mainBgm.volume = bgms[index].volume;
   mainBgm.currentTime = 0;
-  if (bgmBtn) {
-    mainBgm.play();
-    mainBgm.volume = bgms[nowIndex].volume;
-  } else {
-    mainBgm.pause();
-    mainBgm.volume = 0;
-  }
+  mainBgm.play();
 
   mainBgm.onEnded(() => {
     mainBgm.stop();
@@ -46,12 +41,11 @@ const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
 
 uni.$on("bgm", (btn: boolean) => {
   bgmBtn = btn;
+  console.log();
   if (bgmBtn) {
-    mainBgm.play();
-    mainBgm.volume = bgms[nowIndex].volume;
+    bgmPlay();
   } else {
-    mainBgm.pause();
-    mainBgm.volume = 0;
+    mainBgm.destroy();
   }
 });
 
@@ -61,7 +55,9 @@ onLaunch(() => {
 onShow(() => {
   console.log("App Show");
   bgmBtn = cmdStore.bgmBtn;
-  bgmPlay();
+  if (bgmBtn) {
+    bgmPlay();
+  }
 });
 
 onHide(() => {
