@@ -114,11 +114,26 @@
           @tap="tapFoodItem(fIndex)"
         >
           <view class="food-item-content">
-            <image
-              class="food-item-img"
+            <up-image
+              :height="150 * rpxRPx"
+              :width="200 * rpxRPx"
+              :radius="15 * rpxRPx"
               :src="fItem.imgSrc || '/static/load.jpeg'"
-              mode="heightFix"
-            />
+              mode="aspectFill"
+            >
+              <template #error>
+                <up-image
+                  :height="150 * rpxRPx"
+                  :width="200 * rpxRPx"
+                  :radius="15 * rpxRPx"
+                  src="/static/load.jpeg"
+                  mode="heightFix"
+                />
+              </template>
+              <template v-slot:loading>
+                <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
+              </template>
+            </up-image>
             <view class="food-item-text-box">
               <view class="food-item-text-time">{{
                 formatTimestampToDate(fItem.time).str
@@ -166,6 +181,8 @@ const capsuleRightInterval = ref<number>(
 );
 // 屏幕宽度
 const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 // 点餐图标的缩放
