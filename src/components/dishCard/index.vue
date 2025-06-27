@@ -16,7 +16,7 @@
     <view class="content" :style="{ marginBottom: `${tailHeight + 10}px` }">
       <view class="img-box">
         <view class="text">图片</view>
-        <FileUpload @upload="upload"></FileUpload>
+        <FileUpload ref="upRef"></FileUpload>
       </view>
       <view class="input-box">
         <view class="text">名字</view>
@@ -81,7 +81,6 @@ const props = defineProps({
 });
 const menuStore = useMenuStore();
 const emit = defineEmits(["update:btn"]);
-const imgSrc = ref("");
 const dishName = ref("");
 const mainBtn = ref(0);
 const columns = ref(
@@ -100,6 +99,8 @@ const tailHeight = ref<number>(
 const des = ref("");
 // 加载
 const loading = ref(false);
+// 上传组件
+const upRef = ref();
 
 // 点击mask
 const tapMask = () => {
@@ -109,10 +110,6 @@ const tapMask = () => {
 const tapBottom = () => {
   mainBtn.value = 0;
 };
-// 上传图片
-const upload = (data: { curr: string; all: string[] }) => {
-  imgSrc.value = data.curr;
-};
 // 选择器
 const Picker = (event: { detail: { value: string } }) => {
   tapId.value = columns.value[Number(event.detail.value)].id;
@@ -120,15 +117,16 @@ const Picker = (event: { detail: { value: string } }) => {
 };
 
 // ok
-const ok = () => {
+const ok = async () => {
   loading.value = true;
+  const { curr } = await upRef.value.trueUpload();
   uniCloud
     .callFunction({
       name: "dishAdd",
       data: {
         dish: {
           name: dishName.value,
-          imgSrc: imgSrc.value,
+          imgSrc: curr,
           num: 0,
           order: 0,
           des: des.value,
@@ -196,7 +194,6 @@ watch(
     mainBtn.value = value;
     if (mainBtn.value) {
       dishName.value = "";
-      imgSrc.value = "";
       des.value = "";
       tapId.value = columns.value[0].id;
       tap.value = columns.value[0].name;

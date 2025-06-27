@@ -21,6 +21,7 @@ const props = defineProps({
 const emit = defineEmits(["upload"]);
 const fileList1 = ref([]);
 const overFile = ref<string[]>([]);
+const okFile: { url: any; name: any }[] = [];
 
 // 删除图片
 const deletePic = (event: { index: number }) => {
@@ -57,30 +58,52 @@ const afterRead = async (event: { file: ConcatArray<never> }) => {
 };
 
 const uploadFilePromise = (url: any, name: any, data) => {
-  return new Promise((resolve, reject) => {
-    console.log(data);
-    uniCloud.uploadFile({
-      filePath: url,
-      cloudPath: name,
-      onUploadProgress: function (progressEvent) {
-        console.log(progressEvent);
-        var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-      },
-      success: (res) => {
-        setTimeout(() => {
-          overFile.value.push(res.fileID);
-          emit("upload", { curr: res.fileID, all: overFile.value });
-          resolve(true);
-        }, 1000);
-      },
-      fail() {},
-      complete() {},
-    });
+  okFile.push({ url, name });
+  return Promise.resolve({ success: true });
+};
+
+const trueUpload = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      overFile.value = [];
+      const uploadTasks = okFile.map((item) => {
+        return new Promise((resolve, reject) => {
+          uniCloud.uploadFile({
+            filePath: item.url,
+            cloudPath: item.name,
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              console.log(`${item.name} 上传进度: ${percentCompleted}%`);
+            },
+            success: (res) => {
+              setTimeout(() => {
+                overFile.value.push(res.fileID);
+                resolve(res.fileID);
+              }, 1000);
+            },
+            fail: (err) => reject(err),
+          });
+        });
+      });
+
+      const allFileIDs = await Promise.all(uploadTasks);
+      resolve({
+        curr: allFileIDs[0],
+        all: allFileIDs,
+      });
+    } catch (err) {
+      reject(err);
+    }
   });
 };
+
+defineExpose({
+  trueUpload,
+});
 </script>
+s
 
 <style scoped>
 .overture {
