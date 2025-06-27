@@ -11,11 +11,26 @@
       <view class="content">
         <view v-for="(rItem, rIndex) in rows" :key="rIndex" class="item">
           <view class="dish-img-box">
-            <image
-              class="dish-img"
-              :src="rItem.dishImgSrc || '/static/load.jpeg'"
+            <up-image
+              :height="150 * rpxRPx"
+              :width="200 * rpxRPx"
+              :radius="15 * rpxRPx"
+              :src="rItem.dishImgSrc"
               mode="aspectFill"
-            />
+            >
+              <template #error>
+                <up-image
+                  :height="150 * rpxRPx"
+                  :width="200 * rpxRPx"
+                  :radius="15 * rpxRPx"
+                  src="/static/load.jpeg"
+                  mode="heightFix"
+                />
+              </template>
+              <template v-slot:loading>
+                <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
+              </template>
+            </up-image>
           </view>
           <view class="text-box">
             <view class="name">{{ rItem.name }}</view>
@@ -46,6 +61,10 @@ import type { cartDishType } from "@/types/dish";
 import Bubu from "@/components/character/index.vue";
 import { useUserStore } from "@/stores/user";
 
+// 屏幕宽度
+const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 // 用户存储
 const userStore = useUserStore();
 // 操作存储
