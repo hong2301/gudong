@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
-import { onReady, onShow } from "@dcloudio/uni-app";
+import { onHide, onReady, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
 import { useMenuStore } from "@/stores/menu";
@@ -144,6 +144,9 @@ onShow(() => {
   cmdStore.backBtnShow = true;
   cmdStore.searchBtnShow = false;
   getGwc();
+});
+onHide(() => {
+  cmdStore.backBtnShow = false;
 });
 onReady(() => {
   bubuRef?.value?.startSay(
