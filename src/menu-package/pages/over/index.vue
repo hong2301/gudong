@@ -47,6 +47,15 @@
           @tap="ok"
         ></up-button>
       </view>
+      <view v-else class="btn-box">
+        <up-button
+          text="返回首页"
+          type="primary"
+          color="rgb(239, 156, 82)"
+          style="margin-right: 5%"
+          @tap="back"
+        ></up-button>
+      </view>
     </view>
   </Layout>
 </template>
@@ -109,6 +118,14 @@ const getGwc = () => {
       });
     }
   });
+};
+
+// 返回首页
+const back = () => {
+  uni.navigateTo({
+    url: "/pages/index/index",
+  });
+  cmdStore.backBtnShowToIndex = false;
 };
 
 // ok
