@@ -20,7 +20,27 @@
             marginBottom: `${capsuleRightInterval}px`,
           }"
         >
-          <image class="dish-img" :src="dItem.dishImgSrc" mode="heightFix" />
+          <up-image
+            :height="150 * rpxRPx"
+            :width="200 * rpxRPx"
+            :radius="15 * rpxRPx"
+            :src="dItem.dishImgSrc || '/static/load.jpeg'"
+            mode="aspectFill"
+            @click="clickImg(dItem.imgSrc)"
+          >
+            <template #error>
+              <up-image
+                :height="150 * rpxRPx"
+                :width="200 * rpxRPx"
+                :radius="15 * rpxRPx"
+                src="/static/load.jpeg"
+                mode="heightFix"
+              />
+            </template>
+            <template v-slot:loading>
+              <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
+            </template>
+          </up-image>
           <view class="text-box">
             <view class="name">{{ dItem.name }}</view>
             <view class="num">{{ `x ${dItem.order}` }}</view>
@@ -85,6 +105,8 @@ const capsuleRightInterval = ref<number>(
 );
 // 屏幕宽度
 const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 3 * capsuleRightInterval.value);
 // 操作存储
@@ -118,6 +140,17 @@ const logUpdated = (logId: string) => {
     .then((res) => {
       console.log(res);
     });
+};
+
+// 预览图片
+const clickImg = (src: string) => {
+  uni.previewImage({
+    current: 0, // 当前显示的图片
+    urls: [src],
+    fail: (err) => {
+      console.error("预览失败:", err);
+    },
+  });
 };
 
 // 获取订单
@@ -194,7 +227,8 @@ onShow(() => {
   color: $font-color1;
 }
 .dish-img {
-  height: 100%;
+  height: 150rpx;
+  width: 200rpx;
   border-radius: 15rpx;
 }
 .text-box {
