@@ -74,7 +74,6 @@ const backIndex = () => {
 
 // 前往搜索页面
 const search = () => {
-  console.log("前往搜索页面");
   uni.navigateTo({
     url: "/menu-package/pages/search/index",
   });

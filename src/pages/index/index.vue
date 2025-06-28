@@ -270,7 +270,6 @@ const tapYier = () => {
  * 点击登陆
  */
 const tapDl = () => {
-  console.log("点击登陆");
   dlScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -287,7 +286,6 @@ const tapDl = () => {
  * 点击编写
  */
 const tapBx = () => {
-  console.log("点击编写");
   bxScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -300,7 +298,6 @@ const tapBx = () => {
  * 点击点餐
  */
 const tapDc = () => {
-  console.log("点击点餐");
   dcScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -315,7 +312,6 @@ const tapDc = () => {
  * 点击订单
  */
 const tapDd = () => {
-  console.log("点击点餐");
   ddScale.value = 1.1;
   uni.vibrateShort();
   setTimeout(() => {
@@ -330,7 +326,6 @@ const tapDd = () => {
  * 点击日志
  */
 const tapFoodItem = (id: string | number) => {
-  console.log("点击食物日志");
   uni.vibrateShort();
 };
 

@@ -136,7 +136,6 @@ const allSel = ref(false);
 
 // 点击一二
 const tapYier = () => {
-  console.log("点击一二");
   if (rows.value.length !== 0) {
     yierRef?.value?.startSay(" ", ["30%", "-150%", "rgb(146,107,77)"], {
       src: "/static/一二/声音/lll.m4a",

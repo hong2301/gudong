@@ -114,13 +114,6 @@ const startSay = (
       clearInterval(setIntervalData);
     }
   }, seed);
-
-  watch(
-    () => props.imgSrc, // 直接监听 prop
-    (newVal, oldVal) => {
-      console.log("变化后的值:", newVal);
-    }
-  );
 };
 
 defineExpose({

@@ -242,7 +242,6 @@ watch(
         },
       })
       .then((res) => {
-        console.log(res);
         logText.value = res.result[0].describe;
         imgSrc.value = res.result[0].imgSrc;
         const { year, month, day } = formatTimestampToDate(res.result[0].time);

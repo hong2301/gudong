@@ -90,7 +90,6 @@ onHide(() => {
   console.log("App Hide");
   bgmStore.index = nowIndex;
   bgmStore.curr = playTime;
-  console.log(bgmStore.index, bgmStore.curr);
   mainBgm.destroy();
   clearInterval(jsq);
 });

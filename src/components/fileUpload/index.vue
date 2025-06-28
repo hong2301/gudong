@@ -75,7 +75,7 @@ const trueUpload = () => {
               const percentCompleted = Math.round(
                 (progressEvent.loaded * 100) / progressEvent.total
               );
-              console.log(`${item.name} 上传进度: ${percentCompleted}%`);
+              // console.log(`${item.name} 上传进度: ${percentCompleted}%`);
             },
             success: (res) => {
               setTimeout(() => {

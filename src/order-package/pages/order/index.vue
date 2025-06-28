@@ -137,9 +137,6 @@ const logUpdated = (logId: string) => {
         updateData: temp,
       },
     })
-    .then((res) => {
-      console.log(res);
-    });
 };
 
 // 预览图片
