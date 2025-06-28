@@ -1,23 +1,30 @@
 <template>
   <view
     class="overture"
-    :style="{ width: `${size}rpx`, transform: `scale(${imgScale}) ` }"
+    :style="{
+      width: `${size}rpx`,
+      height: `${size}rpx`,
+      transform: `scale(${imgScale}) `,
+    }"
   >
     <view class="content">
       <u-image
         mode="widthFix"
-        width="100%"
+        :width="size * rpxRPx"
+        :height="size * rpxRPx"
         :src="imgSrc"
         :lazy-load="true"
-        :show-loading="true"
         :fade="true"
         duration="450"
+        bgColor="transparent"
+        loadingIcon="/static/空白.png"
         class="img"
+        :show-loading="true"
         @tap="tapImg"
       >
-        <template v-slot:loading>
+        <!-- <template v-slot:loading>
           <up-loading-icon color="red"></up-loading-icon>
-        </template>
+        </template> -->
       </u-image>
     </view>
     <view :style="sayOption" class="text-box">
@@ -48,6 +55,11 @@ const props = defineProps({
   },
 });
 const bgm = uni.createInnerAudioContext();
+
+// 屏幕宽度
+const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 
 const cmdStore = useCmdStore();
 const sayOption = ref({

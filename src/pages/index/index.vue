@@ -386,11 +386,26 @@ const yierDb = () => {
   }, 100);
 };
 
+// 一二不弹
+const yierNo = (btn: boolean) => {
+  if (btn) {
+    yierImgSrc.value =
+      " https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/弹钢琴.png";
+  } else {
+    yierImgSrc.value =
+      "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/哭.png";
+  }
+};
+
 uni.$on("login", (mode) => {
   isLoginFn();
   if (mode) {
     bubuStart();
   }
+});
+
+uni.$on("bgm", (btn) => {
+  yierNo(btn);
 });
 
 uni.$on("log", () => {
