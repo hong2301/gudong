@@ -393,16 +393,22 @@ const yierNo = (btn: boolean) => {
   if (btn) {
     yierImgSrc.value =
       " https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/弹钢琴.png";
+    yierRef?.value?.startSay("嘻嘻", ["-10%", "80%", "rgb(233, 148, 137)"], {
+      src: "/static/一二/声音/ddd.m4a",
+      volume: 1,
+    });
   } else {
     yierImgSrc.value =
       "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/哭.png";
     setTimeout(() => {
-      yierImgSrc.value =
-        "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/揉脸.png";
-      yierRef?.value?.startSay("哼", ["-10%", "80%", "rgb(233, 148, 137)"], {
-        src: "/static/一二/声音/ddd.m4a",
-        volume: 1,
-      });
+      if (!cmdStore.bgmBtn) {
+        yierImgSrc.value =
+          "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/揉脸.png";
+        yierRef?.value?.startSay("哼", ["-10%", "80%", "rgb(233, 148, 137)"], {
+          src: "/static/一二/声音/ddd.m4a",
+          volume: 1,
+        });
+      }
     }, 1000);
   }
 };
