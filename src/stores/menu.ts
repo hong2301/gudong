@@ -5,78 +5,7 @@ import type { tapType } from '@/types/dish'
 export const useMenuStore = defineStore(
     'menu',
     () => {
-        const data = ref<tapType[]>([
-            {
-                id: 't1',
-                text: "招牌",
-                imgSrc: "../../static/a3.png",
-                isNew: true,
-                order: 0,
-                dish: [
-                ],
-            },
-            {
-                id: 't2',
-                text: "素菜",
-                imgSrc: "../../static/yumi.png",
-                isNew: false,
-                order: 0,
-                dish: [
-                ],
-            },
-            {
-                id: 't3',
-                text: "荤菜",
-                imgSrc: "../../static/rou.png",
-                isNew: false,
-                order: 0,
-                dish: [
-
-                ],
-            },
-            {
-                id: 't4',
-                text: "汤",
-                imgSrc: "../../static/tang.png",
-                isNew: false,
-                order: 0,
-                dish: [
-
-                ],
-            },
-            {
-                id: 't5',
-                text: "海鲜",
-                imgSrc: "../../static/xia.png",
-                isNew: false,
-                order: 0,
-                dish: [
-
-                ],
-            },
-            {
-                id: 't6',
-                text: "烧烤",
-                imgSrc: "../../static/shaokao.png",
-                isNew: false,
-                order: 0,
-                dish: [
-
-                ],
-            },
-            {
-                id: 't7',
-                text: "饮料",
-                imgSrc: "../../static/yinliao.png",
-                isNew: false,
-                order: 0,
-                dish: [
-
-                ],
-            },
-
-
-        ])
+        const data = ref<tapType[]>([])
 
         // 清空选择
         const claer = () => {
@@ -89,33 +18,39 @@ export const useMenuStore = defineStore(
             return data.value
         }
         // 添加
-        const add = (id: number | string) => {
+        const add = (id: number | string, tapText: string) => {
             data.value.forEach(tItem => {
-                tItem.dish?.forEach(dItem => {
-                    if (id === dItem._id) {
-                        dItem.order++
-                        tItem.order++
-                    }
-                })
+                if (tapText === tItem.text) {
+                    tItem.dish?.forEach(dItem => {
+                        if (id === dItem.dishId) {
+                            dItem.order++
+                            tItem.order++
+                        }
+                    })
+                }
+
             })
         }
         // 删除
-        const del = (id: number | string) => {
+        const del = (id: number | string, tapText: string) => {
             data.value.forEach(tItem => {
-                tItem.dish?.forEach(dItem => {
-                    if (id === dItem._id) {
-                        if (dItem.order > 0) {
-                            dItem.order--
-                        } else {
-                            dItem.order = 0
+                if (tapText === tItem.text) {
+                    tItem.dish?.forEach(dItem => {
+                        if (id === dItem.dishId) {
+                            if (dItem.order > 0) {
+                                dItem.order--
+                            } else {
+                                dItem.order = 0
+                            }
+                            if (tItem.order > 0) {
+                                tItem.order--
+                            } else {
+                                tItem.order = 0
+                            }
                         }
-                        if (tItem.order > 0) {
-                            tItem.order--
-                        } else {
-                            tItem.order = 0
-                        }
-                    }
-                })
+                    })
+                }
+
             })
         }
         // 获取数据

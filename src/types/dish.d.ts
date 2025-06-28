@@ -11,7 +11,7 @@ export interface tapType {
 }
 
 export interface dishType {
-    _id: string | number,
+    dishId: string | number,
     name: string,
     num: number | string,
     imgSrc: string

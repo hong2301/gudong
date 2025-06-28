@@ -230,7 +230,7 @@ const clear = () => {
 const delDish = (index: number) => {
   if (rows.value[index].order > 0) {
     rows.value[index].order--;
-    menuStore.del(rows.value[index]._id);
+    menuStore.del(rows.value[index]._id, rows.value[index].text);
     uni.$emit("menu");
   } else {
     rows.value[index].order = 0;
@@ -247,7 +247,7 @@ const delDish = (index: number) => {
 const addDish = (index: number) => {
   rows.value[index].order++;
   cartStore.rows = rows.value;
-  menuStore.add(rows.value[index]._id);
+  menuStore.add(rows.value[index]._id, rows.value[index].text);
   uni.$emit("menu");
 };
 
@@ -266,7 +266,7 @@ const getGwc = () => {
       tItem.dish?.forEach((dItem) => {
         if (dItem.order !== 0) {
           rows.value.push({
-            _id: dItem._id,
+            _id: dItem.dishId,
             name: dItem.name,
             dishImgSrc: dItem.imgSrc,
             order: dItem.order,
