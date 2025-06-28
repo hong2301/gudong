@@ -42,7 +42,6 @@ const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
 
 uni.$on("bgm", (btn: boolean) => {
   bgmBtn = btn;
-  console.log();
   if (bgmBtn) {
     bgmPlay();
   } else {
