@@ -69,7 +69,10 @@ import { useMenuStore } from "@/stores/menu";
 import type { cartDishType } from "@/types/dish";
 import Bubu from "@/components/character/index.vue";
 import { useUserStore } from "@/stores/user";
+import { useCartStore } from "@/stores/cart";
 
+// 购物车存储
+const cartStore = useCartStore();
 // 屏幕宽度
 const areaWidth = uni.getWindowInfo().safeArea.width;
 // rpx/px
@@ -100,24 +103,25 @@ const tapBubu = () => {
 };
 // 确认购物车
 const getGwc = () => {
-  rows.value = [];
-  menuStore.data.forEach((tItem) => {
-    if (tItem.order !== 0) {
-      tItem.dish?.forEach((dItem) => {
-        if (dItem.order !== 0) {
-          rows.value.push({
-            _id: dItem._id,
-            name: dItem.name,
-            dishImgSrc: dItem.imgSrc,
-            order: dItem.order,
-            text: tItem.text,
-            tapImgSrc: tItem.imgSrc,
-            isCheck: true,
-          });
-        }
-      });
-    }
-  });
+  // rows.value = [];
+  // menuStore.data.forEach((tItem) => {
+  //   if (tItem.order !== 0) {
+  //     tItem.dish?.forEach((dItem) => {
+  //       if (dItem.order !== 0) {
+  //         rows.value.push({
+  //           _id: dItem._id,
+  //           name: dItem.name,
+  //           dishImgSrc: dItem.imgSrc,
+  //           order: dItem.order,
+  //           text: tItem.text,
+  //           tapImgSrc: tItem.imgSrc,
+  //           isCheck: true,
+  //         });
+  //       }
+  //     });
+  //   }
+  // });
+  rows.value = cartStore.overRows;
 };
 
 // 返回首页

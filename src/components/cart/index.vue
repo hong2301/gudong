@@ -155,8 +155,8 @@ const tapYier = () => {
 };
 // 提交
 const tapSend = () => {
-  if (filteredRows.value.length !== 0) {
-    cartStore.overRows = rows.value.filter((item) => item?.isCheck);
+  cartStore.overRows = rows.value.filter((item) => item?.isCheck);
+  if (filteredRows.value.length !== 0 && cartStore.overRows.length !== 0) {
     uni.vibrateShort();
     uni.navigateTo({
       url: "/menu-package/pages/over/index",
