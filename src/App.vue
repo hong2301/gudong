@@ -46,7 +46,6 @@ const bgmPlay = (
 
 uni.$on("bgm", (btn: boolean) => {
   bgmBtn = btn;
-  console.log(bgmBtn);
   if (bgmBtn) {
     mainBgm.volume = bgms[nowIndex].volume;
   } else {
