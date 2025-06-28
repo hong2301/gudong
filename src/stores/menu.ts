@@ -127,14 +127,19 @@ export const useMenuStore = defineStore(
             // rpx/px
             const rpxRPx = areaWidth / 750
             data.value.forEach((item, index) => {
-                const targetIndex = index - 1
+                const preIndex = index - 1
                 item.tapTopValue = index * rpxRPx * 170
-                if (targetIndex >= 0) {
-                    const targetItem = data.value[targetIndex]
+                if (preIndex >= 0) {
+                    const targetItem = data.value[index]
+                    const preItem = data.value[preIndex]
                     const itemNum = targetItem?.dish?.length ?? 0
-                    item.topValue = 24 * rpxRPx + (150 + capsuleRightInterval * 2 + 6) * rpxRPx * itemNum + targetItem.topValue
+                    item.topValue = (preItem?.bottomValue ?? 0)
+                    item.bottomValue = item.topValue + 30 * rpxRPx + (150 * rpxRPx + capsuleRightInterval * 2) * itemNum
                 } else {
+                    const targetItem = data.value[index]
+                    const itemNum = targetItem?.dish?.length ?? 0
                     item.topValue = 0
+                    item.bottomValue = 30 * rpxRPx + (150 * rpxRPx + capsuleRightInterval * 2) * itemNum
                 }
             })
             return data.value

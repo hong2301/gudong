@@ -415,10 +415,12 @@ onHide(() => {
   font-weight: 300;
 }
 .text2 {
+  height: 24rpx;
   font-size: 24rpx;
   line-height: 24rpx;
   color: $font-color1;
   font-weight: 400;
+  margin-bottom: 6rpx;
 }
 .dish-text1 {
   font-size: 30rpx;
@@ -615,7 +617,6 @@ onHide(() => {
 .dish-box {
   width: 100%;
   height: 150rpx;
-  margin-top: 6rpx;
   display: flex;
 }
 .space {
