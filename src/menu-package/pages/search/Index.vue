@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <view class="overture">搜索</view>
+    <view class="overture">搜索-暂未开发</view>
   </Layout>
 </template>
 
@@ -26,6 +26,7 @@ onShow(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(
     to top,
     rgba(245, 241, 230, 1) 0%,
