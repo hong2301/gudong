@@ -43,10 +43,14 @@ const bgmPlay = (
   time();
 
   mainBgm.onEnded(() => {
+    bgmStore.curr = 0;
+    playTime = 0;
     mainBgm.stop();
     bgmPlay();
   });
   mainBgm.onError(() => {
+    bgmStore.curr = 0;
+    playTime = 0;
     bgmPlay();
   });
 };
