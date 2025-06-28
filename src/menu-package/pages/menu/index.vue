@@ -448,7 +448,8 @@ onHide(() => {
   transition: transform 0.3s ease;
 }
 .dc {
-  height: 100%;
+  height: 30rpx;
+  width: 30rpx;
   aspect-ratio: 1;
 }
 .dish-img-box {
@@ -461,7 +462,8 @@ onHide(() => {
   align-items: center;
 }
 .num-img {
-  width: 100%;
+  width: 50rpx;
+  height: 50rpx;
   aspect-ratio: 1;
 }
 .dish-text-box {
@@ -582,7 +584,7 @@ onHide(() => {
   transition: all 0.3s ease;
 }
 .item-img {
-  width: 50%;
+  width: 70rpx;
   aspect-ratio: 1;
 }
 .item-text {
