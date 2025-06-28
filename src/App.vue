@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
+import { useBgmStore } from "./stores/bgm";
 // bgm存储
 const cmdStore = useCmdStore();
+// bgm数据存储
+const bgmStore = useBgmStore();
 // 背景音乐
 let mainBgm = uni.createInnerAudioContext();
 // 音乐集合
@@ -22,13 +25,14 @@ let bgmBtn = true;
 let nowIndex = 0;
 
 // 播放背景音乐
-const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
-  mainBgm.destroy();
-  mainBgm = uni.createInnerAudioContext();
+const bgmPlay = (
+  index: number = Math.floor(Math.random() * bgms.length),
+  curr: number = 0
+) => {
   nowIndex = index;
   mainBgm.src = bgms[index].src;
-  mainBgm.volume = bgms[index].volume;
-  mainBgm.currentTime = 0;
+  mainBgm.volume = bgmBtn ? bgms[index].volume : 0;
+  mainBgm.seek(curr);
   mainBgm.play();
 
   mainBgm.onEnded(() => {
@@ -42,10 +46,11 @@ const bgmPlay = (index: number = Math.floor(Math.random() * bgms.length)) => {
 
 uni.$on("bgm", (btn: boolean) => {
   bgmBtn = btn;
+  console.log(bgmBtn);
   if (bgmBtn) {
-    bgmPlay();
+    mainBgm.volume = bgms[nowIndex].volume;
   } else {
-    mainBgm.destroy();
+    mainBgm.volume = 0;
   }
 });
 
@@ -55,13 +60,15 @@ onLaunch(() => {
 onShow(() => {
   console.log("App Show");
   bgmBtn = cmdStore.bgmBtn;
-  if (bgmBtn) {
-    bgmPlay();
-  }
+  mainBgm = uni.createInnerAudioContext();
+  bgmPlay(bgmStore.index, bgmStore.curr);
 });
 
 onHide(() => {
   console.log("App Hide");
+  bgmStore.index = nowIndex;
+  bgmStore.curr = mainBgm.currentTime;
+  mainBgm.destroy();
 });
 </script>
 <style lang="scss">

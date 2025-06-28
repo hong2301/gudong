@@ -104,17 +104,15 @@ const isBtnShow = () => {
   backBtnShowToIndex.value = cmdStore.backBtnShowToIndex;
 };
 
-uni.$on("cmd", () => {
-  isBtnShow();
-});
-
 onShow(() => {
   console.log("layout Show");
+  uni.$on("cmd", () => {
+    isBtnShow();
+  });
   isBtnShow();
   time();
 });
 onHide(() => {
-  uni.$off("bgm");
   if (jsq) {
     clearInterval(jsq);
   }
