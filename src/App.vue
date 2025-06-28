@@ -23,6 +23,12 @@ const bgms: { src: string; volume: number }[] = [
 let bgmBtn = true;
 // 当前声音
 let nowIndex = 0;
+// 开始播放
+let play = false;
+// 播放时间
+let playTime = 0;
+// 计时器
+let jsq: number | undefined = undefined;
 
 // 播放背景音乐
 const bgmPlay = (
@@ -34,6 +40,7 @@ const bgmPlay = (
   mainBgm.volume = bgmBtn ? bgms[index].volume : 0;
   mainBgm.seek(curr);
   mainBgm.play();
+  time();
 
   mainBgm.onEnded(() => {
     mainBgm.stop();
@@ -42,6 +49,16 @@ const bgmPlay = (
   mainBgm.onError(() => {
     bgmPlay();
   });
+};
+
+// 时间
+const time = () => {
+  play = true;
+  jsq = setInterval(() => {
+    if (play) {
+      playTime++;
+    }
+  }, 1000);
 };
 
 uni.$on("bgm", (btn: boolean) => {
@@ -60,14 +77,18 @@ onShow(() => {
   console.log("App Show");
   bgmBtn = cmdStore.bgmBtn;
   mainBgm = uni.createInnerAudioContext();
+  bgmStore.index = bgmStore.index;
+  bgmStore.curr = bgmStore.curr;
   bgmPlay(bgmStore.index, bgmStore.curr);
 });
 
 onHide(() => {
   console.log("App Hide");
   bgmStore.index = nowIndex;
-  bgmStore.curr = mainBgm.currentTime;
+  bgmStore.curr = playTime;
+  console.log(bgmStore.index, bgmStore.curr);
   mainBgm.destroy();
+  clearInterval(jsq);
 });
 </script>
 <style lang="scss">
