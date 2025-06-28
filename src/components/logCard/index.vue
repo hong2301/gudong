@@ -26,18 +26,25 @@
         />
       </view>
       <view class="time-box">
-        <picker class="date" mode="date" @change="Picker"
+        <picker v-if="mainBtn !== 3" class="date" mode="date" @change="Picker"
+          >{{ today.year }} 年 - {{ today.month }} 月 - {{ today.day }}
+        </picker>
+        <picker v-else mode="date" @change="Picker"
           >{{ today.year }} 年 - {{ today.month }} 月 - {{ today.day }}
         </picker>
       </view>
       <view class="input-box">
         <up-textarea
+          v-if="mainBtn !== 3"
           v-model="logText"
           placeholder="请输入日志内容"
           count
           autoHeight
           :maxlength="50"
         ></up-textarea>
+        <view v-else class="input-box1">
+          {{ logText }}
+        </view>
       </view>
 
       <view v-if="mainBtn !== 3" class="btn-box">
@@ -314,6 +321,10 @@ watch(
 .input-box {
   width: 90%;
   margin-top: 5%;
+}
+.input-box1 {
+  width: 90%;
+  font-size: 25rpx;
 }
 .btn-box {
   width: 90%;
