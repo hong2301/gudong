@@ -229,7 +229,9 @@ const bubuImgSrc = ref<string>(
 );
 // 一二图片
 const yierImgSrc = ref<string>(
-  " https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/弹钢琴.png"
+  cmdStore.bgmBtn
+    ? " https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/弹钢琴.png"
+    : "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/揉脸.png"
 );
 // 布布ref
 const bubuRef = ref();
@@ -394,6 +396,14 @@ const yierNo = (btn: boolean) => {
   } else {
     yierImgSrc.value =
       "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/哭.png";
+    setTimeout(() => {
+      yierImgSrc.value =
+        "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/揉脸.png";
+      yierRef?.value?.startSay("哼", ["-10%", "80%", "rgb(233, 148, 137)"], {
+        src: "/static/一二/声音/ddd.m4a",
+        volume: 1,
+      });
+    }, 1000);
   }
 };
 
