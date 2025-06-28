@@ -31,8 +31,19 @@
             :font-size="40"
             :img-src="bubuImgSrc"
             @tap="tapBubu"
-          ></Bubu>
-          <image class="cjs" src="/static/congjiang.png" mode="widthFix" />
+          >
+          </Bubu>
+          <Yier
+            class="yier"
+            ref="yierRef"
+            :size="150"
+            :font-size="40"
+            :img-src="yierImgSrc"
+            @tap="tapYier"
+          >
+          </Yier>
+          <view class="space2" :style="{ opacity: `${yierOpacity}` }"></view>
+          <!-- <image class="cjs" src="/static/congjiang.png" mode="widthFix" /> -->
         </view>
         <view class="user-box" @tap="tapDl">
           <view
@@ -172,6 +183,7 @@
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
 import Bubu from "@/components/character/index.vue";
+import Yier from "@/components/character/index.vue";
 import { ref } from "vue";
 import { useCmdStore } from "@/stores/cmd";
 import { onReady, onShow } from "@dcloudio/uni-app";
@@ -215,21 +227,39 @@ const bxScale = ref<number>(1);
 const bubuImgSrc = ref<string>(
   "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/炒菜.png"
 );
+// 一二图片
+const yierImgSrc = ref<string>(
+  " https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/弹钢琴.png"
+);
 // 布布ref
 const bubuRef = ref();
+// 一二ref
+const yierRef = ref();
 // 食物日志
 const foodRows = ref<logType[]>([]);
 // 登陆卡片
 const loginCardBtn = ref(0);
 // 日志卡片
 const logCardBtn = ref(0);
+// 一二地板
+const yierOpacity = ref(0);
 
 /**
  * 点击布布
  */
 const tapBubu = () => {
-  bubuRef?.value?.startSay("欢迎欢迎", ["40%", "100%", "rgb(146,107,77)"], {
+  bubuRef?.value?.startSay("欢迎欢迎", ["-10%", "100%", "rgb(146,107,77)"], {
     src: "/static/布布/声音/哒哒哒哒哒.m4a",
+    volume: 1,
+  });
+};
+
+/**
+ * 点击一二
+ */
+const tapYier = () => {
+  yierRef?.value?.startSay("你好呀", ["-10%", "80%", "rgb(233, 148, 137)"], {
+    src: "/static/一二/声音/ddd.m4a",
     volume: 1,
   });
 };
@@ -307,14 +337,14 @@ const bubuStart = () => {
   if (isLogin.value) {
     bubuRef?.value?.startSay(
       userStore.userInfo.startText,
-      ["40%", "100%", "rgb(146,107,77)"],
+      ["-10%", "100%", "rgb(146,107,77)"],
       {
         src: "/static/布布/声音/哒哒哒哒哒.m4a",
         volume: 1,
       }
     );
   } else {
-    bubuRef?.value?.startSay("欢迎欢迎", ["40%", "100%", "rgb(146,107,77)"], {
+    bubuRef?.value?.startSay("欢迎欢迎", ["-10%", "100%", "rgb(146,107,77)"], {
       src: "/static/布布/声音/哒哒哒哒哒.m4a",
       volume: 1,
     });
@@ -348,6 +378,14 @@ const getLogRows = async () => {
     });
 };
 
+// 一二地板
+const yierDb = () => {
+  yierOpacity.value = 0;
+  setTimeout(() => {
+    yierOpacity.value = 1;
+  }, 100);
+};
+
 uni.$on("login", (mode) => {
   isLoginFn();
   if (mode) {
@@ -365,6 +403,7 @@ onShow(() => {
   cmdStore.backBtnShowToIndex = false;
   getLogRows();
   isLoginFn();
+  yierDb();
 });
 onReady(() => {
   bubuStart();
@@ -475,6 +514,23 @@ onReady(() => {
   position: relative;
   box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
   border: 1rpx solid rgba(239, 156, 82, 0.5);
+}
+.yier {
+  position: absolute;
+  right: 30rpx;
+  bottom: 60rpx;
+}
+.space2 {
+  position: absolute;
+  right: 30rpx;
+  bottom: 40rpx;
+  width: 220rpx;
+  height: 38rpx;
+  border-top: 4rpx solid rgb(75, 37, 31);
+  border-radius: 0 0 40rpx 20%;
+  transition: all 1s ease;
+  opacity: 0;
+  background-color: rgb(193, 193, 193);
 }
 .cjs {
   position: absolute;
