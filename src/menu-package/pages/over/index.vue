@@ -96,7 +96,7 @@ const isOk = ref(false);
 
 // 点击布布
 const tapBubu = () => {
-  bubuRef?.value?.startSay("准备开发哦", ["30%", "100%", "rgb(146,107,77)"], {
+  bubuRef?.value?.startSay("准备开饭", ["30%", "100%", "rgb(146,107,77)"], {
     src: "/static/布布/声音/哒哒哒哒哒.m4a",
     volume: 1,
   });
@@ -147,7 +147,7 @@ const ok = () => {
     .then((res) => {
       bubuRef?.value?.startSay("开整!", ["30%", "100%", "rgb(146,107,77)"], {
         src: "/static/布布/声音/哒哒哒哒哒.m4a",
-        volume: 1,
+        volume: 0,
       });
       bubuImgSrc.value =
         "https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/炒菜.png";
@@ -175,7 +175,7 @@ onReady(() => {
     ["-20%", "-20%", "rgb(146,107,77)"],
     {
       src: "/static/布布/声音/哒哒哒哒哒.m4a",
-      volume: 1,
+      volume: 0,
     }
   );
 });
