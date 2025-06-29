@@ -129,14 +129,13 @@ const logUpdated = (logId: string) => {
     ...rest,
     logId: logId,
   };
-  uniCloud
-    .callFunction({
-      name: "orderUpdate",
-      data: {
-        id: orderData.value._id,
-        updateData: temp,
-      },
-    })
+  uniCloud.callFunction({
+    name: "orderUpdate",
+    data: {
+      id: orderData.value._id,
+      updateData: temp,
+    },
+  });
 };
 
 // 预览图片
@@ -157,6 +156,7 @@ const getOrder = () => {
       name: "orderGet",
       data: {
         userId: userStore.userInfo?._id,
+        userRole: userStore?.userInfo?.role,
       },
     })
     .then((res) => {

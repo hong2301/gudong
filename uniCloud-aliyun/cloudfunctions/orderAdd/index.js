@@ -12,7 +12,7 @@ exports.main = async (event, context) => {
 				fiItem.num++
 			}
 		})
-		const { _id, ...newObj } = findItem
+		const {_id, ...newObj } = findItem
 		collection.doc(_id).update(newObj);
 	})
 	
