@@ -42,8 +42,9 @@
             @tap="tapYier"
           >
           </Yier>
-          <view class="space2" :style="{ opacity: `${yierOpacity}` }"></view>
-          <!-- <image class="cjs" src="/static/congjiang.png" mode="widthFix" /> -->
+          <view class="space2" :style="{ opacity: `${yierOpacity}` }">
+            <image class="cjs" src="/static/wan.png" mode="widthFix" />
+          </view>
         </view>
         <view class="user-box" @tap="tapDl">
           <view
@@ -560,9 +561,9 @@ onReady(() => {
 }
 .cjs {
   position: absolute;
-  top: 58%;
-  right: 10%;
-  width: 80rpx;
+  top: -80%;
+  left: -5%;
+  width: 50rpx;
   aspect-ratio: 1;
 }
 
