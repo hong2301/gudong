@@ -153,6 +153,14 @@
                 </view>
               </view>
             </view>
+            <view v-if="taps.length === 0" class="empyt">
+              <image
+                class="loading"
+                src="https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/加载中.png"
+                mode="heightFix"
+              />
+              <view class="loadText">加载中...</view>
+            </view>
             <view class="space"></view>
           </scroll-view>
         </view>
@@ -612,6 +620,22 @@ onHide(() => {
   height: 75px;
   display: flex;
   margin-bottom: 12px;
+}
+.empyt {
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loading {
+  height: 250rpx;
+  width: 250rpx;
+}
+.loadText {
+  color: $font-color1;
+  font-size: 28rpx;
 }
 .space {
   width: 100%;

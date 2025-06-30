@@ -179,7 +179,7 @@
             src="https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/加载中.png"
             mode="heightFix"
           />
-          <view>加载中</view>
+          <view class="loadText">加载中...</view>
         </view>
       </view>
       <view class="transition1" :style="{ height: `${tailHeight}px` }"></view>
@@ -714,6 +714,10 @@ onReady(() => {
 .loading {
   height: 250rpx;
   width: 250rpx;
+}
+.loadText {
+  color: $font-color1;
+  font-size: 28rpx;
 }
 .food-item-img {
   height: 150rpx;
