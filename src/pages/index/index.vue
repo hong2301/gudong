@@ -140,7 +140,7 @@
             marginTop: `${fIndex != 0 ? '15' : '0'}rpx`,
             height: `${fIndex != foodRows.length - 1 ? '166' : '150'}rpx`,
           }"
-          @tap="tapFoodItem(fIndex)"
+          @tap="tapFoodItem(fItem._id)"
         >
           <view class="food-item-content">
             <up-image
@@ -336,6 +336,9 @@ const tapDd = () => {
  */
 const tapFoodItem = (id: string | number) => {
   uni.vibrateShort();
+  uni.navigateTo({
+    url: `/diary-package/pages/diary/index?id=${id}`,
+  });
 };
 
 // 布布开始

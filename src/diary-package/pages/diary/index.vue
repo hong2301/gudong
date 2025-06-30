@@ -6,12 +6,18 @@
 
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
-import { onShow } from "@dcloudio/uni-app";
+import { onShow, onLoad } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
+import { ref } from "vue";
 
 // 操作存储
 const cmdStore = useCmdStore();
+// 日志Id
+const logId = ref("");
 
+onLoad((options) => {
+  logId.value = options.id;
+});
 onShow(() => {
   cmdStore.backBtnShow = true;
 });
