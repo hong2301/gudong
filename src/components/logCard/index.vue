@@ -225,6 +225,7 @@ const delLog = () => {
     .then((res) => {
       cancel();
       uni.$emit("log");
+      emit("updated", { logId: "" });
     });
 };
 
