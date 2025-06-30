@@ -52,19 +52,28 @@
         <view class="btn-box">
           <view class="btn">
             <u-button
-              v-if="!oItem?.logId"
+              v-if="oItem?.status === 0"
               color="rgb(239, 156, 82)"
               size="mini"
-              @tap="logAdd(oItem)"
-              >记录一下</u-button
+              @tap="orderOk(oItem)"
+              >搞定</u-button
             >
-            <u-button
-              v-else
-              color="rgb(239, 156, 82)"
-              size="mini"
-              @tap="lookLog(oItem?.logId)"
-              >回味一下</u-button
-            >
+            <view v-else>
+              <u-button
+                v-if="!oItem?.logId"
+                color="rgb(239, 156, 82)"
+                size="mini"
+                @tap="logAdd(oItem)"
+                >记录一下</u-button
+              >
+              <u-button
+                v-else
+                color="rgb(239, 156, 82)"
+                size="mini"
+                @tap="lookLog(oItem?.logId)"
+                >回味一下</u-button
+              >
+            </view>
           </view>
         </view>
       </view>
@@ -164,6 +173,19 @@ const getOrder = () => {
     })
     .then((res) => {
       order.value = res.result;
+    });
+};
+// 订单完成
+const orderOk = (item: orderType) => {
+  uniCloud
+    .callFunction({
+      name: "orderOk",
+      data: {
+        item,
+      },
+    })
+    .then((res) => {
+      getOrder();
     });
 };
 // 写日志

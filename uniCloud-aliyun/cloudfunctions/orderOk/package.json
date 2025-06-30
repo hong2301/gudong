@@ -1,0 +1,7 @@
+{
+  "name": "orderOk",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

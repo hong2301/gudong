@@ -140,6 +140,7 @@ const ok = () => {
       data: {
         time: Date.now(),
         dish: rows.value,
+        status: 0,
         userId: userStore.userInfo?._id,
         userName: userStore.userInfo?.name,
       },
