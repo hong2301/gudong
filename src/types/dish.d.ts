@@ -14,9 +14,10 @@ export interface dishType {
     dishId: string | number,
     name: string,
     num: number | string,
-    imgSrc: string
-    order: number
-    des?: string
+    imgSrc: string,
+    order: number,
+    des?: string,
+    isSearch?: boolean
 }
 
 export interface cartDishType {

@@ -264,7 +264,6 @@ const clickImg = (src: string) => {
 // 删除菜
 const delDish = (tData: tapType, dData: dishType) => {
   uni.vibrateShort();
-  menuStore.data = taps.value;
   if (dData.order > 0) {
     dData.order--;
   } else {
@@ -275,6 +274,7 @@ const delDish = (tData: tapType, dData: dishType) => {
   } else {
     tData.order = 0;
   }
+  menuStore.data = taps.value;
   uni.$emit("cart");
 };
 // 添加菜
