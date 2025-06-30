@@ -56,6 +56,7 @@
           style="margin-right: 5%"
           :loading="loading"
           :disabled="loading"
+          size="small"
           @tap="ok"
         ></up-button>
         <up-button
@@ -63,17 +64,21 @@
           color="rgb(239, 156, 82)"
           :plain="true"
           text="取消"
+          size="small"
           @tap="cancel"
         ></up-button>
       </view>
       <view v-else class="btn-box">
         <up-button
-          type="primary"
-          color="rgb(239, 156, 82)"
+          v-if="userId === userStore.userInfo._id"
+          type="warning"
           :plain="true"
-          text="关 闭"
-          @tap="cancel"
+          size="small"
+          text="删除"
+          style="margin-right: 5%"
+          @tap="delLog"
         ></up-button>
+        <up-button size="small" text="关 闭" @tap="cancel"></up-button>
       </view>
     </view>
   </view>
@@ -130,6 +135,8 @@ const today = ref<{
 let timestamp = Date.now();
 // 图片
 const imgSrc = ref("");
+// 用户id
+const userId = ref("");
 
 // 预览图片
 const clickImg = (src: string) => {
@@ -188,6 +195,7 @@ const ok = async () => {
         imgSrc: curr,
         describe: logText.value,
         userName: userStore.userInfo.name,
+        userId: userStore.userInfo._id,
         orderId: props.orderId,
       },
     })
@@ -202,6 +210,21 @@ const ok = async () => {
       mainBtn.value = 0;
       uni.$emit("log");
       emit("updated", { logId: res.result.id });
+    });
+};
+
+// 删除日志
+const delLog = () => {
+  uniCloud
+    .callFunction({
+      name: "logDel",
+      data: {
+        logId: props.logId,
+      },
+    })
+    .then((res) => {
+      cancel();
+      uni.$emit("log");
     });
 };
 
@@ -243,6 +266,7 @@ watch(
         },
       })
       .then((res) => {
+        userId.value = res.result[0].userId;
         logText.value = res.result[0].describe;
         imgSrc.value = res.result[0].imgSrc;
         const { year, month, day } = formatTimestampToDate(res.result[0].time);

@@ -140,7 +140,7 @@
             marginTop: `${fIndex != 0 ? '15' : '0'}rpx`,
             height: `${fIndex != foodRows.length - 1 ? '166' : '150'}rpx`,
           }"
-          @tap="tapFoodItem(fItem._id)"
+          @tap="lookLog(fItem._id)"
         >
           <view class="food-item-content">
             <up-image
@@ -185,7 +185,7 @@
       <view class="transition1" :style="{ height: `${tailHeight}px` }"></view>
     </view>
     <LoginCard v-model:btn="loginCardBtn"></LoginCard>
-    <LogCard v-model:btn="logCardBtn"></LogCard>
+    <LogCard v-model:btn="logCardBtn" :logId="logCardId"></LogCard>
   </Layout>
 </template>
 
@@ -254,6 +254,8 @@ const loginCardBtn = ref(0);
 const logCardBtn = ref(0);
 // 一二地板
 const yierOpacity = ref(0);
+// 日志Id
+const logCardId = ref("");
 
 /**
  * 点击布布
@@ -418,6 +420,12 @@ const yierNo = (btn: boolean) => {
       }
     }, 1000);
   }
+};
+
+// 看日志
+const lookLog = (logId: string) => {
+  logCardId.value = logId;
+  logCardBtn.value = 3;
 };
 
 uni.$on("login", (mode) => {

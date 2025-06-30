@@ -7,5 +7,6 @@ export interface logType {
     imgSrc: string,
     describe: string,
     userName?: string,
+    userId: string
 }
 
