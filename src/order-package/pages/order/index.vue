@@ -135,19 +135,23 @@ const orderData = ref<orderType>({});
 const logCardId = ref("");
 
 // 数据更新
-const logUpdated = (logId: string) => {
+const logUpdated = (data: { logId: string }) => {
   const { _id, ...rest } = orderData.value;
   const temp = {
     ...rest,
-    logId: logId,
+    logId: data.logId,
   };
-  uniCloud.callFunction({
-    name: "orderUpdate",
-    data: {
-      id: orderData.value._id,
-      updateData: temp,
-    },
-  });
+  uniCloud
+    .callFunction({
+      name: "orderUpdate",
+      data: {
+        id: orderData.value._id,
+        updateData: temp,
+      },
+    })
+    .then((res) => {
+      getOrder();
+    });
 };
 
 // 预览图片
@@ -196,9 +200,14 @@ const logAdd = (item: orderType) => {
 };
 // 看日志
 const lookLog = (logId: string) => {
+  console.log(logId);
   logCardId.value = logId;
   logCardBtn.value = 3;
 };
+
+uni.$on("log", () => {
+  getOrder();
+});
 
 onShow(() => {
   cmdStore.backBtnShow = true;
