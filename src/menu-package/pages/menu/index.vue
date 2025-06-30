@@ -77,13 +77,7 @@
             }"
           ></view>
         </scroll-view>
-        <view
-          class="left"
-          :style="{
-            paddingInline: `${capsuleRightInterval * 2}px`,
-            paddingTop: `${capsuleRightInterval * 2}px`,
-          }"
-        >
+        <view class="left">
           <scroll-view
             class="left-content"
             scroll-y
@@ -102,9 +96,6 @@
                   v-for="(dItem, dIndex) in tItem.dish"
                   :key="dIndex"
                   class="dish-box"
-                  :style="{
-                    marginBottom: `${capsuleRightInterval * 2}px`,
-                  }"
                 >
                   <view class="dish-img-box">
                     <up-image
@@ -240,7 +231,7 @@ const dishBtn = ref(0);
 const scroll = (value: any) => {
   const top = value.target.scrollTop;
   taps.value.forEach((item, index) => {
-    if (top + 10 > item.topValue) {
+    if (top + 34 > item.topValue) {
       activeTap.value = index;
       tapScrollTop.value = item.tapTopValue - 170 * rpxRPx;
     }
@@ -302,7 +293,7 @@ uni.$on("menu", function () {
 // 点击菜单
 const tapMenuItem = (index: number, topValue: number) => {
   activeTap.value = index;
-  scrollTop.value = topValue;
+  scrollTop.value = topValue - 24;
 };
 // 点击布布
 const tapBubu = () => {
@@ -415,12 +406,12 @@ onHide(() => {
   font-weight: 300;
 }
 .text2 {
-  height: 24rpx;
-  font-size: 24rpx;
-  line-height: 24rpx;
+  height: 11px;
+  font-size: 11px;
+  line-height: 11px;
   color: $font-color1;
   font-weight: 400;
-  margin-bottom: 6rpx;
+  margin-bottom: 3px;
 }
 .dish-text1 {
   font-size: 30rpx;
@@ -536,6 +527,8 @@ onHide(() => {
   height: 100%;
   overflow: auto;
   display: flex;
+  padding-inline: 12px;
+  padding-top: 12px;
 }
 .left-content {
   width: 100%;
@@ -616,8 +609,9 @@ onHide(() => {
 }
 .dish-box {
   width: 100%;
-  height: 150rpx;
+  height: 75px;
   display: flex;
+  margin-bottom: 12px;
 }
 .space {
   width: 100%;

@@ -69,7 +69,7 @@ export const useMenuStore = defineStore(
                     const preItem = data.value[preIndex]
                     const itemNum = targetItem?.dish?.length ?? 0
                     item.topValue = (preItem?.bottomValue ?? 0)
-                    item.bottomValue = item.topValue + 30 * rpxRPx + (150 * rpxRPx + capsuleRightInterval * 2) * itemNum
+                    item.bottomValue = item.topValue + 14 + 87 * itemNum
                 } else {
                     const targetItem = data.value[index]
                     const itemNum = targetItem?.dish?.length ?? 0

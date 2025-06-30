@@ -227,6 +227,7 @@ watch(
   background-color: $bg-color2;
   bottom: 0%;
   border-radius: 40rpx 40rpx 0 0;
+  transform: translateY(100%);
   transition: transform 0.3s ease;
 }
 .bottom {
