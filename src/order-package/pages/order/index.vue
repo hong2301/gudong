@@ -29,7 +29,7 @@
             :radius="15 * rpxRPx"
             :src="dItem.dishImgSrc || '/static/load.jpeg'"
             mode="aspectFill"
-            @click="clickImg(dItem.imgSrc)"
+            @click="clickImg(dItem.dishImgSrc)"
           >
             <template #error>
               <up-image
@@ -177,6 +177,7 @@ const getOrder = () => {
 };
 // 订单完成
 const orderOk = (item: orderType) => {
+  item.status = 1;
   uniCloud
     .callFunction({
       name: "orderOk",
