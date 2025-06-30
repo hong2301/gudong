@@ -5,6 +5,7 @@
       class="dish-list"
       :style="{
         transform: `translateY(${dishListShow ? '0' : '100'}%)`,
+        zIndex: `${dishListShow ? '999' : '9'}`,
       }"
     >
       <view class="dish-list-content">

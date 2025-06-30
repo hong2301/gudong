@@ -4,6 +4,7 @@
     class="overture"
     :style="{
       transform: `translateY(${mainBtn ? '0' : '100'}%)`,
+      zIndex: `${mainBtn ? '999' : '9'}`,
     }"
   >
     <view
@@ -225,7 +226,6 @@ watch(
   width: 100%;
   background-color: $bg-color2;
   bottom: 0%;
-  z-index: 999;
   border-radius: 40rpx 40rpx 0 0;
   transition: transform 0.3s ease;
 }

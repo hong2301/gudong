@@ -4,6 +4,7 @@
     class="overture"
     :style="{
       transform: `translateY(${mainBtn ? '0' : '100'}%)`,
+      zIndex: `${mainBtn ? '999' : '9'}`,
     }"
   >
     <view
