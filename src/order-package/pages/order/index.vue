@@ -11,7 +11,10 @@
           marginBottom: `${capsuleRightInterval}px`,
         }"
       >
-        <view class="time">{{ formatTimestampToDate(oItem.time).str }}</view>
+        <view class="head">
+          <view class="time">{{ formatTimestampToDate(oItem.time).str }}</view>
+          <view class="name">{{ oItem.userName }}</view>
+        </view>
         <view
           v-for="(dItem, dIndex) in oItem.dish"
           :key="dIndex"
@@ -243,13 +246,21 @@ onShow(() => {
   font-size: 28rpx;
   color: $font-color1;
 }
-.time {
+.head {
   width: 100%;
-  font-size: 30rpx;
-  line-height: 30rpx;
   padding-bottom: 10rpx;
   margin-bottom: 30rpx;
   border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+}
+.time {
+  font-size: 30rpx;
+  line-height: 30rpx;
+}
+.name {
+  font-size: 25rpx;
+  line-height: 30rpx;
 }
 .btn-box {
   width: 100%;
