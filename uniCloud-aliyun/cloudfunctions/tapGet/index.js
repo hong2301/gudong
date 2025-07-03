@@ -14,10 +14,11 @@ exports.main = async (event, context) => {
 		  tapId: item._id // 根据 tapId 匹配 dish 数据
 		})
 		.get();
+
+
+		item.dish = dishResult.data.sort(() => Math.random() - 0.5);
 	  
-	  // 将查询到的 dish 数据附加到当前 item
-	  item.dish = dishResult.data;
-	  return item; // 返回更新后的 item
+		return item; // 返回更新后的 item
 	});
 
 	// 使用 Promise.all 并行执行所有查询，并等待全部完成
