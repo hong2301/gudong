@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
 		if (!Array.isArray(findData.dish)) {
 		  findData.dish = [];
 		}
-		event.dish.dishId=findData.dish.length
+		event.dish._id=findData.dish.length
 		findData.dish.push(event.dish)
 		const { _id, ...newObj } = findData
 		await collection.doc(event.tapId).update(newObj);

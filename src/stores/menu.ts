@@ -22,7 +22,7 @@ export const useMenuStore = defineStore(
             data.value.forEach(tItem => {
                 if (tapText === tItem.text) {
                     tItem.dish?.forEach(dItem => {
-                        if (id === dItem.dishId) {
+                        if (id === dItem._id) {
                             dItem.order++
                             tItem.order++
                         }
@@ -36,7 +36,7 @@ export const useMenuStore = defineStore(
             data.value.forEach(tItem => {
                 if (tapText === tItem.text) {
                     tItem.dish?.forEach(dItem => {
-                        if (id === dItem.dishId) {
+                        if (id === dItem._id) {
                             if (dItem.order > 0) {
                                 dItem.order--
                             } else {

@@ -271,7 +271,7 @@ const getGwc = () => {
       tItem.dish?.forEach((dItem) => {
         if (dItem.order !== 0) {
           rows.value.push({
-            _id: dItem.dishId,
+            _id: dItem._id,
             name: dItem.name,
             dishImgSrc: dItem.imgSrc,
             order: dItem.order,
