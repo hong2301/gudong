@@ -6,11 +6,16 @@
 
 <script setup lang="ts">
 import Layout from "@/components/layouts/index.vue";
-import { onShow } from "@dcloudio/uni-app";
+import { onShow, onLoad } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
 
 // 操作存储
 const cmdStore = useCmdStore();
+
+onLoad((options) => {
+  const id = options.id; // 获取传递的 id
+  console.log("接收到的 id:", id);
+});
 
 onShow(() => {
   cmdStore.backBtnShow = true;

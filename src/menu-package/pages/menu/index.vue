@@ -96,6 +96,7 @@
                   v-for="(dItem, dIndex) in tItem.dish"
                   :key="dIndex"
                   class="dish-box"
+                  @tap="tapDish(dItem._id)"
                 >
                   <view class="dish-img-box">
                     <up-image
@@ -258,6 +259,13 @@ const clickImg = (src: string) => {
     fail: (err) => {
       console.error("预览失败:", err);
     },
+  });
+};
+
+// 点击菜
+const tapDish = (id: number | string) => {
+  uni.navigateTo({
+    url: `/menu-package/pages/content/index?id=${id}`,
   });
 };
 
