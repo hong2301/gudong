@@ -125,34 +125,23 @@ const ok = async () => {
     .callFunction({
       name: "dishAdd",
       data: {
-        dish: {
-          name: dishName.value,
-          imgSrc: curr,
-          num: 0,
-          order: 0,
-          des: des.value,
-        },
+        name: dishName.value,
+        imgSrc: curr,
+        num: 0,
+        order: 0,
+        des: des.value,
         tapId: tapId.value,
       },
     })
     .then((res) => {
       loading.value = false;
-      if (res.result.status === 1) {
-        uni.showToast({
-          title: "搞定", // 提示内容
-          icon: "success", // 图标（success/loading/none）
-          duration: 2000, // 显示时长（ms），默认1500
-          mask: false, // 是否显示透明蒙层，防止触摸穿透
-        });
-        getMenu();
-      } else {
-        uni.showToast({
-          title: "已存在", // 提示内容
-          icon: "none", // 图标（success/loading/none）
-          duration: 2000, // 显示时长（ms），默认1500
-          mask: false, // 是否显示透明蒙层，防止触摸穿透
-        });
-      }
+      uni.showToast({
+        title: "搞定", // 提示内容
+        icon: "success", // 图标（success/loading/none）
+        duration: 2000, // 显示时长（ms），默认1500
+        mask: false, // 是否显示透明蒙层，防止触摸穿透
+      });
+      getMenu();
       mainBtn.value = 0;
     });
 };
