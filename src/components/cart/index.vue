@@ -273,6 +273,7 @@ const getGwc = () => {
           rows.value.push({
             _id: dItem._id,
             name: dItem.name,
+            num: dItem.num,
             dishImgSrc: dItem.imgSrc,
             order: dItem.order,
             text: tItem.text,
