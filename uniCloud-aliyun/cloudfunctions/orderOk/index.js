@@ -9,7 +9,9 @@ exports.main = async (event, context) => {
 	data.dish.forEach(dItem=>{
 		dItem.num++
 		const {_id,...data}=dItem
-		dishCollection.doc(_id).update(data);
+		dishCollection.doc(_id).update({
+			  num: data.num,
+		});
 	})
 	
 	return result
