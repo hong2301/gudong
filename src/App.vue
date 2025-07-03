@@ -2,6 +2,9 @@
 import { onLaunch, onShow, onHide, onReady } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
 import { useBgmStore } from "./stores/bgm";
+import { useMenuStore } from "./stores/menu";
+import type { dishType, tapType } from "@/types/dish";
+
 // bgm存储
 const cmdStore = useCmdStore();
 // bgm数据存储
@@ -55,6 +58,15 @@ const bgmPlay = (
   });
 };
 
+const getMenu = () => {
+  uniCloud.callFunction({
+    name: "tapGet",
+    data: {
+      isRan: true,
+    },
+  });
+};
+
 // 时间
 const time = () => {
   play = true;
@@ -76,6 +88,7 @@ uni.$on("bgm", (btn: boolean) => {
 
 onLaunch(() => {
   console.log("App Launch");
+  getMenu();
 });
 onShow(() => {
   console.log("App Show");

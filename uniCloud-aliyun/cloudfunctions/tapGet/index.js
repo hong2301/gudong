@@ -1,7 +1,7 @@
 'use strict';
 const db = uniCloud.database();
-
 exports.main = async (event, context) => {
+	const dishCollection = db.collection('dish');
 	//event为客户端上传的参数
 	const tapResult = await db.collection("tap")
 		.orderBy("sort", "asc")  // 按照sort字段升序排列(从小到大)
@@ -15,8 +15,17 @@ exports.main = async (event, context) => {
 		})
 		.get();
 
-
-		item.dish = dishResult.data.sort(() => Math.random() - 0.5);
+		if(event?.isRan){
+			item.dish = dishResult.data.sort(() => Math.random() - 0.5);
+			item.dish.forEach((item,index)=>{
+				item.sort=index
+				const {_id,...data}=item
+				dishCollection.doc(_id).update(data);
+			})
+		}else{
+			item.dish=dishResult.data.sort((a,b)=>a.sort-b.sort)
+		}
+		
 	  
 		return item; // 返回更新后的 item
 	});

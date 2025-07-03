@@ -150,29 +150,7 @@ const ok = async () => {
  * 获取菜单
  */
 const getMenu = () => {
-  uniCloud
-    .callFunction({
-      name: "tapGet",
-    })
-    .then((res) => {
-      const taps = ref<tapType[]>([]);
-      taps.value = menuStore.data;
-      res.result.forEach((tItem: tapType, tIndex: number) => {
-        const tempDish = taps.value[tIndex].dish;
-        const tempOrder = taps.value[tIndex].order;
-        taps.value[tIndex] = tItem;
-        taps.value[tIndex]?.dish?.forEach((dItem, dIndex) => {
-          tempDish?.forEach((dtItem: dishType) => {
-            if (dtItem.name === dItem.name) {
-              dItem.order = dtItem.order;
-            }
-          });
-        });
-        taps.value[tIndex].order = tempOrder;
-      });
-      menuStore.data = taps.value;
-      uni.$emit("menu", true);
-    });
+  uni.$emit("menu", true);
 };
 const cancel = () => {
   mainBtn.value = 0;
