@@ -17,42 +17,34 @@ export const useMenuStore = defineStore(
             })
             return data.value
         }
+
+        // 查找目标菜品（提取公共方法）
+        const findDish = (id: number | string) => {
+            for (const tItem of data.value) {
+                const dish = tItem.dish?.find(dItem => dItem._id === id)
+                if (dish) return { dish, tap: tItem } // 返回找到的菜品和所属分类
+            }
+            return null
+        }
+
         // 添加
-        const add = (id: number | string, tapText: string) => {
-            data.value.forEach(tItem => {
-                if (tapText === tItem.text) {
-                    tItem.dish?.forEach(dItem => {
-                        if (id === dItem._id) {
-                            dItem.order++
-                            tItem.order++
-                        }
-                    })
-                }
-
-            })
+        const add = (id: number | string) => {
+            const target = findDish(id)
+            if (target) {
+                target.dish.order++
+                target.tap.order++
+            }
         }
+
         // 删除
-        const del = (id: number | string, tapText: string) => {
-            data.value.forEach(tItem => {
-                if (tapText === tItem.text) {
-                    tItem.dish?.forEach(dItem => {
-                        if (id === dItem._id) {
-                            if (dItem.order > 0) {
-                                dItem.order--
-                            } else {
-                                dItem.order = 0
-                            }
-                            if (tItem.order > 0) {
-                                tItem.order--
-                            } else {
-                                tItem.order = 0
-                            }
-                        }
-                    })
-                }
-
-            })
+        const del = (id: number | string) => {
+            const target = findDish(id)
+            if (target) {
+                target.dish.order = Math.max(0, target.dish.order - 1)
+                target.tap.order = Math.max(0, target.tap.order - 1)
+            }
         }
+
         // 获取数据
         const getData = () => {
             // 胶囊右间隔
