@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <view class="overture">编辑</view>
+    <view class="overture">
+      <Head></Head>
+    </view>
   </Layout>
 </template>
 
@@ -8,17 +10,39 @@
 import Layout from "@/components/layouts/index.vue";
 import { onShow, onLoad } from "@dcloudio/uni-app";
 import { useCmdStore } from "@/stores/cmd";
+import { useMenuStore } from "@/stores/menu";
+import Head from "@/components/head/index.vue";
+import { ref } from "vue";
+import type { dishType } from "@/types/dish";
 
 // 操作存储
 const cmdStore = useCmdStore();
+// 菜单存储
+const muneStore = useMenuStore();
+// 菜单信息
+const dishData = ref<dishType>({});
+// 菜id
+const dishId = ref("");
+
+// 获取菜信息
+const getDishContent = () => {
+  for (const tItem of muneStore.data) {
+    const foundDish = tItem.dish?.find((dItem) => dItem._id === dishId.value);
+    if (foundDish) {
+      dishData.value = foundDish;
+      break; // 找到后立即退出循环
+    }
+  }
+  console.log(dishData.value);
+};
 
 onLoad((options) => {
-  const id = options.id; // 获取传递的 id
-  console.log("接收到的 id:", id);
+  dishId.value = options.id;
 });
 
 onShow(() => {
   cmdStore.backBtnShow = true;
+  getDishContent();
 });
 </script>
 
