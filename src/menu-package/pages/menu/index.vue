@@ -617,6 +617,7 @@ onHide(() => {
   height: 75px;
   display: flex;
   margin-bottom: 12px;
+  flex-shrink: 0;
 }
 .empyt {
   width: 100%;
