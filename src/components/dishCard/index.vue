@@ -60,6 +60,8 @@
           type="primary"
           color="rgb(239, 156, 82)"
           :plain="true"
+          :loading="loading"
+          :disabled="loading"
           text="取消"
           @tap="cancel"
         ></up-button>

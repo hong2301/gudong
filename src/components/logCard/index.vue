@@ -65,6 +65,8 @@
           :plain="true"
           text="取消"
           size="small"
+          :loading="loading"
+          :disabled="loading"
           @tap="cancel"
         ></up-button>
       </view>

@@ -49,6 +49,8 @@
           type="primary"
           color="rgb(239, 156, 82)"
           style="margin-right: 5%"
+          :loading="loading"
+          :disabled="loading"
           @tap="deter"
         ></up-button>
         <up-button
@@ -65,12 +67,16 @@
           type="primary"
           color="rgb(239, 156, 82)"
           style="margin-right: 5%"
+          :loading="loading"
+          :disabled="loading"
           @tap="ok"
         ></up-button>
         <up-button
           type="primary"
           color="rgb(239, 156, 82)"
           :plain="true"
+          :loading="loading"
+          :disabled="loading"
           text="取消"
           @tap="canel"
         ></up-button>
@@ -111,9 +117,12 @@ const passwordBtn = ref(false);
 const userStore = useUserStore();
 // 密码颜色
 const passwordColor = ref("");
+// 加载中
+const loading = ref(false);
 
 // 确认密码
 const deter = () => {
+  loading.value = true;
   uniCloud
     .callFunction({
       name: "userLogin",
@@ -123,6 +132,7 @@ const deter = () => {
       },
     })
     .then((res) => {
+      loading.value = false;
       if (res.result.status === 3) {
         mainBtn.value = 0;
         passwordBtn.value = false;
@@ -149,6 +159,7 @@ const back = () => {
 };
 // ok
 const ok = () => {
+  loading.value = true;
   uniCloud
     .callFunction({
       name: "userLogin",
@@ -157,6 +168,7 @@ const ok = () => {
       },
     })
     .then((res) => {
+      loading.value = false;
       if (res.result.status === 1) {
         passwordBtn.value = true;
       } else if (res.result.status === 2 || res.result.status === 3) {
