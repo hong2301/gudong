@@ -19,7 +19,15 @@ export interface dishType {
     des?: string,
     isSearch?: boolean,
     updateLocation?: string,
-    updateTime?: string
+    updateTime?: string,
+    ways?: wayType[]
+}
+
+export interface wayType {
+    _id: string | number,
+    name: string,
+    time: string,
+    tests: string
 }
 
 export interface cartDishType {

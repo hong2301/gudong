@@ -48,6 +48,17 @@
           上一次于 {{ dishData?.updateTime }} 在
           {{ dishData?.updateLocation }} 烹制
         </view>
+        <view class="tag-box">
+          <up-tag
+            v-for="(wItem, wIndex) in dishData.ways"
+            :key="wIndex"
+            :text="wItem.name"
+            plain
+            class="tag"
+            type="warning"
+            size="medium"
+          ></up-tag>
+        </view>
       </view>
     </view>
   </Layout>
@@ -145,6 +156,16 @@ onShow(() => {
   height: 50rpx;
   align-items: center;
   font-weight: 800;
+}
+.tag-box {
+  margin-top: 50rpx;
+  width: 98%;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+}
+.tag {
+  margin-right: 25rpx;
 }
 .update-box {
   width: 98%;
