@@ -17,7 +17,9 @@ export interface dishType {
     imgSrc: string,
     order: number,
     des?: string,
-    isSearch?: boolean
+    isSearch?: boolean,
+    updateLocation?: string,
+    updateTime?: string
 }
 
 export interface cartDishType {

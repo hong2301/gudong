@@ -2,36 +2,51 @@
   <Layout>
     <view class="overture">
       <Head></Head>
-      <up-image
-        :height="525 * rpxRPx"
-        :width="700 * rpxRPx"
-        :radius="15 * rpxRPx"
-        :src="dishData.imgSrc || '/static/load.jpeg'"
-        mode="aspectFill"
+      <view
+        class="content"
+        :style="{
+          width: `${eleWidth1}px`,
+          marginTop: `${capsuleRightInterval}px`,
+        }"
       >
-        <template #error>
-          <up-image
-            :height="525 * rpxRPx"
-            :width="700 * rpxRPx"
-            :radius="15 * rpxRPx"
-            src="/static/load.jpeg"
-            mode="heightFix"
-          />
-        </template>
-        <template v-slot:loading>
-          <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
-        </template>
-      </up-image>
-      <view class="title-box">
-        <view class="title">{{ dishData.name }}</view>
-        <view class="num-box">
-          <view v-if="dishData.order !== 0" class="del-btn" @tap="delDish">
-            -
+        <up-image
+          :height="(3 / 4) * eleWidth1"
+          :width="eleWidth1"
+          :radius="15 * rpxRPx"
+          :src="dishData.imgSrc || '/static/load.jpeg'"
+          mode="aspectFill"
+        >
+          <template #error>
+            <up-image
+              :height="(3 / 4) * eleWidth1"
+              :width="eleWidth1"
+              :radius="15 * rpxRPx"
+              src="/static/load.jpeg"
+              mode="heightFix"
+            />
+          </template>
+          <template v-slot:loading>
+            <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
+          </template>
+        </up-image>
+        <view class="title-box">
+          <view class="title">{{ dishData.name }}</view>
+          <view class="num-box">
+            <view v-if="dishData.order !== 0" class="del-btn" @tap="delDish">
+              -
+            </view>
+            <view class="item-num" v-if="dishData.order !== 0">{{
+              dishData.order
+            }}</view>
+            <view class="add-btn" @tap="addDish"> + </view>
           </view>
-          <view class="item-num" v-if="dishData.order !== 0">{{
-            dishData.order
-          }}</view>
-          <view class="add-btn" @tap="addDish"> + </view>
+        </view>
+        <view
+          v-if="dishData?.updateTime && dishData?.updateLocation"
+          class="update-box"
+        >
+          上一次于 {{ dishData?.updateTime }} 在
+          {{ dishData?.updateLocation }} 烹制
         </view>
       </view>
     </view>
@@ -59,6 +74,13 @@ const dishId = ref("");
 const areaWidth = uni.getWindowInfo().safeArea.width;
 // rpx/px
 const rpxRPx = areaWidth / 750;
+// 胶囊右间隔
+const capsuleRightInterval = ref<number>(
+  uni.getWindowInfo().safeArea.right -
+    uni.getMenuButtonBoundingClientRect().right
+);
+// 元素宽度
+const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 
 // 获取菜信息
 const getDishContent = () => {
@@ -110,13 +132,29 @@ onShow(() => {
   position: relative;
   overflow: auto;
 }
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .title-box {
-  width: 700rpx;
+  width: 98%;
   margin-top: 25rpx;
   display: flex;
   justify-content: space-between;
   height: 50rpx;
   align-items: center;
+  font-weight: 800;
+}
+.update-box {
+  width: 98%;
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  height: 25rpx;
+  align-items: center;
+  color: $font-color1;
+  font-size: 25rpx;
 }
 .title {
   font-size: 40rpx;
