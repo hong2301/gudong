@@ -87,6 +87,20 @@
       class="content1"
       :style="{ marginBottom: `${tailHeight + 10}px` }"
     >
+      <view class="head">
+        <view class="img-box">
+          <up-image
+            :height="100 * rpxRPx"
+            :width="100 * rpxRPx"
+            :src="`${userStore.userInfo.profile}`"
+            shape="circle"
+            mode="heightFix"
+          />
+        </view>
+        <view class="right-box">
+          <view class="name">{{ userStore.userInfo.name }}</view>
+        </view>
+      </view>
       <view class="btn-box1">
         <up-button text="退出" @tap="out"></up-button>
       </view>
@@ -119,6 +133,10 @@ const userStore = useUserStore();
 const passwordColor = ref("");
 // 加载中
 const loading = ref(false);
+// 屏幕宽度
+const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 
 // 确认密码
 const deter = () => {
@@ -265,11 +283,36 @@ watch(
   align-items: center;
 }
 .content1 {
-  margin-top: 120rpx;
+  margin-top: 80rpx;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.head {
+  width: 90%;
+  height: 125rpx;
+  display: flex;
+  align-items: center;
+}
+.right-box {
+  flex: 1;
+  height: 90%;
+  margin-left: 12rpx;
+}
+.name {
+  font-size: 35rpx;
+  color: $font-color;
+}
+.img-box {
+  width: 125rpx;
+  aspect-ratio: 1;
+  background-color: $icon-bg-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 .title {
   width: 100%;
