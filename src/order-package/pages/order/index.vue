@@ -2,6 +2,14 @@
   <Layout>
     <view class="overture">
       <Head></Head>
+      <view v-if="loading" class="empyt">
+        <image
+          class="loading"
+          src="https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/加载中.png"
+          mode="heightFix"
+        />
+        <view class="loadText">加载中...</view>
+      </view>
       <view
         v-for="(oItem, oIndex) in order"
         :key="oIndex"
@@ -133,6 +141,8 @@ const logCardBtn = ref(0);
 const orderData = ref<orderType>({});
 // 日志Id
 const logCardId = ref("");
+// 加载
+const loading = ref(false);
 
 // 数据更新
 const logUpdated = (data: { logId: string }) => {
@@ -167,6 +177,7 @@ const clickImg = (src: string) => {
 
 // 获取订单
 const getOrder = () => {
+  loading.value = true;
   uniCloud
     .callFunction({
       name: "orderGet",
@@ -176,6 +187,7 @@ const getOrder = () => {
       },
     })
     .then((res) => {
+      loading.value = false;
       order.value = res.result;
     });
 };
@@ -232,6 +244,22 @@ onShow(() => {
   );
   position: relative;
   overflow: auto;
+}
+.empyt {
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loading {
+  height: 250rpx;
+  width: 250rpx;
+}
+.loadText {
+  color: $font-color1;
+  font-size: 28rpx;
 }
 .item {
   box-sizing: border-box;
