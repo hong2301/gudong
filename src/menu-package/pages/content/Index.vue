@@ -184,7 +184,10 @@ const addContent = () => {
 // 完成菜谱添加
 const addTagOk = () => {
   loading.value = true;
-  wayContent.value = wayContent.value.map((item, index) => `${index}. ${item}`);
+  wayContent.value = wayContent.value.map(
+    (item, index) => `${index + 1}. ${item}`
+  );
+  console.log(wayContent.value);
   uniCloud
     .callFunction({
       name: "dishAddWay",
