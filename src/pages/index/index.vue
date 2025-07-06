@@ -51,15 +51,14 @@
             class="item-img-box1"
             :style="{ transform: `scale(${dlScale}) ` }"
           >
-            <image
-              :style="{
-                width: `${eleWidth1 * 0.5 * 0.4 * 0.4}px`,
-                height: `${eleWidth1 * 0.5 * 0.4 * 0.4}px`,
-              }"
+            <up-image
+              :height="`${eleWidth1 * 0.5 * 0.4 * 0.4}px`"
+              :width="`${eleWidth1 * 0.5 * 0.4 * 0.4}px`"
               :src="`${
                 isLogin ? userStore.userInfo.profile : '/static/shouye.png'
               }`"
-              mode="widthFix"
+              shape="circle"
+              mode="heightFix"
             />
           </view>
           <view class="item-text" style="font-weight: 400">{{
