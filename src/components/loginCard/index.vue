@@ -92,13 +92,13 @@
           <up-image
             :height="100 * rpxRPx"
             :width="100 * rpxRPx"
-            :src="`${userStore.userInfo.profile}`"
+            :src="`${userStore?.userInfo?.profile}`"
             shape="circle"
             mode="heightFix"
           />
         </view>
         <view class="right-box">
-          <view class="name">{{ userStore.userInfo.name }}</view>
+          <view class="name">{{ userStore?.userInfo?.name }}</view>
           <view class="log">
             <up-image
               :height="40 * rpxRPx"
@@ -107,7 +107,7 @@
               shape="circle"
               mode="heightFix"
             />
-            <view class="log-num">{{ userStore.userInfo.eatNum }}</view>
+            <view class="log-num">{{ userStore?.userInfo?.eatNum }}</view>
           </view>
         </view>
       </view>
@@ -239,6 +239,20 @@ watch(
   () => props.btn,
   (value) => {
     mainBtn.value = value;
+    if (mainBtn.value) {
+      if (userStore.isLogin()) {
+        uniCloud
+          .callFunction({
+            name: "userGetById",
+            data: {
+              userId: userStore.userInfo._id,
+            },
+          })
+          .then((res) => {
+            userStore.userInfo = res.result;
+          });
+      }
+    }
   }
 );
 watch(
