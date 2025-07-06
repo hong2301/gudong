@@ -128,7 +128,7 @@ const areaWidth = uni.getWindowInfo().safeArea.width;
 // rpx/px
 const rpxRPx = areaWidth / 750;
 // 元素宽度
-const eleWidth1 = ref<number>(areaWidth - 3 * capsuleRightInterval.value);
+const eleWidth1 = ref<number>(areaWidth - 2 * capsuleRightInterval.value);
 // 操作存储
 const cmdStore = useCmdStore();
 // 用户存储
