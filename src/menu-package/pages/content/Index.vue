@@ -49,18 +49,68 @@
           {{ dishData?.updateLocation }} 烹制
         </view>
         <view class="tag-box">
-          <up-tag
-            v-for="(wItem, wIndex) in dishData.ways"
-            :key="wIndex"
-            :text="wItem.name"
-            :plain="!wItem?.isCheck"
-            class="tag"
-            type="warning"
-            size="medium"
-            @click="tapTag(wIndex)"
-          ></up-tag>
+          <view class="tag-box-content">
+            <up-tag
+              v-for="(wItem, wIndex) in dishData1.ways"
+              :key="wIndex"
+              :text="wItem.name"
+              :plain="!wItem?.isCheck"
+              class="tag"
+              type="warning"
+              size="medium"
+              @click="tapTag(wIndex)"
+            ></up-tag>
+            <up-tag
+              v-if="!isAddTag"
+              text="添加"
+              plain
+              class="tag"
+              type="warning"
+              size="medium"
+              @click="addTag"
+            ></up-tag>
+          </view>
         </view>
-        <view class="tag-card">{{ tagTexts }}</view>
+        <view v-if="tagTexts !== '' && !isAddTag" class="tag-card">{{
+          tagTexts
+        }}</view>
+        <view class="input-box">
+          <up-input
+            v-if="isAddTag"
+            placeholder="请输入标签"
+            border="surround"
+            v-model="wayTitle"
+            class="input"
+          ></up-input>
+          <up-textarea
+            v-if="isAddTag"
+            v-model="wayContent"
+            placeholder="请输入菜谱内容"
+            class="input"
+            size="medium"
+          ></up-textarea>
+        </view>
+        <view v-if="isAddTag" class="btn-box">
+          <up-button
+            type="warning"
+            size="small"
+            style="margin-right: 25rpx"
+            @tap="addTagOk"
+            :loading="loading"
+            :disabled="loading"
+            >确定</up-button
+          >
+          <up-button
+            type="warning"
+            plain
+            size="small"
+            @tap="addTagCel"
+            :loading="loading"
+            :disabled="loading"
+            >取消</up-button
+          >
+        </view>
+        <view class="space"></view>
       </view>
     </view>
   </Layout>
@@ -74,6 +124,7 @@ import { useMenuStore } from "@/stores/menu";
 import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 import type { dishType } from "@/types/dish";
+import { getNowTimeStr } from "@/utils/time";
 
 // 操作存储
 const cmdStore = useCmdStore();
@@ -81,6 +132,8 @@ const cmdStore = useCmdStore();
 const menuStore = useMenuStore();
 // 菜单信息
 const dishData = ref<dishType>({});
+// 菜单信息
+const dishData1 = ref<dishType>({});
 // 菜id
 const dishId = ref("");
 // 屏幕宽度
@@ -96,9 +149,47 @@ const capsuleRightInterval = ref<number>(
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 // 菜谱
 const tagTexts = ref("");
+// 添加菜谱
+const isAddTag = ref(false);
+// 菜谱详情
+const wayContent = ref("");
+// 菜谱标题
+const wayTitle = ref("");
+// 加载
+const loading = ref(false);
+
+// 完成菜谱添加
+const addTagOk = () => {
+  loading.value = true;
+  uniCloud
+    .callFunction({
+      name: "dishAddWay",
+      data: {
+        dishId: dishId.value,
+        way: {
+          name: wayTitle.value,
+          tests: wayContent.value,
+          time: getNowTimeStr(),
+        },
+      },
+    })
+    .then((res) => {
+      loading.value = false;
+      addTagCel();
+      getDishContent();
+    });
+};
+
+// 取消菜谱添加
+const addTagCel = () => {
+  wayContent.value = "";
+  wayTitle.value = "";
+  isAddTag.value = false;
+};
 
 // 获取菜信息
 const getDishContent = () => {
+  // 菜上部分信息
   for (const tItem of menuStore.data) {
     const foundDish = tItem.dish?.find((dItem) => dItem._id === dishId.value);
     if (foundDish) {
@@ -106,22 +197,39 @@ const getDishContent = () => {
       break; // 找到后立即退出循环
     }
   }
-  dishData.value.ways?.forEach((wItem) => {
-    wItem.isCheck = false;
-  });
-  if (dishData?.value?.ways) {
-    dishData.value.ways[0].isCheck = true;
-  }
-  tagTexts.value = dishData.value.ways[0].tests;
+
+  // 菜下部分信息
+  uniCloud
+    .callFunction({
+      name: "dishGetById",
+      data: {
+        dishId: dishId.value,
+      },
+    })
+    .then((res) => {
+      dishData1.value = res.result[0];
+      dishData1.value.ways?.forEach((wItem) => {
+        wItem.isCheck = false;
+      });
+      if (dishData1?.value?.ways) {
+        dishData1.value.ways[0].isCheck = true;
+        tagTexts.value = dishData1.value?.ways[0]?.tests;
+      }
+    });
 };
 
 // 点击菜谱标签
 const tapTag = (index: number) => {
-  dishData.value.ways?.forEach((wItem) => {
+  dishData1.value.ways?.forEach((wItem) => {
     wItem.isCheck = false;
   });
-  dishData.value.ways[index].isCheck = true;
-  tagTexts.value = dishData.value.ways[index].tests;
+  dishData1.value.ways[index].isCheck = true;
+  tagTexts.value = dishData1.value.ways[index].tests;
+};
+
+// 添加菜谱
+const addTag = () => {
+  isAddTag.value = true;
 };
 
 // 减
@@ -181,7 +289,17 @@ onShow(() => {
   width: 98%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.tag-box-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
   overflow: auto;
+}
+.input-box {
+  width: 98%;
 }
 .tag-card {
   width: 98%;
@@ -195,9 +313,22 @@ onShow(() => {
   padding: 25rpx;
   box-sizing: border-box;
 }
+.btn-box {
+  width: 98%;
+  margin-top: 25rpx;
+  display: flex;
+}
+.input {
+  margin-top: 25rpx;
+}
+.space {
+  height: 400rpx;
+  width: 100%;
+}
 .tag {
   margin-right: 25rpx;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .update-box {
   width: 98%;
@@ -250,6 +381,23 @@ onShow(() => {
   align-items: center;
 }
 .add-btn:active {
+  background-color: $main-color-active;
+}
+.tag-btn {
+  width: 50rpx;
+  height: 50rpx;
+  aspect-ratio: 1;
+  background-color: $main-color;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
+}
+.tag-btn:active {
   background-color: $main-color-active;
 }
 </style>

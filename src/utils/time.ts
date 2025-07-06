@@ -10,3 +10,13 @@ export const formatTimestampToDate = (timestamp: number | string) => {
         str: `${year}年${month}月${day}日`
     };
 };
+
+export const getNowTimeStr = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // 月份从0开始，所以要加1
+    const day = now.getDate();
+
+    const formattedTime = `${year}年${month}月${day}日`;
+    return formattedTime
+};
