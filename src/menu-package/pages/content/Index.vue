@@ -61,7 +61,7 @@
               @click="tapTag(wIndex)"
             ></up-tag>
             <up-tag
-              v-if="!isAddTag"
+              v-if="!isAddTag && userStore.userInfo.role === 1"
               text="添加"
               plain
               class="tag"
@@ -71,9 +71,12 @@
             ></up-tag>
           </view>
         </view>
-        <view v-if="tagTexts !== '' && !isAddTag" class="tag-card">{{
-          tagTexts
-        }}</view>
+        <view v-if="tagTexts !== '' && !isAddTag" class="tag-card">
+          <view class="time">{{ wayTime }}</view>
+          <view>
+            {{ tagTexts }}
+          </view>
+        </view>
         <view class="input-box">
           <up-input
             v-if="isAddTag"
@@ -124,8 +127,11 @@ import { useMenuStore } from "@/stores/menu";
 import Head from "@/components/head/index.vue";
 import { ref } from "vue";
 import type { dishType } from "@/types/dish";
-import { getNowTimeStr } from "@/utils/time";
+import { formatTimestampToDate, getNowTimeStr } from "@/utils/time";
+import { useUserStore } from "@/stores/user";
 
+// 用户存储
+const userStore = useUserStore();
 // 操作存储
 const cmdStore = useCmdStore();
 // 菜单存储
@@ -157,6 +163,8 @@ const wayContent = ref("");
 const wayTitle = ref("");
 // 加载
 const loading = ref(false);
+// 菜谱时间
+const wayTime = ref("");
 
 // 完成菜谱添加
 const addTagOk = () => {
@@ -169,7 +177,7 @@ const addTagOk = () => {
         way: {
           name: wayTitle.value,
           tests: wayContent.value,
-          time: getNowTimeStr(),
+          time: Date.now(),
         },
       },
     })
@@ -214,6 +222,7 @@ const getDishContent = () => {
       if (dishData1?.value?.ways) {
         dishData1.value.ways[0].isCheck = true;
         tagTexts.value = dishData1.value?.ways[0]?.tests;
+        wayTime.value = formatTimestampToDate(dishData1.value.ways[0].time).str;
       }
     });
 };
@@ -225,6 +234,7 @@ const tapTag = (index: number) => {
   });
   dishData1.value.ways[index].isCheck = true;
   tagTexts.value = dishData1.value.ways[index].tests;
+  wayTime.value = formatTimestampToDate(dishData1.value.ways[index].time).str;
 };
 
 // 添加菜谱
@@ -312,6 +322,10 @@ onShow(() => {
   color: black;
   padding: 25rpx;
   box-sizing: border-box;
+}
+.time {
+  color: $font-color1;
+  font-size: 25rpx;
 }
 .btn-box {
   width: 98%;

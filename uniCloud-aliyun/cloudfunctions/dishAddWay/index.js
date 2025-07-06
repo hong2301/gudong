@@ -6,7 +6,10 @@ exports.main = async (event, context) => {
 	const dishData = await db.collection("dish")
 	.doc(dishId) 
 	.get();
-	dishData.data[0].ways.push(way)
+	if (!dishData.data[0].ways) {
+	  dishData.data[0].ways = [];
+	}
+	dishData.data[0].ways.push(way);
 	const {_id,...data}=dishData.data[0]
 	const result = await db.collection('dish')
 		.doc(_id,)
