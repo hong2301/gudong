@@ -8,9 +8,11 @@ exports.main = async (event, context) => {
 	const dishCollection = db.collection('dish');
 	data.dish.forEach(dItem=>{
 		dItem.num++
+		dItem.updateTime=Date.now()
 		const {_id,...data}=dItem
 		dishCollection.doc(_id).update({
 			  num: data.num,
+			  updateTime:data.updateTime,
 		});
 	})
 	

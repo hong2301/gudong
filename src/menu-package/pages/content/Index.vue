@@ -45,8 +45,7 @@
           v-if="dishData?.updateTime && dishData?.updateLocation"
           class="update-box"
         >
-          上一次于 {{ dishData?.updateTime }} 在
-          {{ dishData?.updateLocation }} 烹制
+          上一次烹饪于 {{ formatTimestampToDate(dishData?.updateTime).str }}
         </view>
         <view class="tag-box">
           <view class="tag-box-content">
@@ -71,7 +70,7 @@
             ></up-tag>
           </view>
         </view>
-        <view v-if="tagTexts !== '' && !isAddTag" class="tag-card">
+        <view v-if="tagTexts.length !== 0 && !isAddTag" class="tag-card">
           <view class="time">{{ wayTime }}</view>
           <view v-for="(tItem, tIndex) in tagTexts" :key="tIndex">
             {{ tItem }}
@@ -165,7 +164,7 @@ const capsuleRightInterval = ref<number>(
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
 // 菜谱
-const tagTexts = ref("");
+const tagTexts = ref<string[]>([]);
 // 添加菜谱
 const isAddTag = ref(false);
 // 菜谱详情
@@ -238,7 +237,7 @@ const getDishContent = () => {
       dishData1.value.ways?.forEach((wItem) => {
         wItem.isCheck = false;
       });
-      if (dishData1?.value?.ways) {
+      if (dishData1?.value?.ways && dishData1?.value?.ways.length > 0) {
         dishData1.value.ways[0].isCheck = true;
         tagTexts.value = dishData1.value?.ways[0]?.tests;
         wayTime.value = formatTimestampToDate(dishData1.value.ways[0].time).str;
