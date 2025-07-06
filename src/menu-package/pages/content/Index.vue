@@ -73,25 +73,36 @@
         </view>
         <view v-if="tagTexts !== '' && !isAddTag" class="tag-card">
           <view class="time">{{ wayTime }}</view>
-          <view>
-            {{ tagTexts }}
+          <view v-for="(tItem, tIndex) in tagTexts" :key="tIndex">
+            {{ tItem }}
           </view>
         </view>
-        <view class="input-box">
+        <view v-if="isAddTag" class="input-box">
           <up-input
-            v-if="isAddTag"
             placeholder="请输入标签"
             border="surround"
             v-model="wayTitle"
+            clearable
+            shape="circle"
             class="input"
           ></up-input>
-          <up-textarea
-            v-if="isAddTag"
-            v-model="wayContent"
-            placeholder="请输入菜谱内容"
+          <up-input
+            v-for="(wcItem, wcIndex) in wayContent"
+            :key="wcIndex"
+            :placeholder="`${wcIndex}. `"
+            border="surround"
+            clearable
+            v-model="wayContent[wcIndex]"
             class="input"
-            size="medium"
-          ></up-textarea>
+          ></up-input>
+          <up-button
+            style="margin-top: 25rpx"
+            type="warning"
+            plain
+            size="small"
+            @tap="addContent"
+            >添加</up-button
+          >
         </view>
         <view v-if="isAddTag" class="btn-box">
           <up-button
@@ -158,7 +169,7 @@ const tagTexts = ref("");
 // 添加菜谱
 const isAddTag = ref(false);
 // 菜谱详情
-const wayContent = ref("");
+const wayContent = ref([""]);
 // 菜谱标题
 const wayTitle = ref("");
 // 加载
@@ -166,9 +177,17 @@ const loading = ref(false);
 // 菜谱时间
 const wayTime = ref("");
 
+// 换行
+const addContent = () => {
+  wayContent.value.push("");
+};
+
 // 完成菜谱添加
 const addTagOk = () => {
   loading.value = true;
+  wayContent.value.forEach((item, index) => {
+    item = `${index}. ${item}`;
+  });
   uniCloud
     .callFunction({
       name: "dishAddWay",
@@ -190,7 +209,7 @@ const addTagOk = () => {
 
 // 取消菜谱添加
 const addTagCel = () => {
-  wayContent.value = "";
+  wayContent.value = [""];
   wayTitle.value = "";
   isAddTag.value = false;
 };
@@ -278,12 +297,12 @@ onShow(() => {
     rgba(245, 241, 230, 0) 100%
   );
   position: relative;
+  overflow: auto;
 }
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
 }
 .title-box {
   width: 98%;
@@ -326,6 +345,8 @@ onShow(() => {
 .time {
   color: $font-color1;
   font-size: 25rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 12rpx;
 }
 .btn-box {
   width: 98%;
@@ -336,7 +357,7 @@ onShow(() => {
   margin-top: 25rpx;
 }
 .space {
-  height: 400rpx;
+  height: 500rpx;
   width: 100%;
 }
 .tag {
