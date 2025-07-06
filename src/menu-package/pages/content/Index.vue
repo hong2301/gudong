@@ -53,12 +53,14 @@
             v-for="(wItem, wIndex) in dishData.ways"
             :key="wIndex"
             :text="wItem.name"
-            plain
+            :plain="!wItem?.isCheck"
             class="tag"
             type="warning"
             size="medium"
+            @click="tapTag(wIndex)"
           ></up-tag>
         </view>
+        <view class="tag-card">{{ tagTexts }}</view>
       </view>
     </view>
   </Layout>
@@ -92,6 +94,8 @@ const capsuleRightInterval = ref<number>(
 );
 // 元素宽度
 const eleWidth1 = ref<number>(areaWidth - 4 * capsuleRightInterval.value);
+// 菜谱
+const tagTexts = ref("");
 
 // 获取菜信息
 const getDishContent = () => {
@@ -102,7 +106,22 @@ const getDishContent = () => {
       break; // 找到后立即退出循环
     }
   }
-  console.log(dishData.value);
+  dishData.value.ways?.forEach((wItem) => {
+    wItem.isCheck = false;
+  });
+  if (dishData?.value?.ways) {
+    dishData.value.ways[0].isCheck = true;
+  }
+  tagTexts.value = dishData.value.ways[0].tests;
+};
+
+// 点击菜谱标签
+const tapTag = (index: number) => {
+  dishData.value.ways?.forEach((wItem) => {
+    wItem.isCheck = false;
+  });
+  dishData.value.ways[index].isCheck = true;
+  tagTexts.value = dishData.value.ways[index].tests;
 };
 
 // 减
@@ -141,12 +160,12 @@ onShow(() => {
     rgba(245, 241, 230, 0) 100%
   );
   position: relative;
-  overflow: auto;
 }
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 .title-box {
   width: 98%;
@@ -164,8 +183,21 @@ onShow(() => {
   align-items: center;
   overflow: auto;
 }
+.tag-card {
+  width: 98%;
+  margin-top: 25rpx;
+  min-height: 200rpx;
+  border-radius: 15rpx;
+  background-color: white;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08); /* 添加阴影 */
+  font-size: 30rpx;
+  color: black;
+  padding: 25rpx;
+  box-sizing: border-box;
+}
 .tag {
   margin-right: 25rpx;
+  cursor: pointer;
 }
 .update-box {
   width: 98%;

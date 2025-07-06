@@ -27,7 +27,8 @@ export interface wayType {
     _id: string | number,
     name: string,
     time: string,
-    tests: string
+    tests: string,
+    isCheck?: boolean
 }
 
 export interface cartDishType {
