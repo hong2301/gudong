@@ -86,7 +86,7 @@
         </view>
       </view>
       <view
-        v-if="order.length === 0"
+        v-if="order.length === 0 && !loading"
         class="item"
         :style="{
           width: `${eleWidth1}px`,

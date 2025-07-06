@@ -99,6 +99,16 @@
         </view>
         <view class="right-box">
           <view class="name">{{ userStore.userInfo.name }}</view>
+          <view class="log">
+            <up-image
+              :height="40 * rpxRPx"
+              :width="40 * rpxRPx"
+              src="https://mp-eb96f56f-cca7-47e5-802c-7542fcfdfdb9.cdn.bspapp.com/guochan.png"
+              shape="circle"
+              mode="heightFix"
+            />
+            <view class="log-num">{{ userStore.userInfo.eatNum }}</view>
+          </view>
         </view>
       </view>
       <view class="btn-box1">
@@ -297,12 +307,25 @@ watch(
 }
 .right-box {
   flex: 1;
-  height: 90%;
+  height: 80%;
   margin-left: 12rpx;
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
 }
 .name {
   font-size: 35rpx;
   color: $font-color;
+}
+.log {
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+}
+.log-num {
+  font-size: 25rpx;
+  color: $font-color1;
+  margin-right: 12rpx;
 }
 .img-box {
   width: 125rpx;
