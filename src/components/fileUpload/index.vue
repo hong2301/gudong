@@ -21,7 +21,7 @@ const props = defineProps({
 const emit = defineEmits(["upload"]);
 const fileList1 = ref([]);
 const overFile = ref<string[]>([]);
-const okFile: { url: any; name: any }[] = [];
+let okFile: { url: any; name: any }[] = [];
 
 // 删除图片
 const deletePic = (event: { index: number }) => {
@@ -99,11 +99,18 @@ const trueUpload = () => {
   });
 };
 
+/**
+ * 清除图片缓存
+ */
+const clear = () => {
+  okFile = [];
+};
+
 defineExpose({
   trueUpload,
+  clear,
 });
 </script>
-s
 
 <style scoped>
 .overture {

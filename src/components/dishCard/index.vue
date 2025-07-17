@@ -74,7 +74,6 @@
 import { ref, watch } from "vue";
 import FileUpload from "@/components/fileUpload/index.vue";
 import { useMenuStore } from "@/stores/menu";
-import type { dishType, tapType } from "@/types/dish";
 
 const props = defineProps({
   btn: {
@@ -167,6 +166,7 @@ watch(
       des.value = "";
       tapId.value = columns.value[0].id;
       tap.value = columns.value[0].name;
+      upRef.value.clear();
     }
   }
 );
