@@ -104,6 +104,7 @@ const trueUpload = () => {
  */
 const clear = () => {
   okFile = [];
+  fileList1.value = [];
 };
 
 defineExpose({
