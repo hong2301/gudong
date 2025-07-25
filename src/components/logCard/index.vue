@@ -239,6 +239,12 @@ watch(
   () => props.btn,
   (value) => {
     mainBtn.value = value;
+    today.value = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1, // 月份是 0-11，所以要 +1
+      day: new Date().getDate(),
+    };
+    logText.value = "";
   }
 );
 watch(
