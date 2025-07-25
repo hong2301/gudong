@@ -66,9 +66,10 @@ const back = () => {
 
 // 返回返回首页
 const backIndex = () => {
-  uni.navigateTo({
-    url: "/pages/index/index",
-  });
+  // uni.navigateTo({
+  //   url: "/pages/index/index",
+  // });
+  uni.navigateBack({ delta: 2 });
   cmdStore.backBtnShowToIndex = false;
 };
 

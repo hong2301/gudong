@@ -41,10 +41,7 @@
             <view class="add-btn" @tap="addDish"> + </view>
           </view>
         </view>
-        <view
-          v-if="dishData?.updateTime && dishData?.updateLocation"
-          class="update-box"
-        >
+        <view v-if="dishData?.updateTime" class="update-box">
           上一次烹饪于 {{ formatTimestampToDate(dishData?.updateTime).str }}
         </view>
         <view class="tag-box">

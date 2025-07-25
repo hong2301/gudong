@@ -148,7 +148,6 @@
               :radius="15 * rpxRPx"
               :src="fItem.imgSrc || '/static/load.jpeg'"
               mode="aspectFill"
-              @click="clickImg(fItem.imgSrc)"
             >
               <template #error>
                 <up-image

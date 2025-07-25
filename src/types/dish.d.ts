@@ -48,5 +48,6 @@ export interface orderType {
     time: string,
     dishs: dishType[],
     status: number,
+    userId: string,
     userName: string,
 }

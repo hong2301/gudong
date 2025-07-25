@@ -45,6 +45,8 @@
           color="rgb(239, 156, 82)"
           style="margin-right: 5%"
           @tap="ok"
+          :loading="loading"
+          :disabled="loading"
         ></up-button>
       </view>
       <view v-else class="btn-box">
@@ -71,6 +73,8 @@ import Bubu from "@/components/character/index.vue";
 import { useUserStore } from "@/stores/user";
 import { useCartStore } from "@/stores/cart";
 
+// 加载
+const loading = ref(false);
 // 购物车存储
 const cartStore = useCartStore();
 // 屏幕宽度
@@ -134,6 +138,7 @@ const back = () => {
 
 // ok
 const ok = () => {
+  loading.value = true;
   uniCloud
     .callFunction({
       name: "orderAdd",
@@ -146,6 +151,7 @@ const ok = () => {
       },
     })
     .then((res) => {
+      loading.value = false;
       bubuRef?.value?.startSay("开整!", ["30%", "100%", "rgb(146,107,77)"], {
         src: "/static/布布/声音/哒哒哒哒哒.m4a",
         volume: 0,
