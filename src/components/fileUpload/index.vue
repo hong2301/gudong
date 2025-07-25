@@ -103,7 +103,9 @@ const trueUpload = () => {
  * 清除图片缓存
  */
 const clear = () => {
+  console.log("清理");
   okFile = [];
+  fileList1.value = [];
 };
 
 defineExpose({

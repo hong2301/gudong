@@ -12,11 +12,7 @@
         <view class="text-box" @tap="tapTx">
           <view class="text"
             >告诉布布
-            <view
-              class="dc-box"
-              :style="{ transform: `scale(${txScale}) ` }"
-              @tap="tapTx"
-            >
+            <view class="dc-box" :style="{ transform: `scale(${txScale}) ` }">
               <image
                 class="dc"
                 src="../../static/bianji.png"
