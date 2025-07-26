@@ -95,7 +95,7 @@
                 >
                   <view class="dish-img-box">
                     <up-image
-                      :height="150 * rpxRPx"
+                      :height="75"
                       :width="200 * rpxRPx"
                       :radius="15 * rpxRPx"
                       :src="dItem.imgSrc || '/static/load.jpeg'"
@@ -104,7 +104,7 @@
                     >
                       <template #error>
                         <up-image
-                          :height="150 * rpxRPx"
+                          :height="75"
                           :width="200 * rpxRPx"
                           :radius="15 * rpxRPx"
                           src="/static/load.jpeg"
@@ -293,7 +293,7 @@ uni.$on("menu", function () {
 // 点击菜单
 const tapMenuItem = (index: number, topValue: number) => {
   activeTap.value = index;
-  scrollTop.value = topValue - 24;
+  scrollTop.value = topValue;
 };
 // 点击布布
 const tapBubu = () => {
@@ -353,6 +353,7 @@ onReady(() => {
 });
 onHide(() => {
   cmdStore.searchBtnShow = false;
+  cmdStore.backBtnShowToIndex = false;
   menuStore.data = taps.value;
 });
 </script>
