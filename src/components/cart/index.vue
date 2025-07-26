@@ -161,7 +161,9 @@ const tapYier = () => {
 };
 // 提交
 const tapSend = () => {
-  cartStore.overRows = rows.value.filter((item) => item?.isCheck);
+  cartStore.overRows = rows.value.filter(
+    (item) => item?.isCheck && item?.order
+  );
   if (filteredRows.value.length !== 0 && cartStore.overRows.length !== 0) {
     uni.vibrateShort();
     uni.navigateTo({
