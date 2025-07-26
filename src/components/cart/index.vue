@@ -95,9 +95,7 @@
         </view>
       </view>
       <view class="btn" @tap="tapSend">{{
-        filteredRows.length !== 0 && cartStore.overRows.length !== 0
-          ? "选好啦"
-          : "未点菜"
+        filteredRows.length !== 0 ? "选好啦" : "未点菜"
       }}</view>
     </view>
   </view>
