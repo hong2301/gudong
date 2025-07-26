@@ -55,7 +55,9 @@ export const useMenuStore = defineStore(
             const rpxRPx = areaWidth / 750
             data.value.forEach((item, index) => {
                 const preIndex = index - 1
+                // 右边菜单的格子高度
                 item.tapTopValue = index * rpxRPx * 170
+                // 如果上一个索引值大于等于0，就说明不是第一个
                 if (preIndex >= 0) {
                     const targetItem = data.value[index]
                     const preItem = data.value[preIndex]
@@ -66,7 +68,7 @@ export const useMenuStore = defineStore(
                     const targetItem = data.value[index]
                     const itemNum = targetItem?.dish?.length ?? 0
                     item.topValue = 0
-                    item.bottomValue = 30 * rpxRPx + (150 * rpxRPx + capsuleRightInterval * 2) * itemNum
+                    item.bottomValue = item.topValue + 14 + 87 * itemNum
                 }
             })
             return data.value
