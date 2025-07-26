@@ -162,7 +162,10 @@
                 <up-loading-icon color="rgb(239, 156, 82)"></up-loading-icon>
               </template>
             </up-image>
-            <view class="food-item-text-box">
+            <view
+              class="food-item-text-box"
+              :style="{ height: `${150 * rpxRPx}px` }"
+            >
               <view class="food-item-text-time">{{
                 formatTimestampToDate(fItem.time).str
               }}</view>
@@ -733,7 +736,7 @@ onReady(() => {
   border-radius: 15rpx;
 }
 .food-item-text-box {
-  height: 100%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
