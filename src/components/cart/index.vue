@@ -64,7 +64,7 @@
       <view
         class="space"
         :style="{
-          height: `${(tailHeight - capsuleRightInterval) * 5}px`,
+          height: `${tailHeight + rpxRPx * 115}px`,
         }"
       ></view>
     </view>
@@ -95,9 +95,7 @@
         </view>
       </view>
       <view class="btn" @tap="tapSend">{{
-        filteredRows.length !== 0 && cartStore.overRows.length !== 0
-          ? "选好啦"
-          : "未点菜"
+        filteredRows.length !== 0 ? "选好啦" : "未点菜"
       }}</view>
     </view>
   </view>
@@ -138,6 +136,10 @@ const status = ref<tapType[]>([]);
 const dishListShow = ref(false);
 // 全选购物车
 const allSel = ref(false);
+// 屏幕宽度
+const areaWidth = uni.getWindowInfo().safeArea.width;
+// rpx/px
+const rpxRPx = areaWidth / 750;
 
 // 点击一二
 const tapYier = () => {
